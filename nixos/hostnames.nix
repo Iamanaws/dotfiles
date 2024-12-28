@@ -9,19 +9,22 @@
         - "x86_64-darwin" - "aarch64-darwin"
  */
 
-  # nixos = {
-  #   systemType = null;
-  #   moduleFile = ./nixos/backup.nix;
-  # };
   # server = {
   #   systemType = null;
   #   moduleFile = ./hosts/core.nix;
   # };
+
   desktop = {
     systemType = "x11";
     moduleFile = ./hosts/desktop.nix;
   };
+
   laptop = {
+    systemType = "wayland";
+    moduleFile = ./hosts/laptop.nix;
+  };
+
+  vm-vbox = {
     systemType = "wayland";
     moduleFile = ./hosts/laptop.nix;
   };
