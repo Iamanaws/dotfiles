@@ -8,11 +8,11 @@
 
     settings = {
       preload = [
-        "~/dotfiles/config/wallpapers/minimal/zerebro.jpg"
+        "~/dotfiles/config/media/wallpapers/walls/zerebro.jpg"
       ];
 
       wallpaper = [ 
-        ",~/dotfiles/config/wallpapers/minimal/zerebro.jpg"
+        ",~/dotfiles/config/media/wallpapers/walls/zerebro.jpg"
       ];
     };
   };
