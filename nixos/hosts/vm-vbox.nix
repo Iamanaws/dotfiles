@@ -8,10 +8,10 @@
     ++ lib.optional (systemType == "wayland") ../display/wayland.nix;
 
     boot.loader.grub.enable = true;
-    boot.loader.grub.device = "nodev";
+    boot.loader.grub.device = "/dev/sda";
     boot.loader.grub.useOSProber = true;
-    boot.loader.grub.efiSupport = true;
+    boot.loader.grub.efiSupport = false;
     boot.loader.systemd-boot.enable = lib.mkOverride 900 false;
-    boot.loader.efi.canTouchEfiVariables = lib.mkOverride 900 true;
+    boot.loader.efi.canTouchEfiVariables = lib.mkOverride 900 false;
   
 }
