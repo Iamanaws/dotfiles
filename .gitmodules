@@ -1,0 +1,3 @@
+[submodule "config/wallpapers"]
+	path = config/wallpapers
+	url = git@github.com:Iamanaws/wallpapers.git
