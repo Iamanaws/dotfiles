@@ -72,7 +72,7 @@
     extraSpecialArgs = { inherit outputs systemType; };
     users = {
       # Import your home-manager configuration
-      iamanaws = import ../../home/home.nix;
+      iamanaws = import ../../home/iamanaws/home.nix;
     };
   };
 

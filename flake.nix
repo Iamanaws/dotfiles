@@ -23,7 +23,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     # Shameless plug: looking for a way to nixify your themes and make
-    # everything match nicely? Try nix-colors!
     # nix-colors.url = "github:misterio77/nix-colors";
 
     # Flakes for system packages
@@ -70,8 +69,6 @@
       config = { allowUnfree = true; };
     };
 
-    # username = "iamanaws";
-
   in {
     # Your custom packages
     # Acessible through 'nix build', 'nix shell', etc
@@ -113,18 +110,5 @@
         }
     );
 
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
-    # homeConfigurations = {
-    #   # FIXME replace with your username@hostname
-    #   "iamanaws@nixos" = home-manager.lib.homeManagerConfiguration {
-    #     pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-    #     extraSpecialArgs = {inherit inputs outputs;};
-    #     modules = [
-    #       # > Our main home-manager configuration file <
-    #       ./home-manager/home.nix
-    #     ];
-    #   };
-    # };
   };
 }
