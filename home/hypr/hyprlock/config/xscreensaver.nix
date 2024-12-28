@@ -1,0 +1,163 @@
+{
+  "$base" = "rgb(000000)";
+  "$text" = "rgb(000000)";
+  "$textAlpha" = "000000";
+  "$yellow" = "rgb(E5C07B)";
+  "$red" = "rgb(E06C75)";
+  "$accent" = "rgb(C678DD)";
+  "$accentAlpha" = "C678DD";
+  "$surface0" = "rgb(FFFFFF)";
+  "$font" = "caskaydia-cove";
+
+  "$ready_message" = "Awaiting authentication method.";
+  "$present_message" = "🧬 Analyzing DNA sequence...";
+
+  background = {
+    color = "$base";
+  };
+
+  shape = [
+    {
+      color = "rgb(E6E6E6)";
+      size = "40%, 30%";
+      border_size = 2;
+      border_color = "rgb(F4F4F4)";
+      halign = "center";
+      valign = "center";
+    }
+    {
+      color = "rgb(D9D9D9)";
+      size = "16%, 26%";
+      position = "-11%, 0%";
+      border_size = 1;
+      border_color = "rgb(CECECE)";
+      halign = "center";
+      valign = "center";
+    }
+    {
+      size = "9%, 2.5%";
+      color = "$surface0";
+      rounding = 1;
+      border_size = 1;
+      border_color = "rgb(CECECE)";
+      position = "14%, 0%";
+      halign = "center";
+      valign = "center";
+      z-index = 1;
+    }
+  ];
+
+  image = [
+    {
+      path = "$HOME/dotfiles/config/wallpapers/logos/nixos_purple.png";
+      size = "18%, 30%";
+      rounding = 1;
+      position = "-11%, 0%";
+      border_size = 0;
+      halign = "center";
+      valign = "center";
+    }
+  ];
+
+  input-field = {
+      monitor = "";
+      size = "9%, 2.5%";
+      outline_thickness = 1;
+      dots_size = 0.25;
+      dots_spacing = 0.2;
+      dots_center = false;
+      outer_color = "rgb(CECECE)";
+      inner_color = "$surface0";
+      font_color = "$text";
+      fade_on_empty = false;
+      placeholder_text = "";
+      hide_input = false;
+      rounding = 1;
+      check_color = "$accent";
+      fail_color = "$red";
+      fail_text = "";
+      capslock_color = "$yellow";
+      position = "14%, -3%";
+      halign = "center";
+      valign = "center";
+      z-index = 1;
+  };
+
+  label = [
+    {
+      text = "cmd[update:0] echo \"<b>$(hyprlock --version)</b>\"";
+      color = "$text";
+      font_size = 16;
+      font_family = "$font";
+      position = "10.5%, 10%";
+      halign = "center";
+      valign = "center";
+    }
+    {
+      text = "$FPRINTMESSAGE";
+      color = "$text";
+      font_size = 14;
+      font_family = "$font";
+      position = "10.5%, 5%";
+      halign = "center";
+      valign = "center";
+    }
+    {
+      text = "<i>$FAIL <b>$ATTEMPTS[]</b></i>";
+      color = "$text";
+      font_size = 14;
+      font_family = "$font";
+      position = "10.5%, 3%";
+      halign = "center";
+      valign = "center";
+    }
+    {
+      text = "<b>Username:</b>";
+      color = "$text";
+      font_size = 16;
+      font_family = "$font";
+      position = "6%, 0%";
+      halign = "center";
+      valign = "center";
+      z-index = 1;
+    }
+    {
+      text = "$USER";
+      color = "$text";
+      font_size = 14;
+      font_family = "$font";
+      position = "12%, 0%";
+      halign = "center";
+      valign = "center";
+      z-index = 2;
+    }
+    {
+      text = "<b> Password:</b>";
+      color = "$text";
+      font_size = 16;
+      font_family = "$font";
+      position = "6%, -3%";
+      halign = "center";
+      valign = "center";
+      z-index = 1;
+    }
+    {
+      text = "cmd[update:60000] date +\"%d-%b-%y (%a); %I:%M %p\"";
+      color = "$text";
+      font_size = 10;
+      font_family = "$font";
+      position = "-31.5%, -5.5%";
+      halign = "right";
+      valign = "center";
+    }
+    {
+      text = "$LAYOUT";
+      color = "$text";
+      font_size = 10;
+      font_family = "$font";
+      position = "-31.5%, -7%";
+      halign = "right";
+      valign = "center";
+    }
+  ];
+}
