@@ -1,3 +1,6 @@
 [submodule "config/media/wallpapers"]
 	path = config/media/wallpapers
 	url = git@github.com:Iamanaws/wallpapers.git
+[submodule "config/media/icons"]
+	path = config/media/icons
+	url = git@github.com:Iamanaws/icons.git
