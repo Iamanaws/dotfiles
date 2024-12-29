@@ -7,6 +7,11 @@
   "$accent" = "rgb(C678DD)";
   "$accentAlpha" = "C678DD";
   "$surface0" = "rgb(FFFFFF)";
+  "$borderLight" = "rgb(F4F4F4)";
+  "$borderGray" = "rgb(CECECE)";
+  "$lightGray" = "rgb(E6E6E6)";
+  "$mediumGray" = "rgb(D9D9D9)";
+  
   "$font" = "caskaydia-cove";
 
   "$ready_message" = "Awaiting authentication method.";
@@ -18,19 +23,19 @@
 
   shape = [
     {
-      color = "rgb(E6E6E6)";
+      color = "$lightGray";
       size = "40%, 30%";
       border_size = 2;
-      border_color = "rgb(F4F4F4)";
+      border_color = "$borderLight";
       halign = "center";
       valign = "center";
     }
     {
-      color = "rgb(D9D9D9)";
+      color = "$mediumGray";
       size = "16%, 26%";
       position = "-11%, 0%";
       border_size = 1;
-      border_color = "rgb(CECECE)";
+      border_color = "$borderGray";
       halign = "center";
       valign = "center";
     }
@@ -39,7 +44,7 @@
       color = "$surface0";
       rounding = 1;
       border_size = 1;
-      border_color = "rgb(CECECE)";
+      border_color = "$borderGray";
       position = "14%, 0%";
       halign = "center";
       valign = "center";
@@ -60,27 +65,27 @@
   ];
 
   input-field = {
-      monitor = "";
-      size = "9%, 2.5%";
-      outline_thickness = 1;
-      dots_size = 0.25;
-      dots_spacing = 0.2;
-      dots_center = false;
-      outer_color = "rgb(CECECE)";
-      inner_color = "$surface0";
-      font_color = "$text";
-      fade_on_empty = false;
-      placeholder_text = "";
-      hide_input = false;
-      rounding = 1;
-      check_color = "$accent";
-      fail_color = "$red";
-      fail_text = "";
-      capslock_color = "$yellow";
-      position = "14%, -3%";
-      halign = "center";
-      valign = "center";
-      z-index = 1;
+    monitor = "";
+    size = "9%, 2.5%";
+    outline_thickness = 1;
+    dots_size = 0.25;
+    dots_spacing = 0.2;
+    dots_center = false;
+    outer_color = "$borderGray";
+    inner_color = "$surface0";
+    font_color = "$text";
+    fade_on_empty = false;
+    placeholder_text = "";
+    hide_input = false;
+    rounding = 1;
+    check_color = "$accent";
+    fail_color = "$red";
+    fail_text = "";
+    capslock_color = "$yellow";
+    position = "14%, -3%";
+    halign = "center";
+    valign = "center";
+    z-index = 1;
   };
 
   label = [
