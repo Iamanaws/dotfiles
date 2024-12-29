@@ -141,8 +141,11 @@
     package = pkgs.brave;
     extensions = [
       "nngceckbapebfimnlniiiahkandclblb" # bitwarden
+      "fnaicdffflnofjppbagibeoednhnbjhg" # floccus
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock origin
       "pkehgijcmpdhfbdbbnkijodmdjhbjlgp" # privacy badger
+      "lnjaiaapbakfhlbjenjkhffcdpoompki" # catppuccin github icons
+      "bggfcpfjbdkhfhfmkjpbhnkhnpjjeomc" # material icons for git
     ];
 
     commandLineArgs = [
