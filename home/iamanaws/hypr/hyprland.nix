@@ -213,7 +213,7 @@
         "$mod SHIFT, W, killactive,"
         "$mod, M, exit,"
         "$mod, L, exec, loginctl lock-session"
-        ", XF86XK_ModeLock, exec, loginctl lock-session"
+        # ", XF86XK_ModeLock, exec, loginctl lock-session"
         ", XF86PowerOff, exec, loginctl lock-session" # wlogout
 
         "$mod, V, togglefloating,"
@@ -294,8 +294,8 @@
         ", XF86AudioPrev, exec, playerctl previous"
 
         # Lock on lid open and close
-        # ", switch:on:Lid Switch, exec, loginctl lock-session"
-        ", switch:off:Lid Switch, exec, systemctl suspend"
+        # ", switch:on:Lid Switch, exec, systemctl suspend"
+        # ", switch:off:Lid Switch, exec, loginctl lock-session"
       ];
 
 
