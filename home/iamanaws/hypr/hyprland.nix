@@ -248,22 +248,29 @@
         9)
       );
 
+      # https://wiki.hyprland.org/Configuring/Binds/#bind-flags
+      # l -> locked, will also work when an input inhibitor (e.g. a lockscreen) is active.
+      # r -> release, will trigger on release of a key.
+      # o -> longPress, will trigger on long press of a key.
+      # e -> repeat, will repeat when held.
+      # n -> non-consuming, key/mouse events will be passed to the active window in addition to triggering the dispatcher.
+      # m -> mouse, see below.
+      # t -> transparent, cannot be shadowed by other binds.
+      # i -> ignore mods, will ignore modifiers.
+      # s -> separate, will arbitrarily combine keys between each mod/key, see [Keysym combos](#keysym-combos) above.
+      # d -> has description, will allow you to write a description for your bind.
+      # p -> bypasses the app's requests to inhibit keybinds.
+
       # Move/resize windows with $mod + LMB/RMB and dragging
       bindm = [
         "$mod, mouse:1, movewindow"
         "$mod, mouse:3, resizewindow"
       ];
 
-      # l -> do stuff even when locked
-      # e -> repeats when key is held
-      # o -> longPress, will trigger on long press of a key.
-      # https://wiki.hyprland.org/Configuring/Binds/#bind-flags
-
       # >= v0.46.0
-      # bindo = [
-      #   # Example longPress bind
-      #   ", XF86PowerOff, exec, shutdown now"
-      # ];
+      bindo = [
+        ", XF86PowerOff, exec, shutdown now"
+      ];
 
       bindel = [
         # Laptop multimedia keys for volume and LCD brightness
