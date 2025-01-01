@@ -74,12 +74,14 @@
     enable = true;
     package = allPkgs.unstable.mesa.drivers;
     extraPackages = with allPkgs.unstable; [
-      # your Open GL, Vulkan and VAAPI drivers
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       libvdpau-va-gl
+
+      # Open GL, Vulkan, and VAAPI drivers
+      # intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      # intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      
       # Drivers for Quick Sync Video
-      vpl-gpu-rt          # for newer GPUs on NixOS >24.05 or unstable
+      # vpl-gpu-rt        # for newer GPUs on NixOS >24.05 or unstable
       # onevpl-intel-gpu  # for newer GPUs on NixOS <= 24.05
       # intel-media-sdk   # for older GPUs
     ];
@@ -89,7 +91,6 @@
 
   # Fingerprint Reader
   services.fprintd.enable = true;
-
 
   environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; }; # Force intel-media-driver
 
