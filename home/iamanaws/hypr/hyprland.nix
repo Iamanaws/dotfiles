@@ -87,19 +87,19 @@
         inactive_opacity = 1.0;
 
         shadow = {
-            enabled = false;
-            range = 4;
-            render_power = 3;
-            color = "rgba(1a1a1aee)";
+          enabled = false;
+          range = 4;
+          render_power = 3;
+          color = "rgba(1a1a1aee)";
         };
 
         # https://wiki.hyprland.org/Configuring/Variables/#blur
         blur = {
-            enabled = false;
-            size = 3;
-            passes = 1;
+          enabled = false;
+          size = 3;
+          passes = 1;
 
-            vibrancy = 0.1696;
+          vibrancy = 0.1696;
         };
       };
 
@@ -139,21 +139,21 @@
 
       # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
       dwindle = {
-          pseudotile = true;
-          preserve_split = true;
+        pseudotile = true;
+        preserve_split = true;
       };
 
       # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
       master = {
-          new_status = "master";
+        new_status = "master";
       };
 
       # https://wiki.hyprland.org/Configuring/Variables/#misc
       misc = {
-          force_default_wallpaper = 0;
-          disable_hyprland_logo = true;
-          middle_click_paste = false;
-          vfr = true;
+        force_default_wallpaper = 0;
+        disable_hyprland_logo = true;
+        middle_click_paste = false;
+        vfr = true;
       };
 
 
@@ -161,20 +161,20 @@
 
       # https://wiki.hyprland.org/Configuring/Variables/#input
       input = {
-          kb_layout = "latam";
+        kb_layout = "latam";
 
-          follow_mouse = 1;
+        follow_mouse = 1;
 
-          sensitivity = 0.8; # -1.0 - 1.0, 0 means no modification.
+        sensitivity = 0.8; # -1.0 - 1.0, 0 means no modification.
 
-          touchpad = {
-              natural_scroll = true;
-          };
+        touchpad = {
+            natural_scroll = true;
+        };
       };
 
       # https://wiki.hyprland.org/Configuring/Variables/#gestures
       gestures = {
-          workspace_swipe = true;
+        workspace_swipe = true;
       };
 
       # Example per-device config
@@ -186,8 +186,8 @@
           sensitivity = -0.5;
         }
         {
-            name = "tpps/2-elan-trackpoint";
-            sensitivity = 0.5;
+          name = "tpps/2-elan-trackpoint";
+          sensitivity = 0.5;
         }
       ];
 
@@ -198,49 +198,49 @@
       "$mod1" = "ALT";
 
       # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-      bind = [
-        "$mod, return, exec, $terminal"
-        "$mod, W, exec, $browser"
-        "$mod, E, exec, $explorer"
-        "$mod, C, exec, $codeEditor"
-        "$mod SHIFT, C, exec, $colorPicker"
-        "$mod, I, exec, hyprsysteminfo"
+      bindd = [
+        "$mod, return, open terminal, exec, $terminal"
+        "$mod, W, open browser, exec, $browser"
+        "$mod, E, open file explorer, exec, $explorer"
+        "$mod, C, open code editor, exec, $codeEditor"
+        "$mod SHIFT, C, open color picker, exec, $colorPicker"
+        "$mod, I, show system info, exec, hyprsysteminfo"
         
-        "$mod, R, exec, $menu drun"
-        "$mod1, space, exec, $menu drun"
-        "$mod1 SHIFT, space, exec, $menu"
+        "$mod, R, open app menu, exec, $menu drun"
+        "$mod1, space, open app menu, exec, $menu drun"
+        "$mod1 SHIFT, space, open full menu, exec, $menu"
 
-        "$mod SHIFT, W, killactive,"
-        "$mod, M, exit,"
-        "$mod, L, exec, loginctl lock-session"
+        "$mod SHIFT, W, close active window, killactive,"
+        "$mod, M, exit session, exit,"
+        "$mod, L, lock session, exec, loginctl lock-session"
 
-        "$mod, V, togglefloating,"
-        "$mod, P, pseudo, # dwindle"
-        "$mod, J, togglesplit, # dwindle"
+        "$mod, V, toggle floating window, togglefloating,"
+        "$mod, P, toggle pseudo mode, pseudo, # dwindle"
+        "$mod, J, toggle split mode, togglesplit, # dwindle"
 
         # Move focus with $mod + arrow keyshyprpicker
-        "$mod, left, movefocus, l"
-        "$mod, right, movefocus, r"
-        "$mod, up, movefocus, u"
-        "$mod, down, movefocus, d"
+        "$mod, left, focus left, movefocus, l"
+        "$mod, right, focus right, movefocus, r"
+        "$mod, up, focus up, movefocus, u"
+        "$mod, down, focus down, movefocus, d"
 
         # Example special workspace (scratchpad)
-        "$mod, S, togglespecialworkspace, magic"
-        "$mod SHIFT, S, movetoworkspace, special:magic"
+        "$mod, S, toggle scratchpad workspace, togglespecialworkspace, magic"
+        "$mod SHIFT, S, move window to scratchpad, movetoworkspace, special:magic"
 
         # Scroll through existing workspaces with $mod + scroll
-        "$mod, mouse_down, workspace, e+1"
-        "$mod, mouse_up, workspace, e-1"
-      ] 
+        "$mod, mouse_down, switch to next workspace, workspace, e+1"
+        "$mod, mouse_up, switch to previous workspace, workspace, e-1"
+      ]
       ++ (
         #### WORKSPACES ####
 
         # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
         builtins.concatLists (builtins.genList (i:
-            let ws = i + 1;
+            let ws = toString (i + 1);
             in [
-              "$mod, code:1${toString i}, workspace, ${toString ws}"
-              "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+              "$mod, code:1${toString i}, workspace ${ws}, workspace, ${ws}"
+              "$mod SHIFT, code:1${toString i}, move to workspace ${ws}, movetoworkspace, ${ws}"
             ]
           )
         9)
@@ -260,45 +260,45 @@
       # p -> bypasses the app's requests to inhibit keybinds.
 
       # Move/resize windows with $mod + LMB/RMB and dragging
-      bindm = [
-        "$mod, mouse:1, movewindow"
-        "$mod, mouse:3, resizewindow"
+      binddm = [
+        "$mod, mouse:1, move window, movewindow"
+        "$mod, mouse:3, resize window, resizewindow"
       ];
 
-      bindr = [
+      binddr = [
         # ", XF86XK_ModeLock, exec, loginctl lock-session"
-        ", XF86PowerOff, exec, loginctl lock-session" # wlogout
+        ", XF86PowerOff, lock session, exec, loginctl lock-session" # wlogout
       ];
 
       # >= v0.46.0
-      bindlo = [
-        ", XF86PowerOff, exec, shutdown now"
+      binddlo = [
+        ", XF86PowerOff, shutdown system, exec, shutdown now"
       ];
 
-      bindel = [
+      binddel = [
         # Laptop multimedia keys for volume and LCD brightness
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        ", XF86MonBrightnessUp, exec, brightnessctl s 10%+"
-        ", XF86MonBrightnessDown, exec, brightnessctl s 10%-"
-        "SHIFT, XF86MonBrightnessUp, exec, brightnessctl s 5%+"
-        "SHIFT, XF86MonBrightnessDown, exec, brightnessctl s 5%-"
+        ", XF86AudioRaiseVolume, increase volume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioLowerVolume, decrease volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86MonBrightnessUp, increase brightness, exec, brightnessctl s 10%+"
+        ", XF86MonBrightnessDown, decrease brightness, exec, brightnessctl s 10%-"
+        "SHIFT, XF86MonBrightnessUp, fine increase brightness, exec, brightnessctl s 5%+"
+        "SHIFT, XF86MonBrightnessDown, fine decrease brightness, exec, brightnessctl s 5%-"
       ];
 
-      bindl = [
+      binddl = [
         # Muting and unmuting audio and microphone
-        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ", XF86AudioMute, toggle audio mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMicMute, toggle microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
         
         # Play/pause, next, previous
-        ", XF86AudioNext, exec, playerctl next"
-        ", XF86AudioPause, exec, playerctl play-pause"
-        ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioPrev, exec, playerctl previous"
+        ", XF86AudioNext, play next track, exec, playerctl next"
+        ", XF86AudioPause, toggle play/pause, exec, playerctl play-pause"
+        ", XF86AudioPlay, toggle play/pause, exec, playerctl play-pause"
+        ", XF86AudioPrev, play previous track, exec, playerctl previous"
 
         # Lock on lid open and close
-        # ", switch:on:Lid Switch, exec, systemctl suspend"
-        # ", switch:off:Lid Switch, exec, loginctl lock-session"
+        # ", switch:on:Lid Switch, suspend system, exec, systemctl suspend"
+        # ", switch:off:Lid Switch, lock session, exec, loginctl lock-session"
       ];
 
 
