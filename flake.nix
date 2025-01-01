@@ -37,7 +37,7 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-stable,
+    nixpkgs-stable,  
     nixpkgs-unstable,
     home-manager,
     nixos-hardware,
@@ -49,7 +49,7 @@
     system = "x86_64-linux";
 
     # Import host configurations
-    hosts = import ./nixos/hostnames.nix;
+    hosts = import ./nixos/hostnames.nix { inherit inputs; };
 
     # Import nixpkgs with unfree packages allowed
     pkgs = import nixpkgs {
@@ -106,7 +106,7 @@
               unstable = pkgsUnstable;
             };
           };
-          modules = [ host.moduleFile ];
+          modules = host.modules;
         }
     );
 

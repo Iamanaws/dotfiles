@@ -1,4 +1,7 @@
 # hostnames.nix
+
+{ inputs }:
+
 {
   /***
     systemType: null | "x11" | "wayland";
@@ -16,16 +19,19 @@
 
   desktop = {
     systemType = "x11";
-    moduleFile = ./hosts/desktop.nix;
+    modules = [ ./hosts/desktop.nix ];
   };
 
   laptop = {
     systemType = "wayland";
-    moduleFile = ./hosts/laptop.nix;
+    modules = [ 
+      ./hosts/laptop.nix
+      inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e14-intel
+    ];
   };
 
   vm-vbox = {
     systemType = "wayland";
-    moduleFile = ./hosts/laptop.nix;
+    modules = [ ./hosts/vm-vbox.nix ];
   };
 }
