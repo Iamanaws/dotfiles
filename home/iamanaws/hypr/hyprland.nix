@@ -213,8 +213,6 @@
         "$mod SHIFT, W, killactive,"
         "$mod, M, exit,"
         "$mod, L, exec, loginctl lock-session"
-        # ", XF86XK_ModeLock, exec, loginctl lock-session"
-        ", XF86PowerOff, exec, loginctl lock-session" # wlogout
 
         "$mod, V, togglefloating,"
         "$mod, P, pseudo, # dwindle"
@@ -267,8 +265,13 @@
         "$mod, mouse:3, resizewindow"
       ];
 
+      bindr = [
+        # ", XF86XK_ModeLock, exec, loginctl lock-session"
+        ", XF86PowerOff, exec, loginctl lock-session" # wlogout
+      ];
+
       # >= v0.46.0
-      bindo = [
+      bindlo = [
         ", XF86PowerOff, exec, shutdown now"
       ];
 
