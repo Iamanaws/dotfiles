@@ -3,8 +3,8 @@
 
 {
   imports = [ 
-    ../../core
-    ../../../display
+    ../core
+    ../../display
   ];
   
 }

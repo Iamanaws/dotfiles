@@ -2,8 +2,8 @@
 
 {
   imports = [ 
-    ../../core
-    ../../../display
+    ../core
+    ../../display
   ];   
 
   # Use kernel 6.12 Hardened

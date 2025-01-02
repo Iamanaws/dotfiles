@@ -3,7 +3,7 @@
 
 {
   imports = [ 
-    ../../core
+    ../core
   ];
 
   services.openssh = {
