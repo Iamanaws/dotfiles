@@ -1,16 +1,7 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
 
-{
-  inputs,
-  outputs,
-  config,
-  lib,
-  pkgs,
-  allPkgs,
-  systemType,
-  ...
-}:
+{ inputs, outputs, config, lib, pkgs, allPkgs, systemType, ... }:
 
 {
   imports = [
@@ -65,22 +56,11 @@
     };
   };
 
-  home-manager = {
-    # useGlobalPkgs = true;
-    useUserPackages = true;
-
-    extraSpecialArgs = { inherit outputs systemType; };
-    users = {
-      # Import your home-manager configuration
-      iamanaws = import ../../home/iamanaws/home.nix;
-    };
-  };
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nixos";
   # Pick only one of the below networking options.
   networking.wireless.enable = lib.mkDefault true;  # Enables wireless support via wpa_supplicant.
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
@@ -102,22 +82,6 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
-
-  # Configure your system-wide user settings (groups, etc), add more users as needed.
-  users.users = {
-    iamanaws = {
-      # You can set an initial password for your user.
-      # If you do, you can skip setting a root password by passing '--no-root-passwd' to nixos-install.
-      # Be sure to change it (using passwd) after rebooting!
-      # initialPassword = "password123!";
-      isNormalUser = true;
-      openssh.authorizedKeys.keys = [
-        # Add your SSH public key(s) here, if you plan on using SSH to connect
-      ];
-      # Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
-      extraGroups = ["wheel" "input"];
-    };
-  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

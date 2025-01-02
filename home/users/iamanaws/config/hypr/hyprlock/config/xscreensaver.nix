@@ -54,7 +54,7 @@
 
   image = [
     {
-      path = "$HOME/dotfiles/config/media/icons/logos/png/nixos_purple.png";
+      path = "$HOME/dotfiles/media/shared/icons/logos/png/nixos_purple.png";
       size = "18%, 30%";
       rounding = 1;
       position = "-11%, 0%";

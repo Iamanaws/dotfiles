@@ -1,10 +1,10 @@
 { inputs, outputs, config, lib, pkgs, allPkgs, systemType, ... }:
 
 {
-  imports = 
-    [ ./core.nix ../hardware/thinkpad-e14.nix ] 
-    ++ lib.optional (systemType == "x11") ../display/x11.nix
-    ++ lib.optional (systemType == "wayland") ../display/wayland.nix;
+  imports = [ 
+    ../../core
+    ../../../display
+  ];   
 
   # Use kernel 6.12 Hardened
   boot.kernelPackages = allPkgs.unstable.linuxPackagesFor allPkgs.unstable.linuxKernel.kernels.linux_6_12_hardened;
@@ -15,9 +15,6 @@
     # "kernel.io_uring_disabled" = 0;
   };
 
-  networking.hostName = "nixos";
-
-  # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
   #networking.wireless = {
   #  enable = lib.mkForce true;
@@ -97,7 +94,6 @@
   environment.systemPackages = with pkgs; [
     acpi
     powertop
-    kernel-hardening-checker
   ];
   
 }

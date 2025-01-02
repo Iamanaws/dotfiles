@@ -8,30 +8,30 @@
     moduleFile: path;
     system: string (default: "x86_64-linux");
       Options:
-        - "x86_64-linux" - "aarch64-linux" - "i686-linux"
+        - "x86_64-linux"  - "aarch64-linux"   - "i686-linux"
         - "x86_64-darwin" - "aarch64-darwin"
  */
 
   # server = {
   #   systemType = null;
-  #   moduleFile = ./hosts/core.nix;
+  #   moduleFile = ./roles/server;
   # };
 
-  desktop = {
+  goliath = {
     systemType = "x11";
-    modules = [ ./hosts/desktop.nix ];
+    modules = [ ./hosts/goliath ];
   };
 
-  laptop = {
+  archimedes = {
     systemType = "wayland";
     modules = [ 
-      ./hosts/laptop.nix
+      ./hosts/archimedes
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e14-intel
     ];
   };
 
-  vm-vbox = {
-    systemType = "wayland";
-    modules = [ ./hosts/vm-vbox.nix ];
-  };
+  # vm-vbox = {
+  #   systemType = "wayland";
+  #   modules = [ ./hosts/vm-vbox.nix ];
+  # };
 }

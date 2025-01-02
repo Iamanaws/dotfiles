@@ -2,8 +2,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./graphical.nix ];
-
   services = {
     picom.enable = false;
 

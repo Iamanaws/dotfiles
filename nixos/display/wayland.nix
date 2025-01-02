@@ -2,10 +2,6 @@
 { inputs, outputs, config, lib, pkgs, allPkgs, ... }:
 
 {
-  imports = [ 
-    ./graphical.nix
-  ];
-
   services.xserver.enable = false;
   
   programs.hyprland = {
