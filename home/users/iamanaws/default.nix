@@ -19,10 +19,8 @@
     # Or modules exported from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModules.default
 
-    ./shells.nix
-  ]
-  ++ lib.optionals (systemType == "x11" || systemType == "wayland") [ ./kitty.nix ./dunst.nix ]
-  ++ lib.optional (systemType == "wayland") ./hypr/hypr.nix;
+    ./config
+  ];
 
   nixpkgs = {
     overlays = [

@@ -2,7 +2,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./core.nix ];
+  imports = [ 
+    ../../core
+  ];
 
   services.openssh = {
     enable = true; 
