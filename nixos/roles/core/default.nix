@@ -1,7 +1,9 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
 
-{ inputs, outputs, config, lib, pkgs, allPkgs, systemType, ... }:
+{ inputs, outputs, config, lib, pkgs, 
+  # pkgsUnstable, pkgsStable, 
+  ... }:
 
 {
   imports = [
@@ -19,8 +21,6 @@
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.additions
       outputs.overlays.modifications
-      # outputs.overlays.unstable-packages
-      # outputs.overlays.stable-packages
 
       # You can also add overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
@@ -39,22 +39,34 @@
     };
   };
 
-  nix = {
-    # This will add each flake input as a registry
-    # To make nix3 commands consistent with your flake
-    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
-
-    # This will additionally add your inputs to the system's legacy channels
-    # Making legacy nix commands consistent as well, awesome!
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
-
+  nix = let
+    flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+  in {
     settings = {
       # Enable flakes and new 'nix' command
       experimental-features = "nix-command flakes";
-      # Deduplicate and optimize nix store
-      auto-optimise-store = true;
+      # Opinionated: disable global registry
+      flake-registry = "";
+      # Workaround for https://github.com/NixOS/nix/issues/9574
+      nix-path = config.nix.nixPath;
     };
+    # Opinionated: disable channels
+    # channel.enable = false;
+
+    # Opinionated: make flake registry and nix path match flake inputs
+    registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
+    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
+
+  # _module.args.pkgsUnstable = import inputs.nixpkgs-unstable {
+  #   inherit (pkgs.stdenv.hostPlatform) system;
+  #   inherit (config.nixpkgs) config;
+  # };
+
+  # _module.args.pkgsStable = import inputs.nixpkgs-stable {
+  #   inherit (pkgs.stdenv.hostPlatform) system;
+  #   inherit (config.nixpkgs) config;
+  # };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

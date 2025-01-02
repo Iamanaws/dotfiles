@@ -1,16 +1,17 @@
-{ inputs, outputs, config, lib, pkgs, allPkgs, systemType, ... }:
+{ inputs, outputs, config, lib, pkgs, ... }:
 
 {
   imports = [
     ./hardware.nix
+    ./options.nix
     ../../roles/laptop
   ];
   
-  networking.hostName = "archimedes";
+  networking.hostName = "${config.default.hostname}";
 
   # Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users = {
-    iamanaws = {
+    ${config.default.username} = {
       # You can set an initial password for your user.
       # If you do, you can skip setting a root password by passing '--no-root-passwd' to nixos-install.
       # Be sure to change it (using passwd) after rebooting!
@@ -28,10 +29,10 @@
     # useGlobalPkgs = true;
     useUserPackages = true;
 
-    extraSpecialArgs = { inherit outputs systemType; };
+    extraSpecialArgs = { inherit outputs; };
     users = {
       # Import your home-manager configuration
-      iamanaws = import ../../../home/users/iamanaws;
+      iamanaws = import ../../../home/users/${config.default.username};
     };
   };
   

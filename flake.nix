@@ -45,38 +45,29 @@
   } @ inputs: let
     inherit (self) outputs;
 
-    # Set the default system
-    system = "x86_64-linux";
+    # Supported systems for your flake packages, shell, etc.
+    systems = [
+      "x86_64-linux"    "aarch64-linux"   "i686-linux"
+      "x86_64-darwin"   "aarch64-darwin"
+    ];
 
-    # Import host configurations
-    hosts = import ./nixos/hostnames.nix { inherit inputs; };
+    # This is a function that generates an attribute by calling a function you
+    # pass to it, with each system as an argument
+    forAllSystems = nixpkgs.lib.genAttrs systems;
 
-    # Import nixpkgs with unfree packages allowed
-    pkgs = import nixpkgs {
-      inherit system;
-      config = { allowUnfree = true; };
-    };
+    # Import hostnames.nix
+    hosts = import ./nixos/hostnames.nix;
     
-    # Import nixpkgs with unfree packages allowed
-    pkgsStable = import nixpkgs-stable {
-      inherit system;
-      config = { allowUnfree = true; };
-    };
-
-    # Import nixpkgs-unstable with unfree packages allowed
-    pkgsUnstable = import nixpkgs-unstable {
-      inherit system;
-      config = { allowUnfree = true; };
-    };
-
   in {
     # Your custom packages
     # Acessible through 'nix build', 'nix shell', etc
-    packages = import ./pkgs { inherit pkgs; };
+    # packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+    packages = forAllSystems (system: import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; });
+
 
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'
-    # formatter = pkgs.alejandra;
+    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
     # Your custom packages and modifications, exported as overlays
     overlays = import ./overlays { inherit inputs; };
@@ -91,23 +82,15 @@
 
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
-    nixosConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames hosts) (name:
-      let
-        host = hosts.${name};
-      in
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit inputs outputs pkgs;
-            systemType = host.systemType;
-            allPkgs = {
-              default  = pkgs;
-              stable   = pkgsStable;
-              unstable = pkgsUnstable;
-            };
-          };
-          modules = host.modules;
-        }
+    nixosConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames hosts) (hostName:
+      nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs outputs;
+        };
+        modules = [
+          ./nixos/hosts/${hostName} 
+        ];
+      }
     );
 
   };

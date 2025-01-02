@@ -1,15 +1,21 @@
 # graphical.nix
-{ inputs, outputs, config, lib, pkgs, allPkgs, systemType, ... }:
-
+{ inputs, outputs, config, lib, pkgs, 
+  # pkgsUnstable, pkgsStable,
+  ... }:
+  
+let
+  systemType = "${config.default.system}";
+in
 {
-  imports = [ ]
-  ++ lib.optional (systemType == "x11") ./x11.nix
-  ++ lib.optional (systemType == "wayland") ./wayland.nix;
+  imports = [
+    (lib.optional (config.default.system == "x11") ./x11.nix)
+    (lib.optional (config.default.system == "wayland") ./wayland.nix)
+  ];
 
   networking.wireless.enable = lib.mkOverride 900 false;
   networking.networkmanager.enable = lib.mkOverride 900 true;
   
-  fonts.packages = with allPkgs.unstable; [
+  fonts.packages = with pkgs; [ # pkgsUnstable
     nerd-fonts.caskaydia-cove
     nerd-fonts.ubuntu-mono
   ];
@@ -55,7 +61,7 @@
     rofi-wayland
     (inputs.hyprsysteminfo.packages.${pkgs.system}.hyprsysteminfo)
   ])
-  ++ lib.optionals (systemType == "wayland") (with allPkgs.unstable; [
+  ++ lib.optionals (systemType == "wayland") (with pkgs; [ # pkgsUnstable
     hyprpaper
     hyprpicker
     wl-clipboard

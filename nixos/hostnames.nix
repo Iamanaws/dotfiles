@@ -1,7 +1,5 @@
 # hostnames.nix
 
-{ inputs }:
-
 {
   /***
     systemType: null | "x11" | "wayland";
@@ -16,22 +14,27 @@
   #   systemType = null;
   #   moduleFile = ./roles/server;
   # };
-
-  goliath = {
-    systemType = "x11";
-    modules = [ ./hosts/goliath ];
+  
+  archimedes = {
+    system = "x86_64-linux";
+    hostname = "archimedes";
+    type = "laptop";
+    username = "iamanaws";
+    displayServer = "wayland";
+    # inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e14-intel
   };
 
-  archimedes = {
-    systemType = "wayland";
-    modules = [ 
-      ./hosts/archimedes
-      inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e14-intel
-    ];
+  goliath = {
+    system = "x86_64-linux";
+    hostname = "goliath";
+    type = "desktop";
+    username = "iamanaws";
+    displayServer = "x11";
   };
 
   # vm-vbox = {
   #   systemType = "wayland";
   #   modules = [ ./hosts/vm-vbox.nix ];
   # };
+
 }

@@ -5,11 +5,16 @@
   outputs,
   lib,
   config,
+  osConfig,
   pkgs,
-  systemType,
+  # pkgsUnstable,
+  # pkgsStable,
   ...
 }: 
 
+let
+  systemType = osConfig.default.system;
+in
 {
   # You can import other home-manager modules here
   imports = [
@@ -27,8 +32,6 @@
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.additions
       outputs.overlays.modifications
-      outputs.overlays.unstable-packages
-      outputs.overlays.stable-packages
       outputs.overlays.hyprlock
       outputs.overlays.hypridle
 
