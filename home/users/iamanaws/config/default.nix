@@ -8,7 +8,7 @@
   ...
 }: {
   imports = [
-    ./shells.nix
+    ./shell
   ]
   ++ lib.optionals (systemType == "x11" || systemType == "wayland") [ ./kitty.nix ./dunst.nix ]
   ++ lib.optional (systemType == "wayland") ./hypr;

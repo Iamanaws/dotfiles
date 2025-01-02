@@ -1,0 +1,61 @@
+{
+
+  imports = [
+    ./bash.nix
+    # ./zsh.nix
+  ];
+
+# Shell Aliases
+  home.shellAliases = {
+    vim="nvim";
+    v="vim";
+    sd="sudo vim";
+    p="PATH=$PATH:$(pwd)";
+    ls="ls -F --color=auto --show-control-chars";
+    l="ls -oshA";
+    sl="l";
+    dir="l";
+    ".."="cd ..";
+    "..."="cd ../..";
+    cls="clear";
+    cl="clear";
+    t="touch";
+    md="mkdir";
+    "~"="cd";
+    w="cat << EOF";
+    hd="head";
+    tl="tail";
+
+    ## Colorize the grep command output for ease use
+    grep="grep --color=auto";
+    egrep="egrep --color=auto";
+    fgrep="fgrep --color=auto";
+
+    open="xdg-open";
+    o="xdg-open";
+
+    py="python3";
+
+    # Aliases for software managment
+    # sudo nixos-rebuild switch --flake .#nixos
+    #   --show-trace --option eval-cache false
+    # nix-store --gc
+    # nix-channel --update
+    # sudo nix flake update
+    # sudo nixos-rebuild switch --upgrade-all --flake .#nixos
+
+    # nix-collect-garbage (nix-store -gc)
+    # sudo nix-collect-garbage -d / --delete-old (nix-env --delete-generations old) (delete all execept current)
+    # sudo nix-collect-garbage --delete-older-than 30d (nix-env --delete-generations 30d)
+    # sudo nix-env --delete-generations +5 (keep the last 5 and newer than current)
+    # sudo nixos-rebuild list-generations
+
+    # journalctl -e --unit home-manager-iamanaws.service 
+
+    # Shutdown and Reboot
+    ssn="sudo shutdown now";
+    sr="sudo reboot";
+
+    xd="ls /usr/share/xsessions";
+  };
+}
