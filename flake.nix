@@ -28,7 +28,7 @@
     # Flakes for system packages
     hyprsysteminfo.url = "github:hyprwm/hyprsysteminfo";
 
-    hyprlock.url = "path:/home/iamanaws/hyprlock";
+    hyprlock.url = "github:hyprwm/hyprlock";
     hypridle.url = "github:hyprwm/hypridle";
 
     # ghostty.url = "github:ghostty-org/ghostty";
