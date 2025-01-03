@@ -1,6 +1,4 @@
-{ inputs, outputs, config, lib, pkgs, 
-  # pkgsUnstable, pkgsStable, 
-  ... }:
+{ inputs, outputs, config, lib, pkgs, allPkgs, systemType, ... }:
 
 {
   imports = [ 
@@ -9,7 +7,7 @@
   ];   
 
   # Use kernel 6.12 Hardened
-  boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_6_12_hardened; # pkgsUnstable
+  boot.kernelPackages = allPkgs.unstable.linuxPackagesFor allPkgs.unstable.linuxKernel.kernels.linux_6_12_hardened;
   # Enable unprivileged user namespaces (kernel-level risk)
   # for chromium based apps, flatpacks, and steam sandboxing
   boot.kernel.sysctl = { 
@@ -71,8 +69,8 @@
   #
   hardware.graphics = {
     enable = true;
-    package = pkgs.mesa.drivers; # pkgsUnstable.mesa.drivers;
-    extraPackages = with pkgs; [ # pkgsUnstable
+    package = allPkgs.unstable.mesa.drivers;
+    extraPackages = with allPkgs.unstable; [
       libvdpau-va-gl
 
       # Open GL, Vulkan, and VAAPI drivers

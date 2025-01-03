@@ -1,14 +1,12 @@
 # wayland.nix
-{ inputs, outputs, config, lib, pkgs, 
-  # pkgsUnstable, pkgsStable, 
-  ... }:
+{ inputs, outputs, config, lib, pkgs, allPkgs, ... }:
 
 {
   services.xserver.enable = false;
   
   programs.hyprland = {
     enable = true;
-    package = pkgs.hyprland; # pkgsUnstable.hyprland;
+    package = allPkgs.unstable.hyprland;
     # .override { 
     #   withUWSM = true;
     # };
@@ -20,7 +18,7 @@
 
   programs.uwsm = {
     enable = true;
-    package = pkgs.uwsm; # pkgsUnstable.uwsm;
+    package = allPkgs.unstable.uwsm;
     waylandCompositors.hyprland = {
       binPath = "/run/current-system/sw/bin/Hyprland";
       comment = "Hyprland session managed by uwsm";

@@ -3,15 +3,10 @@
   outputs,
   lib,
   config,
-  osConfig,
   pkgs,
+  systemType,
   ...
-}: 
-
-let
-  systemType = osConfig.default.system;
-in
-{
+}: {
   imports = [
     ./shell
   ]

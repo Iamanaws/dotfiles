@@ -4,6 +4,7 @@
   lib,
   config,
   pkgs,
+  systemType,
   ...
 }: {
 

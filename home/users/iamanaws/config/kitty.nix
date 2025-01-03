@@ -7,7 +7,7 @@
 {
   programs.kitty = {
     enable = true;
-    package = pkgs.kitty; # pkgsUnstable.kitty;
+    package = pkgs.unstable.kitty;
     font = {
       name = "caskaydia-cove";
       # size = ;
