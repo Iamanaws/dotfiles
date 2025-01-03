@@ -32,14 +32,11 @@
   environment.systemPackages = (with pkgs; [
     brave
     clapper
-    cutter
     firefox
     flameshot
-    gramps
     imv
     # (inputs.ghostty.packages.${pkgs.system}.ghostty)
     networkmanagerapplet
-    # pcmanfm
     fuse
     #outputs.packages.tresorit
     vscode

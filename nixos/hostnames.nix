@@ -18,7 +18,7 @@
   # };
 
   goliath = {
-    systemType = "x11";
+    systemType = "wayland";
     modules = [ ./hosts/goliath ];
   };
 

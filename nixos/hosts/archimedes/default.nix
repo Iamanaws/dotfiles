@@ -5,6 +5,9 @@
     ./hardware.nix
     ../../roles/laptop
   ];
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
   
   networking.hostName = "archimedes";
 
@@ -35,4 +38,5 @@
     };
   };
   
+  system.stateVersion = "24.11";
 }

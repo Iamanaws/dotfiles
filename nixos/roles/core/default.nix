@@ -5,9 +5,6 @@
 
 {
   imports = [
-    # Include the results of the hardware scan.
-    # ./hardware-configuration.nix
-
     # Import home-manager's NixOS module
     inputs.home-manager.nixosModules.home-manager
   ];
@@ -55,10 +52,6 @@
       auto-optimise-store = true;
     };
   };
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
 
   # Pick only one of the below networking options.
   networking.wireless.enable = lib.mkDefault true;  # Enables wireless support via wpa_supplicant.
@@ -151,7 +144,7 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "24.11"; # Did you read the comment?
+  #system.stateVersion = "24.11"; # Did you read the comment?
 
 }
 

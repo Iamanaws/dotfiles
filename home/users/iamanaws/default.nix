@@ -56,8 +56,10 @@
   };
 
   # Add stuff for your user as you see fit:
-  home.packages = with pkgs; [ 
-    # whitesur-gtk-theme
+  home.packages = with pkgs; [
+    cutter
+    gramps
+    pcmanfm
   ];
 
   # Add environment variables

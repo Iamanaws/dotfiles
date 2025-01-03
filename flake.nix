@@ -29,7 +29,7 @@
     hyprsysteminfo.url = "github:hyprwm/hyprsysteminfo";
 
     hyprlock.url = "path:/home/iamanaws/hyprlock";
-    hypridle.url = "path:/home/iamanaws/hypridle";
+    hypridle.url = "github:hyprwm/hypridle";
 
     # ghostty.url = "github:ghostty-org/ghostty";
   };
