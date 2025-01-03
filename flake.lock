@@ -78,14 +78,17 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1735355659,
-        "narHash": "sha256-A1B9c5rJ6RUXVCrnmDJrnE3NXrD/4W7OMOlSgK0Q8Ag=",
-        "path": "/home/iamanaws/hypridle",
-        "type": "path"
+        "lastModified": 1734384160,
+        "narHash": "sha256-zy2uzmlIORQV6VjIqSPhaoUKPLqfzpUQ5UTjmRfrkdg=",
+        "owner": "hyprwm",
+        "repo": "hypridle",
+        "rev": "413564cb986cfc67aeb7c4e750b42dc93ff9810f",
+        "type": "github"
       },
       "original": {
-        "path": "/home/iamanaws/hypridle",
-        "type": "path"
+        "owner": "hyprwm",
+        "repo": "hypridle",
+        "type": "github"
       }
     },
     "hyprlang": {
@@ -156,14 +159,17 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1735506116,
-        "narHash": "sha256-RXWu+vu8tfMPIBbR+2KiXvByWZPq4DW3x/M+xHtbYNM=",
-        "path": "/home/iamanaws/hyprlock",
-        "type": "path"
+        "lastModified": 1735764512,
+        "narHash": "sha256-uPydOifWzDjXNnV224ZZGWicPAOzvixsjP/yF+nrqb0=",
+        "owner": "hyprwm",
+        "repo": "hyprlock",
+        "rev": "e01afaf107650eb7f84ffe6444d1cfcfbb4a0ff5",
+        "type": "github"
       },
       "original": {
-        "path": "/home/iamanaws/hyprlock",
-        "type": "path"
+        "owner": "hyprwm",
+        "repo": "hyprlock",
+        "type": "github"
       }
     },
     "hyprsysteminfo": {

@@ -33,6 +33,8 @@
   };
  
   services = {
+    displayManager.defaultSession = "gnome";
+
     xserver = {
       enable = lib.mkForce true;
       xkb.layout = "latam";
@@ -42,16 +44,38 @@
         wayland = true;
       };
       
-      displayManager.defaultSession = "gnome";
       desktopManager.gnome.enable = true;
-
+      
+      # Load nvidia driver for Xorg and Wayland
+      videoDrivers = ["nvidia"];
     };
   };
 
   environment.gnome.excludePackages = with pkgs; [
-    geary
+    gnome-connections
+
     epiphany
+    geary
+    gnome-contacts
+    gnome-tour
+    seahorse
+    totem
   ];
+
+  hardware = {
+    graphics = {
+      enable = true;
+    };
+
+    nvidia = {
+      open = false;
+      modesetting.enable = true;
+
+      # Fine-grained power management. Turns off GPU when not in use.
+      # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+      powerManagement.finegrained = false;
+    };
+  };
 
   system.stateVersion = "24.05"; 
 }
