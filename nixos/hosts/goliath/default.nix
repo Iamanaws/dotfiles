@@ -15,6 +15,9 @@
     iamanaws = {
       isNormalUser = true;
       extraGroups = [ "wheel" "input" ];
+      packages = with pkgs; [
+        # gnome.gnome-software
+      ];
     };
 
     zsheen = {
@@ -32,6 +35,20 @@
     };
   };
  
+  # https://flatpak.org/setup/NixOS
+  services.flatpak.enable = true;
+  xdg.portal.enable = true;
+
+  # Configure flatpak repo for all users
+  systemd.services.flatpak-repo = {
+    wantedBy = [ "multi-user.target" ];
+    path = [ pkgs.flatpak ];
+    script = ''
+      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    '';
+  };
+
+  # Gnome
   services = {
     displayManager.defaultSession = "gnome";
 
@@ -65,6 +82,10 @@
   hardware = {
     graphics = {
       enable = true;
+      package = allPkgs.unstable.mesa.drivers;
+      extraPackages = with allPkgs.unstable; [
+	libvdpau-va-gl
+      ];
     };
 
     nvidia = {
@@ -76,6 +97,9 @@
       powerManagement.finegrained = false;
     };
   };
+
+  # Force intel-media-driver (iHD) or nvidia
+  # environment.sessionVariable = { LIBVA_DRIVER_NAME = "iHD" };
 
   system.stateVersion = "24.05"; 
 }
