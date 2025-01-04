@@ -79,17 +79,15 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     bottom
+    busybox
     fet-sh
     fwupd
     git
+    lshw
     neofetch
     neovim
     tldr
-    unzip
-    usbutils
     vim
-    wget
-    zip
   ];
 
   services.fwupd.enable = true;
