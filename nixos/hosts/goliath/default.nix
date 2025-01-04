@@ -62,9 +62,6 @@
       };
       
       desktopManager.gnome.enable = true;
-      
-      # Load nvidia driver for Xorg and Wayland
-      videoDrivers = ["nvidia"];
     };
   };
 
@@ -89,9 +86,6 @@
     };
 
     nvidia = {
-      open = false;
-      modesetting.enable = true;
-
       # Fine-grained power management. Turns off GPU when not in use.
       # Experimental and only works on modern Nvidia GPUs (Turing or newer).
       powerManagement.finegrained = false;
