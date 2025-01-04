@@ -96,6 +96,8 @@
 	intelBusId = "PCI:0:2:0";
       };
     };
+
+    logitech.wireless.enableGraphical = true; # Solaar
   };
 
   # Force intel-media-driver (iHD) or nvidia
