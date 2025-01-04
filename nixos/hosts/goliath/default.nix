@@ -9,6 +9,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Use kernel 6.12 LTS
+  boot.kernelPackages = allPkgs.unstable.linuxPackagesFor allPkgs.unstable.linuxKernel.kernels.linux_6_12;
+
   networking.hostName = "goliath";
  
   users.users = {
@@ -78,6 +81,7 @@
 
   environment.systemPackages = with pkgs; [
     egl-wayland
+    libva-utils
   ];
 
   hardware = {
