@@ -86,14 +86,20 @@
     };
 
     nvidia = {
+      open = true;
       # Fine-grained power management. Turns off GPU when not in use.
       # Experimental and only works on modern Nvidia GPUs (Turing or newer).
       powerManagement.finegrained = false;
+
+      prime = {
+        nvidiaBusId = "PCI:0:4:0";
+	intelBusId = "PCI:0:2:0";
+      };
     };
   };
 
   # Force intel-media-driver (iHD) or nvidia
-  # environment.sessionVariable = { LIBVA_DRIVER_NAME = "iHD" };
+  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
 
   system.stateVersion = "24.05"; 
 }
