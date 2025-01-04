@@ -104,7 +104,7 @@
   };
 
   # Force intel-media-driver (iHD) or nvidia
-  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
+  environment.sessionVariables = { LIBVA_DRIVER_NAME = "nvidia"; };
 
   system.stateVersion = "24.05"; 
 }
