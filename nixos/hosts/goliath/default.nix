@@ -97,7 +97,10 @@
       };
     };
 
-    logitech.wireless.enableGraphical = true; # Solaar
+    logitech.wireless = {
+      enable = true; # ltunify
+      enableGraphical = true; # Solaar
+    };
   };
 
   # Force intel-media-driver (iHD) or nvidia
