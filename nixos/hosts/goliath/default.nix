@@ -76,12 +76,16 @@
     totem
   ];
 
+  environment.systemPackages = with pkgs; [
+    egl-wayland
+  ];
+
   hardware = {
     graphics = {
       enable = true;
       package = allPkgs.unstable.mesa.drivers;
       extraPackages = with allPkgs.unstable; [
-	libvdpau-va-gl
+	#libvdpau-va-gl
       ];
     };
 
@@ -90,9 +94,13 @@
       # Fine-grained power management. Turns off GPU when not in use.
       # Experimental and only works on modern Nvidia GPUs (Turing or newer).
       powerManagement.finegrained = false;
+      
+      # videoDrivers [ "nvidia" ] handle by nixos-hardware
+      # modesetting enabled by default
+      # prime and offset enabled by nixos-hardware
 
       prime = {
-        nvidiaBusId = "PCI:0:4:0";
+        nvidiaBusId = "PCI:4:0:3";
 	intelBusId = "PCI:0:2:0";
       };
     };
@@ -103,8 +111,11 @@
     };
   };
 
-  # Force intel-media-driver (iHD) or nvidia
-  environment.sessionVariables = { LIBVA_DRIVER_NAME = "nvidia"; };
+  # Force intel-media-driver (iHD / i915) or nvidia
+  environment.sessionVariables = { 
+    VDPAU_DRIVER = "va_gl";
+    LIBVA_DRIVER_NAME = "nvidia"; 
+  };
 
   system.stateVersion = "24.05"; 
 }
