@@ -1,8 +1,8 @@
 {
-  description = "Your new nix config";
+  description = "This is my flake";
 
   inputs = {
-    # Nixpkgs
+    #### Nixpkgs ####
 
     # The “main” Nixpkgs channel (current), pinned for the entire system
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -11,19 +11,9 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Home manager
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    #### NIXOS ####
 
-    home-manager-stable.url = "github:nix-community/home-manager/release-24.11";
-    home-manager-stable.inputs.nixpkgs.follows = "nixpkgs-stable";
-
-    # Additional flakes
-    
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
-    # Shameless plug: looking for a way to nixify your themes and make
-    # nix-colors.url = "github:misterio77/nix-colors";
 
     # Flakes for system packages
     hyprsysteminfo.url = "github:hyprwm/hyprsysteminfo";
@@ -32,6 +22,39 @@
     hypridle.url = "github:hyprwm/hypridle";
 
     # ghostty.url = "github:ghostty-org/ghostty";
+
+    #### DARWIN ####
+
+    # nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nix-darwin.url = "github:LnL7/nix-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    mac-app-util.url = "github:hraban/mac-app-util";
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+
+    # Optional: Declarative tap management
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+    homebrew-bundle = {
+      url = "github:homebrew/homebrew-bundle";
+      flake = false;
+    };
+
+    #### Home manager ####
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    home-manager-stable.url = "github:nix-community/home-manager/release-24.11";
+    home-manager-stable.inputs.nixpkgs.follows = "nixpkgs-stable";
+
+    # Shameless plug: looking for a way to nixify your themes and make
+    # nix-colors.url = "github:misterio77/nix-colors";
   };
 
   outputs = {
@@ -39,8 +62,7 @@
     nixpkgs,
     nixpkgs-stable,  
     nixpkgs-unstable,
-    home-manager,
-    nixos-hardware,
+    nix-darwin,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -49,7 +71,7 @@
     system = "x86_64-linux";
 
     # Import host configurations
-    hosts = import ./nixos/hostnames.nix { inherit inputs; };
+    hosts = import ./hostnames.nix { inherit inputs; };
 
     # Import nixpkgs with unfree packages allowed
     pkgs = import nixpkgs {
@@ -89,11 +111,10 @@
     # These are usually stuff you would upstream into home-manager
     homeManagerModules = import ./modules/home-manager;
 
-    # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#your-hostname'
-    nixosConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames hosts) (name:
+    ### NixOS Configurations ###
+    nixosConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames hosts.nixos) (hostName:
       let
-        host = hosts.${name};
+        host = hosts.nixos.${hostName};
       in
         nixpkgs.lib.nixosSystem {
           inherit system;
@@ -105,6 +126,19 @@
               stable   = pkgsStable;
               unstable = pkgsUnstable;
             };
+          };
+          modules = host.modules;
+        }
+    );
+
+    ### Darwin Configurations ###
+    darwinConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames hosts.darwin) (hostName:
+      let
+        host = hosts.darwin.${hostName};
+      in
+        nix-darwin.lib.darwinSystem {
+          specialArgs = {
+            inherit inputs;
           };
           modules = host.modules;
         }
