@@ -2,7 +2,7 @@
 
 {
   imports = [
-    inputs.mac-app-util.darwinModules.default
+    ./../..
     ./homebrew.nix
   ];
 
@@ -27,42 +27,60 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    alt-tab-macos
     asciidoctor
     # brave
     colima
     docker
     docker-compose
     flameshot
-    # ghostty # broken on nixpkgs use brew cask
     # google-chrome
-    iina
     ngrok
     nsnake
     php
     postman
-    python3
-    rectangle
     spotify
     vscode
-    zstd
-
-    bottom
-    fet-sh
-    neofetch
-    neovim
-    vim
   ];
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  system.defaults = {
+    dock = {
+      autohide = true;
+      expose-group-apps = true;
+      magnification = false;
+      minimize-to-application = true;
+      mru-spaces = false;
+      persistent-apps = [
+        "/System/Applications/Launchpad.app"
+        "/System/Applications/Notes.app"
+        "/System/Applications/System Settings.app"
+        "/Applications/Google Chrome.app"
+        "/Applications/Nix Apps/Visual Studio Code.app"
+        "/Applications/Ghostty.app"
+        "/Applications/Beekeeper Studio.app"
+        "/Applications/Nix Apps/Postman.app"
+        "/Applications/Nix Apps/Spotify.app"
+      ];
+      show-recents = false;
 
-  # Necessary for using flakes on this system.
-  nix.settings.experimental-features = "nix-command flakes";
-  
-  # Set Git commit hash for darwin-version.
-  system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
+      wvous-bl-corner = 14;
+      wvous-br-corner = 4;
+      wvous-tl-corner = 5;
+      wvous-tr-corner = 2;
+    };
 
+    finder = {
+      AppleShowAllExtensions = true;
+      AppleShowAllFiles = true;
+      FXPreferredViewStyle = "Nlsv";
+      FXRemoveOldTrashItems = true;
+      NewWindowTarget = "Other";
+      NewWindowTargetPath = "file:///Users/angel/Downloads/";
+      ShowPathbar = true;
+      _FXShowPosixPathInTitle = false;
+      _FXSortFoldersFirst = true;
+      _FXSortFoldersFirstOnDesktop = true;
+    };
+  };
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 5;
