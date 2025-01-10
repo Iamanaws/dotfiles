@@ -21,11 +21,8 @@
     hyprlock.url = "github:hyprwm/hyprlock";
     hypridle.url = "github:hyprwm/hypridle";
 
-    # ghostty.url = "github:ghostty-org/ghostty";
-
     #### DARWIN ####
 
-    # nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
