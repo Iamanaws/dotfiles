@@ -31,7 +31,7 @@
   home-manager = {
     useUserPackages = true;
     
-    extraSpecialArgs = { inherit outputs systemType; };
+    extraSpecialArgs = { inherit inputs outputs systemType; };
     users = {
       iamanaws = import ../../../home/users/iamanaws;
       zsheen = import ../../../home/users/zsheen;
@@ -42,14 +42,23 @@
   services.flatpak.enable = true;
   xdg.portal.enable = true;
 
+  services.flatpak.packages = [
+    "net.sourceforge.VMPK"
+    # "io.github.nokse22.asciidraw"
+    # "app.drey.EarTag"
+    # "xyz.slothlife.Jogger"
+    # "com.jeffser.Alpaca"
+    # mission center
+  ];
+
   # Configure flatpak repo for all users
-  systemd.services.flatpak-repo = {
-    wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.flatpak ];
-    script = ''
-      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    '';
-  };
+  # systemd.services.flatpak-repo = {
+  #   wantedBy = [ "multi-user.target" ];
+  #   path = [ pkgs.flatpak ];
+  #   script = ''
+  #     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  #   '';
+  # };
 
   # Gnome
   services = {
@@ -89,7 +98,7 @@
       enable = true;
       package = allPkgs.unstable.mesa.drivers;
       extraPackages = with allPkgs.unstable; [
-	#libvdpau-va-gl
+	      #libvdpau-va-gl
       ];
     };
 
@@ -105,7 +114,7 @@
 
       prime = {
         nvidiaBusId = "PCI:4:0:3";
-	intelBusId = "PCI:0:2:0";
+	      intelBusId = "PCI:0:2:0";
       };
     };
 
