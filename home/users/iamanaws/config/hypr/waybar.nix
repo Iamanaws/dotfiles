@@ -6,7 +6,6 @@
 
   programs.waybar = {
     enable = true;
-    package = pkgs.unstable.waybar;
     
     # settings = {
 

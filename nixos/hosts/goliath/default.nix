@@ -1,4 +1,4 @@
-{ inputs, outputs, config, lib, pkgs, allPkgs, systemType, ... }:
+{ inputs, outputs, config, lib, pkgs, systemType, ... }:
 
 {
   imports = [
@@ -10,7 +10,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Use kernel 6.12 LTS
-  boot.kernelPackages = allPkgs.unstable.linuxPackagesFor allPkgs.unstable.linuxKernel.kernels.linux_6_12;
+  boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_6_12;
 
   networking.hostName = "goliath";
  
@@ -96,8 +96,7 @@
   hardware = {
     graphics = {
       enable = true;
-      package = allPkgs.unstable.mesa.drivers;
-      extraPackages = with allPkgs.unstable; [
+      extraPackages = with pkgs; [
 	      #libvdpau-va-gl
       ];
     };

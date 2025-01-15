@@ -1,5 +1,5 @@
 # graphical.nix
-{ inputs, outputs, config, lib, pkgs, allPkgs, systemType, ... }:
+{ inputs, outputs, config, lib, pkgs, systemType, ... }:
 
 {
   imports = [ ]
@@ -9,7 +9,7 @@
   networking.wireless.enable = lib.mkOverride 900 false;
   networking.networkmanager.enable = lib.mkOverride 900 true;
   
-  fonts.packages = with allPkgs.unstable; [
+  fonts.packages = with pkgs; [
     nerd-fonts.caskaydia-cove
     nerd-fonts.ubuntu-mono
   ];
@@ -52,7 +52,7 @@
     rofi-wayland
     (inputs.hyprsysteminfo.packages.${pkgs.system}.hyprsysteminfo)
   ])
-  ++ lib.optionals (systemType == "wayland") (with allPkgs.unstable; [
+  ++ lib.optionals (systemType == "wayland") (with pkgs; [
     hyprpaper
     hyprpicker
     wl-clipboard

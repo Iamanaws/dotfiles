@@ -7,10 +7,6 @@
     # The “main” Nixpkgs channel (current), pinned for the entire system
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Additional channels
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-
     #### NIXOS ####
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -48,9 +44,6 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager-stable.url = "github:nix-community/home-manager/release-24.11";
-    home-manager-stable.inputs.nixpkgs.follows = "nixpkgs-stable";
-
     # Shameless plug: looking for a way to nixify your themes and make
     # nix-colors.url = "github:misterio77/nix-colors";
   };
@@ -58,8 +51,6 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-stable,  
-    nixpkgs-unstable,
     nix-darwin,
     ...
   } @ inputs: let
@@ -73,18 +64,6 @@
 
     # Import nixpkgs with unfree packages allowed
     pkgs = import nixpkgs {
-      inherit system;
-      config = { allowUnfree = true; };
-    };
-    
-    # Import nixpkgs with unfree packages allowed
-    pkgsStable = import nixpkgs-stable {
-      inherit system;
-      config = { allowUnfree = true; };
-    };
-
-    # Import nixpkgs-unstable with unfree packages allowed
-    pkgsUnstable = import nixpkgs-unstable {
       inherit system;
       config = { allowUnfree = true; };
     };
@@ -119,11 +98,6 @@
           specialArgs = {
             inherit inputs outputs pkgs;
             systemType = host.systemType;
-            allPkgs = {
-              default  = pkgs;
-              stable   = pkgsStable;
-              unstable = pkgsUnstable;
-            };
           };
           modules = host.modules;
         }
