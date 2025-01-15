@@ -10,9 +10,6 @@
 
       # Configure keymap in X11
       xkb.layout = "latam";
-      # xkb.options = "eurosign:e,caps:escape";
-
-      # desktopManager = { };
       
       windowManager = {
         qtile = {

@@ -2,12 +2,11 @@
 { inputs, outputs, config, lib, pkgs, systemType, ... }:
 
 {
-  imports = [ ]
-  ++ lib.optional (systemType == "x11") ./x11.nix
-  ++ lib.optional (systemType == "wayland") ./wayland.nix;
-
-  networking.wireless.enable = lib.mkOverride 900 false;
-  networking.networkmanager.enable = lib.mkOverride 900 true;
+  imports = [
+    ../programs/firefox.nix
+  ]
+  ++ lib.optional (systemType == "x11") ./qtile.nix
+  ++ lib.optional (systemType == "wayland") ./hyprland.nix;
   
   fonts.packages = with pkgs; [
     nerd-fonts.caskaydia-cove
@@ -32,7 +31,6 @@
   environment.systemPackages = (with pkgs; [
     brave
     clapper
-    firefox
     flameshot
     imv
     # (inputs.ghostty.packages.${pkgs.system}.ghostty)

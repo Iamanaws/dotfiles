@@ -4,15 +4,15 @@
   imports = [
     ./hardware.nix
     ../../roles/desktop
+    ../../services/flatpak.nix
+    ../../programs/gnome.nix
   ];
-  
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
 
   # Use kernel 6.12 LTS
   boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_6_12;
 
   networking.hostName = "goliath";
+  services.xserver.xkb.layout = "latam";
  
   users.users = {
     iamanaws = {
@@ -37,10 +37,6 @@
       zsheen = import ../../../home/users/zsheen;
     };
   };
- 
-  # https://flatpak.org/setup/NixOS
-  services.flatpak.enable = true;
-  xdg.portal.enable = true;
 
   services.flatpak.packages = [
     "net.sourceforge.VMPK"
@@ -59,34 +55,6 @@
   #     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
   #   '';
   # };
-
-  # Gnome
-  services = {
-    displayManager.defaultSession = "gnome";
-
-    xserver = {
-      enable = lib.mkForce true;
-      xkb.layout = "latam";
-
-      displayManager.gdm = {
-        enable = true;
-        wayland = true;
-      };
-      
-      desktopManager.gnome.enable = true;
-    };
-  };
-
-  environment.gnome.excludePackages = with pkgs; [
-    gnome-connections
-
-    epiphany
-    geary
-    gnome-contacts
-    gnome-tour
-    seahorse
-    totem
-  ];
 
   environment.systemPackages = with pkgs; [
     egl-wayland

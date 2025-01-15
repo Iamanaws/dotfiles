@@ -5,11 +5,23 @@
 
 {
   imports = [
+    ../../programs/nix.nix
     # Import home-manager's NixOS module
     inputs.home-manager.nixosModules.home-manager
   ];
 
-  # virtualisation.virtualbox.guest.enable = true;
+  boot = {
+    initrd.systemd.enable = lib.mkDefault true;
+
+    loader = {
+      efi.canTouchEfiVariables = lib.mkDefault true;
+
+      systemd-boot = {
+        enable = lib.mkDefault true;
+        configurationLimit = lib.mkDefault 10;
+      };
+    };
+  };
 
   nixpkgs = {
     overlays = [
@@ -34,26 +46,9 @@
     };
   };
 
-  nix = {
-    # This will add each flake input as a registry
-    # To make nix3 commands consistent with your flake
-    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
-
-    # This will additionally add your inputs to the system's legacy channels
-    # Making legacy nix commands consistent as well, awesome!
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
-
-    settings = {
-      # Enable flakes and new 'nix' command
-      experimental-features = "nix-command flakes";
-      # Deduplicate and optimize nix store
-      auto-optimise-store = true;
-    };
-  };
-
   # Pick only one of the below networking options.
-  networking.wireless.enable = lib.mkDefault true;  # Enables wireless support via wpa_supplicant.
-  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  # networking.wireless.enable = lib.mkDefault true;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = lib.mkDefault true;  # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "America/Tijuana";
