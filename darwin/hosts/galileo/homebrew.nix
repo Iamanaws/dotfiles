@@ -34,6 +34,7 @@
       "affinity-designer"
       "beekeeper-studio"
       "jetbrains-toolbox"
+      "mongodb-compass"
     ];
   };
 }
