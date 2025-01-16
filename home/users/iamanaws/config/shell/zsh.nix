@@ -10,6 +10,10 @@
     history.path = "$ZDOTDIR/.zsh_history";
     history.save = 10000;
     history.size = 10000;
+
+    shellAliases = {
+      cxf2="nix develop github:Iamanaws/cxf2-devshell";
+    };
   
     initExtraBeforeCompInit = "
       zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
