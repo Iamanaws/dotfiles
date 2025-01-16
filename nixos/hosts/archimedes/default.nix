@@ -31,7 +31,7 @@
     extraSpecialArgs = { inherit outputs systemType; };
     users = {
       # Import your home-manager configuration
-      iamanaws = import ../../../home/users/iamanaws;
+      iamanaws = import ../../../home/users/iamanaws/nixos;
     };
   };
   

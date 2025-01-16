@@ -102,7 +102,8 @@
       in
         nix-darwin.lib.darwinSystem {
           specialArgs = {
-            inherit inputs;
+            inherit inputs outputs;
+            systemType = null;
           };
           modules = host.modules;
         }

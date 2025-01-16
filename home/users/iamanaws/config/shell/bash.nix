@@ -1,6 +1,12 @@
+{ ... }:
+
 {
   programs.bash = {
     enable = true;
+    shellAliases = {
+      open = "xdg-open";
+      o = "xdg-open";
+    };
     bashrcExtra = "
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -15,8 +21,6 @@ PROMPT_DIRTRIM=2
 
 # ignore upper and lowercase when TAB completion
 bind \"set completion-ignore-case on\"
-
-### ALIASES ###
 
 # Deny overwriting
 set -o noclobber

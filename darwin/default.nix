@@ -2,6 +2,7 @@
 
 {
   imports = [
+    inputs.home-manager.darwinModules.home-manager
     inputs.mac-app-util.darwinModules.default
     ./homebrew.nix
   ];

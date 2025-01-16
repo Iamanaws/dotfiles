@@ -1,16 +1,12 @@
+{ config, lib, pkgs, ... }:
+
 {
-
-  imports = [
-    ./bash.nix
-    # ./zsh.nix
-  ];
-
-# Shell Aliases
+  # Shell Aliases
   home.shellAliases = {
     vim="nvim";
     v="vim";
     sd="sudo vim";
-    p="PATH=$PATH:$(pwd)";
+    # p="PATH=$PATH:$(pwd)";
     ls="ls -F --color=auto --show-control-chars";
     l="ls -oshA";
     sl="l";
@@ -25,14 +21,12 @@
     w="cat << EOF";
     hd="head";
     tl="tail";
+    tt="ttyper";
 
     ## Colorize the grep command output for ease use
     grep="grep --color=auto";
     egrep="egrep --color=auto";
     fgrep="fgrep --color=auto";
-
-    open="xdg-open";
-    o="xdg-open";
 
     py="python3";
 
@@ -55,7 +49,5 @@
     # Shutdown and Reboot
     ssn="sudo shutdown now";
     sr="sudo reboot";
-
-    xd="ls /usr/share/xsessions";
   };
 }

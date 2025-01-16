@@ -13,7 +13,7 @@
 
   networking.hostName = "goliath";
   services.xserver.xkb.layout = "latam";
- 
+
   users.users = {
     iamanaws = {
       isNormalUser = true;
@@ -33,7 +33,7 @@
     
     extraSpecialArgs = { inherit inputs outputs systemType; };
     users = {
-      iamanaws = import ../../../home/users/iamanaws;
+      iamanaws = import ../../../home/users/iamanaws/nixos;
       zsheen = import ../../../home/users/zsheen;
     };
   };

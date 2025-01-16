@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, ... }:
+{ inputs, outputs, config, lib, pkgs, systemType, ... }:
 
 {
   imports = [
@@ -18,6 +18,20 @@
     computerName = "Galileo";
     hostName = "Galileo";
     localHostName = "Galileo";
+  };
+
+  users.users = {
+    iamanaws = {
+      home = "/Users/iamanaws";
+    };
+  };
+
+  home-manager = {
+    extraSpecialArgs = { inherit outputs systemType; };
+    users = {
+      # Import your home-manager configuration
+      iamanaws = import ../../../home/users/iamanaws/darwin;
+    };
   };
 
   fonts.packages = with pkgs.nerd-fonts; [
@@ -74,7 +88,7 @@
       FXPreferredViewStyle = "Nlsv";
       FXRemoveOldTrashItems = true;
       NewWindowTarget = "Other";
-      NewWindowTargetPath = "file:///Users/angel/Downloads/";
+      NewWindowTargetPath = "file:///Users/iamanaws/Downloads/";
       ShowPathbar = true;
       _FXShowPosixPathInTitle = false;
       _FXSortFoldersFirst = true;

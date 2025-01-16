@@ -6,7 +6,7 @@
     enableRosetta = true;
 
     # User owning the Homebrew prefix
-    user = "angel";
+    user = "iamanaws";
 
     # Automatically migrate existing Homebrew installations
     # autoMigrate = true;
