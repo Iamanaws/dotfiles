@@ -7,7 +7,7 @@
     v="vim";
     sd="sudo vim";
     # p="PATH=$PATH:$(pwd)";
-    ls="ls -F --color=auto --show-control-chars";
+    ls="ls -F --color=auto";
     l="ls -oshA";
     sl="l";
     dir="l";
