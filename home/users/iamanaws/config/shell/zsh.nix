@@ -13,6 +13,9 @@
 
     shellAliases = {
       cxf2="nix develop github:Iamanaws/cxf2-devshell";
+      cxf2-fresh="nix develop github:Iamanaws/cxf2-devshell#fresh";
+      cxf2-migrate="nix develop github:Iamanaws/cxf2-devshell#migrate";
+      cxf2-load="nix develop github:Iamanaws/cxf2-devshell#load";
     };
   
     initExtraBeforeCompInit = "
