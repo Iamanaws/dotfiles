@@ -15,9 +15,6 @@
     # Flakes for system packages
     hyprsysteminfo.url = "github:hyprwm/hyprsysteminfo";
 
-    hyprlock.url = "github:hyprwm/hyprlock";
-    hypridle.url = "github:hyprwm/hypridle";
-
     #### DARWIN ####
 
     nix-darwin.url = "github:LnL7/nix-darwin";

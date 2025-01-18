@@ -11,11 +11,4 @@
     # ...
     # });
   };
-
-  hyprlock = final: prev: {
-    hyprlock-custom = inputs.hyprlock.packages.${final.system}.hyprlock;
-  };
-  hypridle = final: prev: {
-    hypridle-custom = inputs.hypridle.packages.${final.system}.hypridle;
-  };
 }

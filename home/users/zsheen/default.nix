@@ -9,12 +9,12 @@
 }:
 
 {
-  import = [
+  imports = [
     inputs.nix-flatpak.homeManagerModules.nix-flatpak
   ];
-ixos
+
   home = {
-    username = "zsheen";ixos
+    username = "zsheen";
     homeDirectory = "/home/zsheen";
   };
 

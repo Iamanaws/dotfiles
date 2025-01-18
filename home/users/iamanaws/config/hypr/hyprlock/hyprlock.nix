@@ -13,7 +13,6 @@ in
 
   programs.hyprlock = {
     enable = true;
-    package = pkgs.hyprlock-custom;
 
     settings = xscreensaver // {
 

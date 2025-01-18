@@ -1,10 +1,10 @@
-{ ... }:
+{ lib, ... }:
 
 {
   programs.bash = {
     enable = true;
     shellAliases = {
-      ls="ls -F --color=auto --show-control-chars";
+      ls= lib.mkForce "ls -F --color=auto --show-control-chars";
       open = "xdg-open";
       o = "xdg-open";
     };

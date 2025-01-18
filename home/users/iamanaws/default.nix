@@ -37,10 +37,7 @@
       #     patches = [ ./change-hello-to-hi.patch ];
       #   });
       # })
-    ] ++ lib.optional (systemType == "wayland") (
-      outputs.overlays.hyprlock
-      outputs.overlays.hypridle
-    );
+    ];
 
     # Configure your nixpkgs instance
     config = {
