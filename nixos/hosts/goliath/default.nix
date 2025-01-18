@@ -40,6 +40,7 @@
 
   services.flatpak.packages = [
     "net.sourceforge.VMPK"
+    "com.github.tchx84.Flatseal"
     # "io.github.nokse22.asciidraw"
     # "app.drey.EarTag"
     # "xyz.slothlife.Jogger"

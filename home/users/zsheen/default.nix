@@ -10,7 +10,7 @@
 
 {
   imports = [
-    inputs.nix-flatpak.homeManagerModules.nix-flatpak
+    ../../shared/services/flatpak.nix
   ];
 
   home = {

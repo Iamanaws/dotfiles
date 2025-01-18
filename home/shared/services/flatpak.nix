@@ -2,7 +2,7 @@
 
 {
   imports = [
-    inputs.nix-flatpak.nixosModules.nix-flatpak
+    inputs.nix-flatpak.homeManagerModules.nix-flatpak
   ];
 
   # https://flatpak.org/setup/NixOS
@@ -11,6 +11,4 @@
     uninstallUnmanaged = true;
     update.onActivation = true;
   };
-
-  xdg.portal.enable = true;
 }
