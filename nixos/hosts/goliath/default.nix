@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware.nix
+    ./options.nix
     ../../roles/desktop
     ../../services/flatpak.nix
     ../../programs/gnome.nix
@@ -31,7 +32,10 @@
   home-manager = {
     useUserPackages = true;
     
-    extraSpecialArgs = { inherit inputs outputs systemType; };
+    extraSpecialArgs = { 
+      inherit inputs outputs systemType; 
+      hostConfig = config;  
+    };
     users = {
       iamanaws = import ../../../home/users/iamanaws/nixos;
       zsheen = import ../../../home/users/zsheen;

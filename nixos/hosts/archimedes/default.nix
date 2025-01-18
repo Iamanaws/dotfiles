@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware.nix
+    ./options.nix
     ../../roles/laptop
   ];
   
@@ -28,7 +29,10 @@
     # useGlobalPkgs = true;
     useUserPackages = true;
 
-    extraSpecialArgs = { inherit outputs systemType; };
+    extraSpecialArgs = { 
+      inherit inputs outputs systemType; 
+      hostConfig = config;  
+    };
     users = {
       # Import your home-manager configuration
       iamanaws = import ../../../home/users/iamanaws/nixos;

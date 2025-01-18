@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  hostConfig,
   ...
 }: {
   wayland.windowManager.hyprland = {
@@ -12,8 +13,16 @@
     settings = {
       
       ### MONITORS ##
-      
-      monitor = ",preferred,auto,auto";
+      # monitor = name, resolution, position, scale
+      monitor = if hostConfig.options.hostname == "goliath" 
+      then 
+        [
+          "DP-3, 1920x1080@143.98Hz, 0x0, auto"
+          "HDMI-A-4, 1920x1080@100.00Hz, 1920x0, auto"
+        ]
+      else
+        ",preferred,auto,auto"
+      ;
 
       xwayland = {
         force_zero_scaling = true;

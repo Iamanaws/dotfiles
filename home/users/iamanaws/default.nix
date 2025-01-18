@@ -7,6 +7,7 @@
   config,
   pkgs,
   systemType,
+  hostConfig,
   ...
 }: 
 
@@ -61,7 +62,6 @@
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock origin
       "pkehgijcmpdhfbdbbnkijodmdjhbjlgp" # privacy badger
       "lnjaiaapbakfhlbjenjkhffcdpoompki" # catppuccin github icons
-      "bggfcpfjbdkhfhfmkjpbhnkhnpjjeomc" # material icons for git
     ];
 
     commandLineArgs = [
@@ -77,6 +77,7 @@
     userName = "iamanaws";
     userEmail = "78835633+Iamanaws@users.noreply.github.com";
     extraConfig = {
+      core.editor = "vim";
       init.defaultBranch = "main";
       fetch.prune = true;
       fetch.prunetags = true;

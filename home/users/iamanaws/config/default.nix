@@ -5,6 +5,7 @@
   config,
   pkgs,
   systemType,
+  hostConfig,
   ...
 }: {
   imports = [
