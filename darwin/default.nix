@@ -1,9 +1,8 @@
-{ inputs, config, pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [
     inputs.home-manager.darwinModules.home-manager
-    inputs.mac-app-util.darwinModules.default
     ./homebrew.nix
   ];
 

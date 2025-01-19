@@ -1,10 +1,9 @@
+{ lib, hostConfig, ... }:
+
+let
+  hostname = hostConfig.options.hostname;
+in
 {
-  config,
-  lib,
-  pkgs,
-  hostConfig,
-  ...
-}: {
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -14,7 +13,7 @@
       
       ### MONITORS ##
       # monitor = name, resolution, position, scale
-      monitor = if hostConfig.options.hostname == "goliath" 
+      monitor = if hostname == "goliath" 
       then 
         [
           "DP-3, 1920x1080@143.98Hz, 0x0, auto"
@@ -331,5 +330,4 @@
 
     };
   };
-
 }

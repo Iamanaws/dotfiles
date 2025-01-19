@@ -6,11 +6,10 @@
   ];
 
   config.options = {
-    system = "x86_64-linux";
-    hostname = "archimedes";
+    system = "aarch64-darwin";
+    hostname = "Galileo";
     type = "laptop";
     users = [ "iamanaws" ];
-    displayServer = "wayland";
   };
 
 }

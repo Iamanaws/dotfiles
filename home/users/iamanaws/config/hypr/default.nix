@@ -1,12 +1,6 @@
-{
-  inputs,
-  config,
-  lib,
-  pkgs,
-  hostConfig,
-  ...
-}: {
+{ lib, hostConfig, ... }: 
 
+{
   imports = [ 
     ./hypridle.nix
     ./hyprland.nix

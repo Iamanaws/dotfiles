@@ -1,15 +1,6 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  systemType,
-  hostConfig,
-  ...
-}: 
+{ inputs, outputs, lib, config, pkgs, hostConfig, ... }: 
 
 {
   # You can import other home-manager modules here

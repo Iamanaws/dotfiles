@@ -12,5 +12,5 @@
     users = [ "iamanaws" "zsheen" ];
     displayServer = "wayland";
   };
-  
+
 }

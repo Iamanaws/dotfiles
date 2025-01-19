@@ -1,12 +1,15 @@
 # graphical.nix
-{ inputs, outputs, config, lib, pkgs, systemType, ... }:
+{ inputs, outputs, config, lib, pkgs, ... }:
 
+let
+  displayServer = config.options.displayServer;
+in
 {
   imports = [
     ../programs/firefox.nix
   ]
-  ++ lib.optional (systemType == "x11") ./qtile.nix
-  ++ lib.optional (systemType == "wayland") ./hyprland.nix;
+  ++ lib.optional (displayServer == "x11") ./qtile.nix
+  ++ lib.optional (displayServer == "wayland") ./hyprland.nix;
   
   fonts.packages = with pkgs; [
     nerd-fonts.caskaydia-cove
@@ -42,19 +45,16 @@
     brightnessctl
     playerctl
   ] 
-  ++ lib.optionals (systemType == "x11") [ 
+  ++ lib.optionals (displayServer == "x11") [ 
     rofi
     nitrogen
   ]
-  ++ lib.optionals (systemType == "wayland") [ 
+  ++ lib.optionals (displayServer == "wayland") [ 
     rofi-wayland
     (inputs.hyprsysteminfo.packages.${pkgs.system}.hyprsysteminfo)
-  ])
-  ++ lib.optionals (systemType == "wayland") (with pkgs; [
     hyprpaper
     hyprpicker
     wl-clipboard
-    # hyprlock
     hyprsunset
     hyprpolkitagent
     waybar

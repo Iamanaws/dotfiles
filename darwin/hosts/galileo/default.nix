@@ -1,13 +1,14 @@
-{ inputs, outputs, config, lib, pkgs, systemType, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
   imports = [
     ./../..
+    ./options.nix
     ./homebrew.nix
   ];
 
   # The platform the configuration will be used on.
-  nixpkgs.hostPlatform = "aarch64-darwin";
+  nixpkgs.hostPlatform = config.options.system;
   nixpkgs.config.allowUnfree = true;
 
   # Enable alternative shell support in nix-darwin.
@@ -15,9 +16,9 @@
 
   networking = {
     # Charles (Robert), SteveAir, Galileo
-    computerName = "Galileo";
-    hostName = "Galileo";
-    localHostName = "Galileo";
+    computerName = config.options.hostname;
+    hostName = config.options.hostname;
+    localHostName = config.options.hostname;
   };
 
   users.users = {
@@ -27,7 +28,10 @@
   };
 
   home-manager = {
-    extraSpecialArgs = { inherit outputs systemType; };
+    extraSpecialArgs = { 
+      inherit outputs; 
+      hostConfig = config
+    };
     users = {
       # Import your home-manager configuration
       iamanaws = import ../../../home/users/iamanaws/darwin;

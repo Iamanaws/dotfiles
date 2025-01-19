@@ -86,7 +86,6 @@
           inherit system;
           specialArgs = {
             inherit inputs outputs pkgs;
-            systemType = host.systemType;
           };
           modules = host.modules;
         }
@@ -100,7 +99,6 @@
         nix-darwin.lib.darwinSystem {
           specialArgs = {
             inherit inputs outputs;
-            systemType = null;
           };
           modules = host.modules;
         }

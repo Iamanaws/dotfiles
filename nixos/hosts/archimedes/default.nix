@@ -1,4 +1,4 @@
-{ inputs, outputs, config, lib, pkgs, systemType, ... }:
+{ inputs, outputs, config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -7,7 +7,7 @@
     ../../roles/laptop
   ];
   
-  networking.hostName = "archimedes";
+  networking.hostName = config.options.hostname;
 
   # Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users = {
@@ -30,7 +30,7 @@
     useUserPackages = true;
 
     extraSpecialArgs = { 
-      inherit inputs outputs systemType; 
+      inherit inputs outputs; 
       hostConfig = config;  
     };
     users = {

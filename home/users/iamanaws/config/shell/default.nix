@@ -1,7 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ lib, ... }:
 
 {
-  # Shell Aliases
   home.shellAliases = {
     vim="nvim";
     v="vim";

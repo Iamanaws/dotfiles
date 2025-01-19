@@ -1,4 +1,4 @@
-{ inputs, outputs, config, lib, pkgs, systemType, ... }:
+{ inputs, outputs, config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -12,7 +12,7 @@
   # Use kernel 6.12 LTS
   boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_6_12;
 
-  networking.hostName = "goliath";
+  networking.hostName = config.options.hostname;
   services.xserver.xkb.layout = "latam";
 
   users.users = {
@@ -33,7 +33,7 @@
     useUserPackages = true;
     
     extraSpecialArgs = { 
-      inherit inputs outputs systemType; 
+      inherit inputs outputs; 
       hostConfig = config;  
     };
     users = {

@@ -1,8 +1,9 @@
-{ inputs, lib, config,... }:
+{ inputs, config, ... }:
 
 {
   imports = [
     inputs.nix-homebrew.darwinModules.nix-homebrew
+    inputs.mac-app-util.darwinModules.default
   ];
 
   nix-homebrew = {

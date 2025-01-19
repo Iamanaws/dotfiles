@@ -1,16 +1,12 @@
+{ lib, pkgs, hostConfig, ... }: 
+
+let
+  displayServer = hostConfig.options.displayServer;
+in
 {
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  systemType,
-  hostConfig,
-  ...
-}: {
   imports = [
     ./shell
   ]
-  ++ lib.optionals (systemType == "x11" || systemType == "wayland") [ ./kitty.nix ./dunst.nix ]
-  ++ lib.optional (systemType == "wayland") ./hypr;
+  ++ lib.optionals (displayServer == "x11" || displayServer == "wayland") [ ./kitty.nix ./dunst.nix ]
+  ++ lib.optional (displayServer == "wayland") ./hypr;
 }

@@ -1,13 +1,8 @@
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  systemType,
-  ...
-}: 
+{ inputs, outputs, lib, pkgs, hostConfig, ... }: 
 
+let
+  displayServer = hostConfig.options.displayServer;
+in
 {
   # You can import other home-manager modules here
   imports = [
@@ -33,7 +28,7 @@
   };
 
   # Copy Qtile config
-  home.file = lib.optionalAttrs (systemType == "x11") {
+  home.file = lib.optionalAttrs (displayServer == "x11") {
     qtile_config = {
       source = ../config/qtile;
       target = ".config/qtile";
@@ -48,7 +43,7 @@
   };
 
   # Configure GTK themes
-  gtk = lib.optionalAttrs (systemType == "x11" || systemType == "wayland") {
+  gtk = lib.optionalAttrs (displayServer == "x11" || displayServer == "wayland") {
     enable = true;
     theme = {
       name = "WhiteSur-Dark";
@@ -67,7 +62,7 @@
   # mimeApps - find / -name '*.desktop'
   xdg.mimeApps = {
     enable = true;
-    defaultApplications = lib.optionalAttrs (systemType == "x11" || systemType == "wayland") {
+    defaultApplications = lib.optionalAttrs (displayServer == "x11" || displayServer == "wayland") {
       "application/octet-stream" = [ "re.rizin.cutter.desktop" ];
       "application/pdf"          = [ "code.desktop" ];
       "application/json"         = [ "code.desktop" ];
@@ -91,9 +86,9 @@
     };
   };
 
-  programs.rofi = lib.optionalAttrs (systemType == "x11" || systemType == "wayland") {
+  programs.rofi = lib.optionalAttrs (displayServer == "x11" || displayServer == "wayland") {
     enable = true;
-    package = lib.optionalAttrs (systemType == "wayland") pkgs.rofi-wayland;
+    package = lib.optionalAttrs (displayServer == "wayland") pkgs.rofi-wayland;
     # font = "CascadiaCode";
     theme = "Arc-Dark";
     extraConfig = {
