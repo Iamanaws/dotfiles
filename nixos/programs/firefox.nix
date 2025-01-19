@@ -4,9 +4,11 @@
   programs.firefox = {
     enable = true;
 
+    # https://mozilla.github.io/policy-templates/
     policies = {
       Cookies.Behavior = "reject-foreign";
       DisableAppUpdate = true;
+      # DisableFirefoxAccounts = true;
       DisableFirefoxStudies = true;
       DisableMasterPasswordCreation = true;
       DisablePocket = true;
@@ -24,8 +26,8 @@
 
       EnableTrackingProtection = {
         Cryptomining = true;
-        Fingerprinting = true;
         EmailTracking = true;
+        Fingerprinting = true;
         Locked = false;
         Value = true;
       };
@@ -33,6 +35,23 @@
       EncryptedMediaExtensions = {
         Enabled = true;
         Locked = false;
+      };
+
+      Extensions = {
+        Install = [
+          "https://addons.mozilla.org/firefox/downloads/file/4407804" # bitwarden
+          "https://addons.mozilla.org/firefox/downloads/file/4408212" # proton pass
+          "https://addons.mozilla.org/firefox/downloads/file/4332232" # simplelogin
+          "https://addons.mozilla.org/firefox/downloads/file/4414946" # floccus
+          "https://addons.mozilla.org/firefox/downloads/file/4412673" # ublock origin
+          "https://addons.mozilla.org/firefox/downloads/file/4321653" # privacy badger
+          "https://addons.mozilla.org/firefox/downloads/file/4411930" # language tool
+          "https://addons.mozilla.org/firefox/downloads/file/4411024" # catppuccin github icons
+          "https://addons.mozilla.org/firefox/downloads/file/3756025" # video speed controller
+          "https://addons.mozilla.org/firefox/downloads/file/4413349" # wappalyzer
+        ];
+        Uninstall = [ "bad_addon_id@mozilla.org" ];
+        Locked = [ "addon_id@mozilla.org" ];
       };
 
       FirefoxHome = {
