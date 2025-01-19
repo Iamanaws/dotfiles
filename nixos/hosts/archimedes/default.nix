@@ -5,6 +5,7 @@
     ./hardware.nix
     ./options.nix
     ../../roles/laptop
+    ../../programs/lanzaboote.nix
   ];
   
   networking.hostName = "archimedes";
