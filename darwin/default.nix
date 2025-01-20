@@ -75,7 +75,7 @@
   environment.systemPackages = with pkgs; [
     alt-tab-macos
     # brave
-    # ghostty # broken on nixpkgs use brew cask
+    # ghostty # broken on nixpkgs, use brew cask
     iina
     python3
     rectangle
