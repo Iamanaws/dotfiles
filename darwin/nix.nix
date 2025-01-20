@@ -17,7 +17,7 @@
       options = "--delete-older-than 14d";
       interval = [
         {
-          Hour = 10;
+          Hour = 2;
         }
       ];
     };
