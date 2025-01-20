@@ -1,0 +1,31 @@
+{ lib, ... }:
+
+{
+  # Auto upgrade nix package and the daemon service.
+  services.nix-daemon.enable = true;
+
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      trusted-users = [ "@admin" ];
+    };
+
+    optimise.automatic = true;
+
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 14d";
+      interval = [
+        {
+          Hour = 10;
+        }
+      ];
+    };
+
+    # Run GC when there is less than 100MiB left.
+    extraOptions = ''
+      min-free = ${toString (100 * 1024 * 1024)}
+      max-free = ${toString (1024 * 1024 * 1024)}
+    '';
+  };
+}

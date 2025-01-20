@@ -1,10 +1,11 @@
-{ inputs, config, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
 {
   imports = [
     inputs.home-manager.darwinModules.home-manager
     inputs.mac-app-util.darwinModules.default
     ./homebrew.nix
+    ./nix.nix
   ];
 
   power.sleep = {
@@ -85,12 +86,6 @@
     neovim
     zstd
   ];
-
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
-
-  # Necessary for using flakes on this system.
-  nix.settings.experimental-features = "nix-command flakes";
   
   # Set Git commit hash for darwin-version.
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
