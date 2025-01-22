@@ -70,7 +70,7 @@
         "/Applications/Google Chrome.app"
         "/Applications/Nix Apps/Visual Studio Code.app"
         "/Applications/Ghostty.app"
-        "/Applications/Beekeeper Studio.app"
+        "/Applications/MongoDB Compass.app"
         "/Applications/Nix Apps/Postman.app"
         "/Applications/Nix Apps/Spotify.app"
       ];
