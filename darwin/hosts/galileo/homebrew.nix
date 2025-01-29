@@ -31,7 +31,7 @@
       "google-chrome"
       "ghostty" # broken on nixpkgs darwin
 
-      # "affinity-designer"
+      "affinity-designer"
       "beekeeper-studio"
       "jetbrains-toolbox"
       "logi-options+"
