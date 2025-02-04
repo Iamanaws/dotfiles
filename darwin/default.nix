@@ -77,7 +77,7 @@
     # brave
     # ghostty # broken on nixpkgs, use brew cask
     iina
-    python3
+    # python3
     rectangle
 
     bottom

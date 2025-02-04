@@ -23,7 +23,7 @@
     };
 
     brews = [
-
+      "python3"
     ];
 
     casks = [
