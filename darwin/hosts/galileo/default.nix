@@ -48,6 +48,7 @@
     docker-compose
     flameshot
     # google-chrome
+    libreoffice-bin
     ngrok
     nsnake
     php
