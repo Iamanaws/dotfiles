@@ -25,6 +25,7 @@
       AppleInterfaceStyleSwitchesAutomatically = false;
       AppleMeasurementUnits = "Centimeters";
       AppleMetricUnits = 1;
+      ApplePressAndHoldEnabled = true;
       AppleScrollerPagingBehavior = true;
       AppleShowAllExtensions = true;
       AppleShowAllFiles = false;
