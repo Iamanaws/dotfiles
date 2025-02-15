@@ -18,6 +18,9 @@ stdenvNoCC.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/share/icons/kuyen-icons
     cp -r * $out/share/icons/kuyen-icons
+    
+    # Remove or fix broken symlinks
+    find $out/share/icons/kuyen-icons -xtype l -delete
   '';
 
   meta = with lib; {

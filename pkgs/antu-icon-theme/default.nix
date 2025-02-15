@@ -18,6 +18,9 @@ stdenvNoCC.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/share/icons/antu-icons
     cp -r * $out/share/icons/antu-icons
+
+    # Remove or fix broken symlinks
+    find $out/share/icons/kuyen-icons -xtype l -delete
   '';
 
   meta = with lib; {
