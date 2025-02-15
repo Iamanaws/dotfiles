@@ -57,29 +57,33 @@
   } @ inputs: let
     inherit (self) outputs;
 
-    # Set the default system
-    system = "x86_64-linux";
-
     # Import host configurations
     hosts = import ./hostnames.nix { inherit inputs; };
 
-    # Import nixpkgs with unfree packages allowed
-    pkgs = import nixpkgs {
-      inherit system;
-      config = { allowUnfree = true; };
-    };
+    # The set of systems to provide outputs for
+    allSystems = [ "x86_64-linux" "aarch64-linux" ];
+
+    # A function that provides a system-specific Nixpkgs for the desired systems
+    forAllSystems = f: nixpkgs.lib.genAttrs allSystems (system: f {
+      pkgs = import nixpkgs {
+        inherit system;
+        config = { allowUnfree = true; };
+      };
+    });
 
   in {
-    # Your custom packages
+    # Custom packages
     # Acessible through 'nix build', 'nix shell', etc
-    packages = import ./pkgs { inherit pkgs; };
+    packages = forAllSystems ({ pkgs }: {
+      default = import ./pkgs { inherit pkgs; };
+    });
+
+    # Custom packages and modifications, exported as overlays
+    overlays = import ./overlays { inherit inputs; };
 
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'
     # formatter = pkgs.alejandra;
-
-    # Your custom packages and modifications, exported as overlays
-    overlays = import ./overlays { inherit inputs; };
 
     ### NixOS Configurations ###
     nixosConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames hosts.nixos) (hostName:
@@ -87,9 +91,8 @@
         host = hosts.nixos.${hostName};
       in
         nixpkgs.lib.nixosSystem {
-          inherit system;
           specialArgs = {
-            inherit inputs outputs pkgs;
+            inherit inputs outputs;
             systemType = host.systemType;
           };
           modules = host.modules;
