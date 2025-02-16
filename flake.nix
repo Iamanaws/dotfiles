@@ -47,6 +47,7 @@
 
     # Shameless plug: looking for a way to nixify your themes and make
     # nix-colors.url = "github:misterio77/nix-colors";
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
   outputs = {

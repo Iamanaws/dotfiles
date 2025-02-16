@@ -4,6 +4,7 @@
   imports = [
     ./hardware.nix
     ./options.nix
+    ../../../secrets
     ../../roles/laptop
     ../../programs/lanzaboote.nix
   ];
