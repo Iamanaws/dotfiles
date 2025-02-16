@@ -2,14 +2,12 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ 
-    ../core
-  ];
+  imports = [ ../core ];
 
   services.openssh = {
-    enable = true; 
+    enable = true;
     ports = [ 3232 ];
-    
+
     settings = {
       PermitRootLogin = "no";
       PasswordAuthentication = false;

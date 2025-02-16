@@ -1,10 +1,7 @@
 { inputs, outputs, config, lib, pkgs, systemType, ... }:
 
 {
-  imports = [
-    ./../..
-    ./homebrew.nix
-  ];
+  imports = [ ./../.. ./homebrew.nix ];
 
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
@@ -20,11 +17,7 @@
     localHostName = "Galileo";
   };
 
-  users.users = {
-    iamanaws = {
-      home = "/Users/iamanaws";
-    };
-  };
+  users.users = { iamanaws = { home = "/Users/iamanaws"; }; };
 
   home-manager = {
     extraSpecialArgs = { inherit outputs systemType; };
@@ -34,9 +27,7 @@
     };
   };
 
-  fonts.packages = with pkgs.nerd-fonts; [
-    caskaydia-mono
-  ];
+  fonts.packages = with pkgs.nerd-fonts; [ caskaydia-mono ];
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget

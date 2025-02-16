@@ -18,50 +18,51 @@ stdenvNoCC.mkDerivation rec {
   dontConfigure = true;
 
   installPhase = ''
-    mkdir -p $out/bin
-    cp -r ${src}/default.nix $out/bin/
-    cat > $out/bin/install-tresorit-impure <<EOF
-#!/bin/bash
-mkdir -p \$HOME/.local/share/tresorit
-cp -rf ${src}/bin/* \$HOME/.local/share/tresorit/
-chmod +w \$HOME/.local/share/tresorit/tresorit.desktop
-cat >> \$HOME/.local/share/tresorit/tresorit.desktop <<EOL
-Exec=\$HOME/.local/share/tresorit/tresorit %u
-MimeType=x-scheme-handler/tresorit
-Icon=\$HOME/.local/share/tresorit/tresorit.png
-EOL
-ln -s \$HOME/.local/share/tresorit/tresorit.desktop \$HOME/.local/share/applications/tresorit.desktop
-EOF
+        mkdir -p $out/bin
+        cp -r ${src}/default.nix $out/bin/
+        cat > $out/bin/install-tresorit-impure <<EOF
+    #!/bin/bash
+    mkdir -p \$HOME/.local/share/tresorit
+    cp -rf ${src}/bin/* \$HOME/.local/share/tresorit/
+    chmod +w \$HOME/.local/share/tresorit/tresorit.desktop
+    cat >> \$HOME/.local/share/tresorit/tresorit.desktop <<EOL
+    Exec=\$HOME/.local/share/tresorit/tresorit %u
+    MimeType=x-scheme-handler/tresorit
+    Icon=\$HOME/.local/share/tresorit/tresorit.png
+    EOL
+    ln -s \$HOME/.local/share/tresorit/tresorit.desktop \$HOME/.local/share/applications/tresorit.desktop
+    EOF
 
-    chmod +x $out/bin/install-tresorit-impure
+        chmod +x $out/bin/install-tresorit-impure
 
-    cat > $out/bin/tresorit-impure <<EOF
-#!/bin/bash
-BIN=\$HOME/.local/share/tresorit/tresorit
-if [ -f \$BIN ]; then
-  \$BIN "\$@"
-else
-  echo "You must first run install-tresorit-impure before using this command."
-fi
-EOF
+        cat > $out/bin/tresorit-impure <<EOF
+    #!/bin/bash
+    BIN=\$HOME/.local/share/tresorit/tresorit
+    if [ -f \$BIN ]; then
+      \$BIN "\$@"
+    else
+      echo "You must first run install-tresorit-impure before using this command."
+    fi
+    EOF
 
-    chmod +x $out/bin/tresorit-impure
+        chmod +x $out/bin/tresorit-impure
 
-    cat > $out/bin/tresorit-cli-impure <<EOF
-#!/bin/bash
-BIN=\$HOME/.local/share/tresorit/tresorit-cli
-if [ -f \$BIN ]; then
-  \$BIN "\$@"
-else
-  echo "You must first run install-tresorit-impure before using this command."
-fi
-EOF
+        cat > $out/bin/tresorit-cli-impure <<EOF
+    #!/bin/bash
+    BIN=\$HOME/.local/share/tresorit/tresorit-cli
+    if [ -f \$BIN ]; then
+      \$BIN "\$@"
+    else
+      echo "You must first run install-tresorit-impure before using this command."
+    fi
+    EOF
 
-    chmod +x $out/bin/tresorit-cli-impure
+        chmod +x $out/bin/tresorit-cli-impure
   '';
 
   meta = with lib; {
-    description = "Tresorit is the ultra-secure place in the cloud to store, sync and share files easily from anywhere, anytime.";
+    description =
+      "Tresorit is the ultra-secure place in the cloud to store, sync and share files easily from anywhere, anytime.";
     homepage = "https://tresorit.com";
     license = licenses.unfree;
     platforms = platforms.linux;

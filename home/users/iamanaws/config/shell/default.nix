@@ -3,32 +3,32 @@
 {
   # Shell Aliases
   home.shellAliases = {
-    vim="nvim";
-    v="vim";
-    sd="sudo vim";
+    vim = "nvim";
+    v = "vim";
+    sd = "sudo vim";
     # p="PATH=$PATH:$(pwd)";
-    ls="ls -F --color=auto";
-    l="ls -oshA";
-    sl="l";
-    dir="l";
-    ".."="cd ..";
-    "..."="cd ../..";
-    cls="clear";
-    cl="clear";
-    t="touch";
-    md="mkdir";
-    "~"="cd";
-    w="cat << EOF";
-    hd="head";
-    tl="tail";
-    tt="ttyper";
+    ls = "ls -F --color=auto";
+    l = "ls -oshA";
+    sl = "l";
+    dir = "l";
+    ".." = "cd ..";
+    "..." = "cd ../..";
+    cls = "clear";
+    cl = "clear";
+    t = "touch";
+    md = "mkdir";
+    "~" = "cd";
+    w = "cat << EOF";
+    hd = "head";
+    tl = "tail";
+    tt = "ttyper";
 
     ## Colorize the grep command output for ease use
-    grep="grep --color=auto";
-    egrep="egrep --color=auto";
-    fgrep="fgrep --color=auto";
+    grep = "grep --color=auto";
+    egrep = "egrep --color=auto";
+    fgrep = "fgrep --color=auto";
 
-    py="python3";
+    py = "python3";
 
     # Aliases for software managment
     # sudo nixos-rebuild switch --flake .#nixos
@@ -49,7 +49,7 @@
     # journalctl -e --unit home-manager-iamanaws.service 
 
     # Shutdown and Reboot
-    ssn="sudo shutdown now";
-    sr="sudo reboot";
+    ssn = "sudo shutdown now";
+    sr = "sudo reboot";
   };
 }

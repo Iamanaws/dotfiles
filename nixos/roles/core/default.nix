@@ -45,7 +45,8 @@
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = lib.mkDefault true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = lib.mkDefault true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable =
+    lib.mkDefault true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "America/Tijuana";
@@ -83,13 +84,12 @@
   services.fwupd.enable = true;
 
   # security.polkit.enable = true;
-  
+
   systemd = {
     # extraConfig = ''
     #   DefaultTimeoutStopSec=10s
     # '';
-  }; 
-
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

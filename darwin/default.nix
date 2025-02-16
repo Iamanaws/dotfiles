@@ -39,7 +39,7 @@
       "com.apple.trackpad.forceClick" = true;
       "com.apple.trackpad.scaling" = 3.0;
     };
-    
+
     SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
 
     controlcenter = {
@@ -53,9 +53,7 @@
       Sound = null;
     };
 
-    loginwindow = {
-      GuestEnabled = false;
-    };
+    loginwindow = { GuestEnabled = false; };
 
     menuExtraClock = {
       ShowAMPM = true;
@@ -87,7 +85,8 @@
     neovim
     zstd
   ];
-  
+
   # Set Git commit hash for darwin-version.
-  system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
+  system.configurationRevision =
+    inputs.self.rev or inputs.self.dirtyRev or null;
 }

@@ -1,11 +1,7 @@
 { inputs, outputs, config, lib, modulesPath, pkgs, ... }:
 
 {
-  imports = [
-    ./hardware.nix
-    ../../../secrets
-    ../../programs/nix.nix
-  ];
+  imports = [ ./hardware.nix ../../../secrets ../../programs/nix.nix ];
 
   networking.hostName = "alpha";
 
@@ -19,10 +15,7 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    wpa_supplicant
-    vim
-  ];
+  environment.systemPackages = with pkgs; [ wpa_supplicant vim ];
 
   networking = {
     interfaces."wlan0".useDHCP = true;

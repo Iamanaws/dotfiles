@@ -1,7 +1,6 @@
 { lib, ... }:
 
-with lib;
-{
+with lib; {
   # https://github.com/NixOS/nixpkgs/blob/nixos-24.11/nixos/doc/manual/development/option-types.section.md
   # https://github.com/NixOS/nixpkgs/blob/nixos-24.11/nixos/doc/manual/development/option-declarations.section.md
   options = {
@@ -9,7 +8,8 @@ with lib;
       system = mkOption {
         type = types.parsedPlatform;
         default = "x86_64-linux";
-        description = "The system architecture (e.g., x86_64-linux, aarch64-linux).";
+        description =
+          "The system architecture (e.g., x86_64-linux, aarch64-linux).";
       };
       type = mkOption {
         type = enum [ "server" "laptop" "desktop" ];

@@ -11,15 +11,13 @@
   "$borderGray" = "rgb(CECECE)";
   "$lightGray" = "rgb(E6E6E6)";
   "$mediumGray" = "rgb(D9D9D9)";
-  
+
   "$font" = "caskaydia-cove";
 
   "$ready_message" = "Awaiting authentication method.";
   "$present_message" = "🧬 Analyzing DNA sequence...";
 
-  background = {
-    color = "$base";
-  };
+  background = { color = "$base"; };
 
   shape = [
     {
@@ -52,17 +50,15 @@
     }
   ];
 
-  image = [
-    {
-      path = "$HOME/dotfiles/media/shared/icons/logos/png/nixos_purple.png";
-      size = "18%, 30%";
-      rounding = 1;
-      position = "-11%, 0%";
-      border_size = 0;
-      halign = "center";
-      valign = "center";
-    }
-  ];
+  image = [{
+    path = "$HOME/dotfiles/media/shared/icons/logos/png/nixos_purple.png";
+    size = "18%, 30%";
+    rounding = 1;
+    position = "-11%, 0%";
+    border_size = 0;
+    halign = "center";
+    valign = "center";
+  }];
 
   input-field = {
     monitor = "";
@@ -90,7 +86,7 @@
 
   label = [
     {
-      text = "cmd[update:0] echo \"<b>$(hyprlock --version)</b>\"";
+      text = ''cmd[update:0] echo "<b>$(hyprlock --version)</b>"'';
       color = "$text";
       font_size = 16;
       font_family = "$font";
@@ -147,7 +143,7 @@
       z-index = 1;
     }
     {
-      text = "cmd[update:60000] date +\"%d-%b-%y (%a); %I:%M %p\"";
+      text = ''cmd[update:60000] date +"%d-%b-%y (%a); %I:%M %p"'';
       color = "$text";
       font_size = 10;
       font_family = "$font";

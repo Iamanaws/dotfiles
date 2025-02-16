@@ -1,9 +1,7 @@
 { inputs, ... }:
 
 {
-  imports = [
-    inputs.sops-nix.nixosModules.sops
-  ];
+  imports = [ inputs.sops-nix.nixosModules.sops ];
 
   sops = {
     # defaultSopsFile = ./secrets.yaml;
@@ -12,7 +10,7 @@
     secrets = {
       wireless = {
         sopsFile = ./networks.conf;
-        format="binary";
+        format = "binary";
       };
     };
   };

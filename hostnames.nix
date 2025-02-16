@@ -4,30 +4,21 @@
 
 {
   nixos = {
-    /***
-      systemType: null | "x11" | "wayland";
-      modules: [ path ];
+    /* systemType: null | "x11" | "wayland";
+       modules: [ path ];
     */
 
     goliath = {
       systemType = "wayland";
-      modules = [ 
-        ./nixos/hosts/goliath
-      ];
+      modules = [ ./nixos/hosts/goliath ];
     };
 
     archimedes = {
       systemType = "wayland";
-      modules = [ 
-        ./nixos/hosts/archimedes
-      ];
+      modules = [ ./nixos/hosts/archimedes ];
     };
 
-    alpha = {
-      modules = [
-        ./nixos/hosts/alpha
-      ];
-    };
+    alpha = { modules = [ ./nixos/hosts/alpha ]; };
 
     # vm-vbox = {
     #   systemType = "wayland";
@@ -35,12 +26,6 @@
     # };
   };
 
-  darwin = {
-    Galileo = {
-      modules = [
-        ./darwin/hosts/galileo
-      ];
-    };
-  };
-  
+  darwin = { Galileo = { modules = [ ./darwin/hosts/galileo ]; }; };
+
 }

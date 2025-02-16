@@ -1,9 +1,7 @@
-{ lib, ...}:
+{ lib, ... }:
 
 {
-  imports = [
-    ../../../options.nix
-  ];
+  imports = [ ../../../options.nix ];
 
   config.options = {
     system = "x86_64-linux";
@@ -12,5 +10,5 @@
     users = [ "iamanaws" ];
     displayServer = "wayland";
   };
-  
+
 }

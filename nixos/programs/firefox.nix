@@ -1,4 +1,4 @@
-{ lib, ... }: 
+{ lib, ... }:
 
 {
   programs.firefox = {
@@ -80,7 +80,8 @@
       };
 
       NewTabPage = false;
-      NoDefaultBookmarks = false; # Enabling this prevents declaratively setting bookmarks.
+      NoDefaultBookmarks =
+        false; # Enabling this prevents declaratively setting bookmarks.
       OfferToSaveLoginsDefault = false;
       OverrideFirstRunPage = "";
       OverridePostUpdatePage = "";
@@ -97,7 +98,7 @@
         "browser.download.always_ask_before_handling_new_types" = true;
         "browser.download.panel.shown" = true;
         "browser.uidensity" = 1;
-        
+
         "browser.urlbar.shortcuts.bookmarks" = false;
         "browser.urlbar.shortcuts.history" = false;
         "browser.urlbar.shortcuts.tabs" = false;

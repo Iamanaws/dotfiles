@@ -10,14 +10,14 @@
 
       # Configure keymap in X11
       xkb.layout = "latam";
-      
+
       windowManager = {
         qtile = {
           enable = true;
           backend = "x11";
         };
       };
-      
+
       # VBoxClient --vmsvga &
       displayManager = {
         sessionCommands = ''
@@ -30,9 +30,7 @@
       };
     };
 
-    displayManager = {
-      defaultSession = "none+qtile";
-    };
+    displayManager = { defaultSession = "none+qtile"; };
   };
 
   systemd = {
@@ -43,7 +41,8 @@
       after = [ "graphical-session.target" ];
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        ExecStart =
+          "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
         Restart = "on-failure";
         RestartSec = 1;
         TimeoutStopSec = 10;

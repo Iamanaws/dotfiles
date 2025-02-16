@@ -3,7 +3,7 @@
 
 {
   services.xserver.enable = false;
-  
+
   programs.hyprland = {
     enable = true;
     # .override { 
@@ -11,9 +11,7 @@
     # };
   };
 
-  programs.hyprlock = {
-    enable = true;
-  };
+  programs.hyprlock = { enable = true; };
 
   programs.uwsm = {
     enable = true;
@@ -33,6 +31,6 @@
   #   };
   # };
 
-  security.pam.services.hyprlock = {};
+  security.pam.services.hyprlock = { };
 
 }

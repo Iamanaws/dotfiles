@@ -1,33 +1,20 @@
-{
-  config,
-  lib,
-  pkgs,
-  hostConfig,
-  ...
-}: {
+{ config, lib, pkgs, hostConfig, ... }: {
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
     systemd.enable = false;
 
     settings = {
-      
+
       ### MONITORS ##
       # monitor = name, resolution, position, scale
-      monitor = if hostConfig.options.hostname == "goliath" 
-      then 
-        [
-          "DP-3, 1920x1080@143.98Hz, 0x0, auto"
-          "HDMI-A-4, 1920x1080@100.00Hz, 1920x0, auto"
-        ]
-      else
-        ",preferred,auto,auto"
-      ;
+      monitor = if hostConfig.options.hostname == "goliath" then [
+        "DP-3, 1920x1080@143.98Hz, 0x0, auto"
+        "HDMI-A-4, 1920x1080@100.00Hz, 1920x0, auto"
+      ] else
+        ",preferred,auto,auto";
 
-      xwayland = {
-        force_zero_scaling = true;
-      };
-
+      xwayland = { force_zero_scaling = true; };
 
       ### PROGRAMS ###
 
@@ -39,7 +26,6 @@
       "$menu" = "rofi -show";
       "$colorPicker" = "hyprpicker -a";
 
-
       ### AUTOSTART ###hyprpaper
 
       # exec-once = $terminal
@@ -49,13 +35,11 @@
         "hypridle"
         # "waybar"
         "systemctl --user start hyprpolkitagent"
-        "systemd-inhibit --who=\"Hyprland config\" --why=\"hyprlock/wlogout keybind\" --what=handle-power-key --mode=block sleep infinity & echo $! > /tmp/.hyprland-systemd-inhibit"
-      ];
-      
-      exec-shutdown = [
-        "kill -9 \"$(cat /tmp/.hyprland-systemd-inhibit)\""
+        ''
+          systemd-inhibit --who="Hyprland config" --why="hyprlock/wlogout keybind" --what=handle-power-key --mode=block sleep infinity & echo $! > /tmp/.hyprland-systemd-inhibit''
       ];
 
+      exec-shutdown = [ ''kill -9 "$(cat /tmp/.hyprland-systemd-inhibit)"'' ];
 
       ### ENVIRONMENT VARIABLES ###
 
@@ -65,7 +49,6 @@
         "XCURSOR_SIZE,24"
         "GDK_SCALE,2"
       ];
-
 
       ### LOOK AND FEEL ###
 
@@ -152,9 +135,7 @@
       };
 
       # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-      master = {
-        new_status = "master";
-      };
+      master = { new_status = "master"; };
 
       # https://wiki.hyprland.org/Configuring/Variables/#misc
       misc = {
@@ -163,7 +144,6 @@
         middle_click_paste = false;
         vfr = true;
       };
-
 
       ### INPUT ###
 
@@ -175,15 +155,11 @@
 
         sensitivity = 0.8; # -1.0 - 1.0, 0 means no modification.
 
-        touchpad = {
-            natural_scroll = true;
-        };
+        touchpad = { natural_scroll = true; };
       };
 
       # https://wiki.hyprland.org/Configuring/Variables/#gestures
-      gestures = {
-        workspace_swipe = true;
-      };
+      gestures = { workspace_swipe = true; };
 
       # Example per-device config
       # See https://wiki.hyprland.org/Configuring/Keywords/#per-device-input-configs for more
@@ -200,7 +176,7 @@
       ];
 
       ### KEYBINDINGS ###
-      
+
       # SHIFT CAPS CTRL/CONTROL ALT MOD2 MOD3 SUPER/WIN/LOGO/MOD4 MOD5
       "$mod" = "SUPER";
       "$mod1" = "ALT";
@@ -213,7 +189,7 @@
         "$mod, C, open code editor, exec, $codeEditor"
         "$mod SHIFT, C, open color picker, exec, $colorPicker"
         "$mod, I, show system info, exec, hyprsysteminfo"
-        
+
         "$mod, R, open app menu, exec, $menu drun"
         "$mod1, space, open app menu, exec, $menu drun"
         "$mod1 SHIFT, space, open full menu, exec, $menu"
@@ -239,20 +215,18 @@
         # Scroll through existing workspaces with $mod + scroll
         "$mod, mouse_down, switch to next workspace, workspace, e+1"
         "$mod, mouse_up, switch to previous workspace, workspace, e-1"
-      ]
-      ++ (
+      ] ++ (
         #### WORKSPACES ####
 
         # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
         builtins.concatLists (builtins.genList (i:
-            let ws = toString (i + 1);
-            in [
-              "$mod, code:1${toString i}, workspace ${ws}, workspace, ${ws}"
-              "$mod SHIFT, code:1${toString i}, move to workspace ${ws}, movetoworkspace, ${ws}"
-            ]
-          )
-        9)
-      );
+          let ws = toString (i + 1);
+          in [
+            "$mod, code:1${toString i}, workspace ${ws}, workspace, ${ws}"
+            "$mod SHIFT, code:1${
+              toString i
+            }, move to workspace ${ws}, movetoworkspace, ${ws}"
+          ]) 9));
 
       # https://wiki.hyprland.org/Configuring/Binds/#bind-flags
       # l -> locked, will also work when an input inhibitor (e.g. a lockscreen) is active.
@@ -279,9 +253,7 @@
       ];
 
       # >= v0.46.0
-      binddlo = [
-        ", XF86PowerOff, shutdown system, exec, shutdown now"
-      ];
+      binddlo = [ ", XF86PowerOff, shutdown system, exec, shutdown now" ];
 
       binddel = [
         # Laptop multimedia keys for volume and LCD brightness
@@ -297,7 +269,7 @@
         # Muting and unmuting audio and microphone
         ", XF86AudioMute, toggle audio mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ", XF86AudioMicMute, toggle microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        
+
         # Play/pause, next, previous
         ", XF86AudioNext, play next track, exec, playerctl next"
         ", XF86AudioPause, toggle play/pause, exec, playerctl play-pause"
@@ -308,7 +280,6 @@
         # ", switch:on:Lid Switch, suspend system, exec, systemctl suspend"
         # ", switch:off:Lid Switch, lock session, exec, loginctl lock-session"
       ];
-
 
       ### WINDOWS AND WORKSPACES ###
 

@@ -12,11 +12,7 @@
     gc = {
       automatic = true;
       options = "--delete-older-than 14d";
-      interval = [
-        {
-          Hour = 2;
-        }
-      ];
+      interval = [{ Hour = 2; }];
     };
 
     # Run GC when there is less than 100MiB left.

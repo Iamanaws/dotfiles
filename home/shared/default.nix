@@ -1,14 +1,6 @@
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  systemType,
-  ...
-}: {
+{ inputs, outputs, lib, config, pkgs, systemType, ... }: {
 
-  imports = [ 
+  imports = [
 
   ];
 

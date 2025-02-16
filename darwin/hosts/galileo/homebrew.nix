@@ -1,4 +1,4 @@
-{ inputs, config,... }:
+{ inputs, config, ... }:
 
 {
   nix-homebrew = {
@@ -22,9 +22,7 @@
       "Xcode" = 497799835;
     };
 
-    brews = [
-      "python3"
-    ];
+    brews = [ "python3" ];
 
     casks = [
       "brave-browser"

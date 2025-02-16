@@ -1,9 +1,7 @@
-{ inputs, lib, config,... }:
+{ inputs, lib, config, ... }:
 
 {
-  imports = [
-    inputs.nix-homebrew.darwinModules.nix-homebrew
-  ];
+  imports = [ inputs.nix-homebrew.darwinModules.nix-homebrew ];
 
   nix-homebrew = {
     # Install Homebrew under the default prefix
@@ -42,7 +40,7 @@
     };
 
     masApps = {
-      
+
     };
 
     brews = [
@@ -50,7 +48,7 @@
     ];
 
     casks = [
-      
+
     ];
 
     # handle delcaratively by nix-homebrew

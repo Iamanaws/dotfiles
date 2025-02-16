@@ -10,7 +10,8 @@
   ];
 
   # Use kernel 6.12 LTS
-  boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_6_12;
+  boot.kernelPackages =
+    pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_6_12;
 
   networking.hostName = "goliath";
   services.xserver.xkb.layout = "latam";
@@ -19,22 +20,21 @@
     iamanaws = {
       isNormalUser = true;
       extraGroups = [ "wheel" "input" ];
-      packages = with pkgs; [
-        # gnome.gnome-software
-      ];
+      packages = with pkgs;
+        [
+          # gnome.gnome-software
+        ];
     };
 
-    zsheen = {
-      isNormalUser = true;
-    };
+    zsheen = { isNormalUser = true; };
   };
 
   home-manager = {
     useUserPackages = true;
-    
-    extraSpecialArgs = { 
-      inherit inputs outputs systemType; 
-      hostConfig = config;  
+
+    extraSpecialArgs = {
+      inherit inputs outputs systemType;
+      hostConfig = config;
     };
     users = {
       iamanaws = import ../../../home/users/iamanaws/nixos;
@@ -52,17 +52,15 @@
     # mission center
   ];
 
-  environment.systemPackages = with pkgs; [
-    egl-wayland
-    libva-utils
-  ];
+  environment.systemPackages = with pkgs; [ egl-wayland libva-utils ];
 
   hardware = {
     graphics = {
       enable = true;
-      extraPackages = with pkgs; [
-	      #libvdpau-va-gl
-      ];
+      extraPackages = with pkgs;
+        [
+          #libvdpau-va-gl
+        ];
     };
 
     nvidia = {
@@ -70,14 +68,14 @@
       # Fine-grained power management. Turns off GPU when not in use.
       # Experimental and only works on modern Nvidia GPUs (Turing or newer).
       powerManagement.finegrained = false;
-      
+
       # videoDrivers [ "nvidia" ] handle by nixos-hardware
       # modesetting enabled by default
       # prime and offset enabled by nixos-hardware
 
       prime = {
         nvidiaBusId = "PCI:4:0:3";
-	      intelBusId = "PCI:0:2:0";
+        intelBusId = "PCI:0:2:0";
       };
     };
 
@@ -88,10 +86,10 @@
   };
 
   # Force intel-media-driver (iHD / i915) or nvidia
-  environment.sessionVariables = { 
+  environment.sessionVariables = {
     VDPAU_DRIVER = "va_gl";
-    LIBVA_DRIVER_NAME = "nvidia"; 
+    LIBVA_DRIVER_NAME = "nvidia";
   };
 
-  system.stateVersion = "24.05"; 
+  system.stateVersion = "24.05";
 }
