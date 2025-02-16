@@ -36,6 +36,13 @@
       ];
     };
 
+    alpha = {
+      systemType = null;
+      modules = [
+        ./nixos/hosts/alpha
+      ];
+    };
+
     # vm-vbox = {
     #   systemType = "wayland";
     #   modules = [ ./hosts/vm-vbox.nix ];

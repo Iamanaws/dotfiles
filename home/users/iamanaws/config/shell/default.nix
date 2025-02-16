@@ -43,6 +43,7 @@
     # sudo nix-collect-garbage --delete-older-than 30d (nix-env --delete-generations 30d)
     # sudo nix-env --delete-generations +5 (keep the last 5 and newer than current)
     # sudo nixos-rebuild list-generations
+    # nixos-rebuild switch --target-host user@host --use-remote-sudo --flake .#nixos --fast 
 
     # nix-prefetch-url <uri>
     # journalctl -e --unit home-manager-iamanaws.service 
