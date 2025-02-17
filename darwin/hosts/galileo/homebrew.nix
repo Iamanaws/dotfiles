@@ -31,7 +31,6 @@
 
       # broken on nixpkgs darwin
       "ghostty"
-      "postman"
 
       # not available on nixpkgs darwin
       "affinity-designer"
