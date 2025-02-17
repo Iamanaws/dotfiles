@@ -25,10 +25,15 @@
     brews = [ "python3" ];
 
     casks = [
+      # pending to migrate
       "brave-browser"
       "google-chrome"
-      "ghostty" # broken on nixpkgs darwin
 
+      # broken on nixpkgs darwin
+      "ghostty"
+      "postman"
+
+      # not available on nixpkgs darwin
       "affinity-designer"
       "beekeeper-studio"
       "jetbrains-toolbox"

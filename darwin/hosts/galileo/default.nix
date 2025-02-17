@@ -43,7 +43,7 @@
     ngrok
     nsnake
     php
-    postman
+    # postman
     spotify
     vscode
   ];
@@ -63,7 +63,7 @@
         "/Applications/Nix Apps/Visual Studio Code.app"
         "/Applications/Ghostty.app"
         "/Applications/MongoDB Compass.app"
-        "/Applications/Nix Apps/Postman.app"
+        "/Applications/Postman.app"
         "/Applications/Nix Apps/Spotify.app"
       ];
       show-recents = false;
