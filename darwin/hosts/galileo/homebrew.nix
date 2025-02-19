@@ -35,6 +35,7 @@
       # not available on nixpkgs darwin
       "affinity-designer"
       "beekeeper-studio"
+      "clickup"
       "jetbrains-toolbox"
       "logi-options+"
       "mongodb-compass"

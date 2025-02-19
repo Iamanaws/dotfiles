@@ -65,6 +65,7 @@
         "/Applications/MongoDB Compass.app"
         "/Applications//Nix Apps/Postman.app"
         "/Applications/Nix Apps/Spotify.app"
+        "/Applications/ClickUp.app"
       ];
       show-recents = false;
 
