@@ -1,4 +1,10 @@
-{ inputs, config, lib, pkgs, ... }:
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -53,7 +59,9 @@
       Sound = null;
     };
 
-    loginwindow = { GuestEnabled = false; };
+    loginwindow = {
+      GuestEnabled = false;
+    };
 
     menuExtraClock = {
       ShowAMPM = true;
@@ -87,6 +95,5 @@
   ];
 
   # Set Git commit hash for darwin-version.
-  system.configurationRevision =
-    inputs.self.rev or inputs.self.dirtyRev or null;
+  system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
 }

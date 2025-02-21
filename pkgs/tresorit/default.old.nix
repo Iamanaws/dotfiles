@@ -11,7 +11,8 @@ let
 
   # Import the release.nix from the fetched repository
   tresoritDerivation = import "${tresoritSrc}/release.nix" { inherit pkgs; };
-  # Return the impure derivation
-in tresoritDerivation.impure
+in
+# Return the impure derivation
+tresoritDerivation.impure
 #pkgs.callPackage (import "${tresoritSrc}/release.nix") { }
 #pkgs.callPackage (import tresoritSrc).impure {}

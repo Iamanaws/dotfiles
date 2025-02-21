@@ -1,4 +1,12 @@
-{ inputs, outputs, lib, config, pkgs, systemType, ... }:
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  systemType,
+  ...
+}:
 
 {
   imports = [ ../../shared/services/flatpak.nix ];
@@ -10,10 +18,12 @@
 
   programs.home-manager.enable = true;
 
-  services.flatpak.packages = [{
-    flatpakref = "https://sober.vinegarhq.org/sober.flatpakref";
-    sha256 = "1pj8y1xhiwgbnhrr3yr3ybpfis9slrl73i0b1lc9q89vhip6ym2l";
-  }];
+  services.flatpak.packages = [
+    {
+      flatpakref = "https://sober.vinegarhq.org/sober.flatpakref";
+      sha256 = "1pj8y1xhiwgbnhrr3yr3ybpfis9slrl73i0b1lc9q89vhip6ym2l";
+    }
+  ];
 
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "24.05";

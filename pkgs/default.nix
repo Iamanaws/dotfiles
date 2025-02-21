@@ -5,10 +5,20 @@
 
 {
   kuyen-icons = import ./kuyen-icon-theme/default.nix {
-    inherit (pkgs) lib stdenvNoCC fetchFromGitLab gtk3;
+    inherit (pkgs)
+      lib
+      stdenvNoCC
+      fetchFromGitLab
+      gtk3
+      ;
   };
   antu-icons = import ./antu-icon-theme/default.nix {
-    inherit (pkgs) lib stdenvNoCC fetchFromGitLab gtk3;
+    inherit (pkgs)
+      lib
+      stdenvNoCC
+      fetchFromGitLab
+      gtk3
+      ;
   };
 
   mongodb-compass-custom = import ./mongodb-compass/package.nix {

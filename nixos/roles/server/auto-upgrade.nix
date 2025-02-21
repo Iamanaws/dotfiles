@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   system.autoUpgrade = {
     enable = true;
     allowReboot = lib.mkDefault true;

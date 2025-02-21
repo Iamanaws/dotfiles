@@ -1,4 +1,12 @@
-{ inputs, outputs, config, lib, pkgs, systemType, ... }:
+{
+  inputs,
+  outputs,
+  config,
+  lib,
+  pkgs,
+  systemType,
+  ...
+}:
 
 {
   imports = [
@@ -10,8 +18,7 @@
   ];
 
   # Use kernel 6.12 LTS
-  boot.kernelPackages =
-    pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_6_12;
+  boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_6_12;
 
   networking.hostName = "goliath";
   services.xserver.xkb.layout = "latam";
@@ -19,14 +26,18 @@
   users.users = {
     iamanaws = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "input" ];
-      packages = with pkgs;
-        [
-          # gnome.gnome-software
-        ];
+      extraGroups = [
+        "wheel"
+        "input"
+      ];
+      packages = with pkgs; [
+        # gnome.gnome-software
+      ];
     };
 
-    zsheen = { isNormalUser = true; };
+    zsheen = {
+      isNormalUser = true;
+    };
   };
 
   home-manager = {
@@ -52,15 +63,17 @@
     # mission center
   ];
 
-  environment.systemPackages = with pkgs; [ egl-wayland libva-utils ];
+  environment.systemPackages = with pkgs; [
+    egl-wayland
+    libva-utils
+  ];
 
   hardware = {
     graphics = {
       enable = true;
-      extraPackages = with pkgs;
-        [
-          #libvdpau-va-gl
-        ];
+      extraPackages = with pkgs; [
+        #libvdpau-va-gl
+      ];
     };
 
     nvidia = {

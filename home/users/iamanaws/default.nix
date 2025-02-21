@@ -1,6 +1,15 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
-{ inputs, outputs, lib, config, pkgs, systemType, hostConfig, ... }:
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  systemType,
+  hostConfig,
+  ...
+}:
 
 {
   # You can import other home-manager modules here
@@ -40,7 +49,9 @@
   };
 
   # Add environment variables
-  home.sessionVariables = { EDITOR = "vim"; };
+  home.sessionVariables = {
+    EDITOR = "vim";
+  };
 
   programs.chromium = {
     enable = true;
@@ -112,7 +123,9 @@
       # ".idea"
     ];
 
-    hooks = { pre-commit = ./pre-commit; };
+    hooks = {
+      pre-commit = ./pre-commit;
+    };
   };
 
   # Nicely reload system units when changing configs

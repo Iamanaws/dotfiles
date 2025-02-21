@@ -1,4 +1,11 @@
-{ config, lib, pkgs, hostConfig, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  hostConfig,
+  ...
+}:
+{
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -8,13 +15,18 @@
 
       ### MONITORS ##
       # monitor = name, resolution, position, scale
-      monitor = if hostConfig.options.hostname == "goliath" then [
-        "DP-3, 1920x1080@143.98Hz, 0x0, auto"
-        "HDMI-A-4, 1920x1080@100.00Hz, 1920x0, auto"
-      ] else
-        ",preferred,auto,auto";
+      monitor =
+        if hostConfig.options.hostname == "goliath" then
+          [
+            "DP-3, 1920x1080@143.98Hz, 0x0, auto"
+            "HDMI-A-4, 1920x1080@100.00Hz, 1920x0, auto"
+          ]
+        else
+          ",preferred,auto,auto";
 
-      xwayland = { force_zero_scaling = true; };
+      xwayland = {
+        force_zero_scaling = true;
+      };
 
       ### PROGRAMS ###
 
@@ -35,8 +47,7 @@
         "hypridle"
         # "waybar"
         "systemctl --user start hyprpolkitagent"
-        ''
-          systemd-inhibit --who="Hyprland config" --why="hyprlock/wlogout keybind" --what=handle-power-key --mode=block sleep infinity & echo $! > /tmp/.hyprland-systemd-inhibit''
+        ''systemd-inhibit --who="Hyprland config" --why="hyprlock/wlogout keybind" --what=handle-power-key --mode=block sleep infinity & echo $! > /tmp/.hyprland-systemd-inhibit''
       ];
 
       exec-shutdown = [ ''kill -9 "$(cat /tmp/.hyprland-systemd-inhibit)"'' ];
@@ -135,7 +146,9 @@
       };
 
       # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-      master = { new_status = "master"; };
+      master = {
+        new_status = "master";
+      };
 
       # https://wiki.hyprland.org/Configuring/Variables/#misc
       misc = {
@@ -155,11 +168,15 @@
 
         sensitivity = 0.8; # -1.0 - 1.0, 0 means no modification.
 
-        touchpad = { natural_scroll = true; };
+        touchpad = {
+          natural_scroll = true;
+        };
       };
 
       # https://wiki.hyprland.org/Configuring/Variables/#gestures
-      gestures = { workspace_swipe = true; };
+      gestures = {
+        workspace_swipe = true;
+      };
 
       # Example per-device config
       # See https://wiki.hyprland.org/Configuring/Keywords/#per-device-input-configs for more
@@ -182,51 +199,58 @@
       "$mod1" = "ALT";
 
       # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-      bindd = [
-        "$mod, return, open terminal, exec, $terminal"
-        "$mod, W, open browser, exec, $browser"
-        "$mod, E, open file explorer, exec, $explorer"
-        "$mod, C, open code editor, exec, $codeEditor"
-        "$mod SHIFT, C, open color picker, exec, $colorPicker"
-        "$mod, I, show system info, exec, hyprsysteminfo"
+      bindd =
+        [
+          "$mod, return, open terminal, exec, $terminal"
+          "$mod, W, open browser, exec, $browser"
+          "$mod, E, open file explorer, exec, $explorer"
+          "$mod, C, open code editor, exec, $codeEditor"
+          "$mod SHIFT, C, open color picker, exec, $colorPicker"
+          "$mod, I, show system info, exec, hyprsysteminfo"
 
-        "$mod, R, open app menu, exec, $menu drun"
-        "$mod1, space, open app menu, exec, $menu drun"
-        "$mod1 SHIFT, space, open full menu, exec, $menu"
+          "$mod, R, open app menu, exec, $menu drun"
+          "$mod1, space, open app menu, exec, $menu drun"
+          "$mod1 SHIFT, space, open full menu, exec, $menu"
 
-        "$mod SHIFT, W, close active window, killactive,"
-        "$mod, M, exit session, exit,"
-        "$mod, L, lock session, exec, loginctl lock-session"
+          "$mod SHIFT, W, close active window, killactive,"
+          "$mod, M, exit session, exit,"
+          "$mod, L, lock session, exec, loginctl lock-session"
 
-        "$mod, V, toggle floating window, togglefloating,"
-        "$mod, P, toggle pseudo mode, pseudo, # dwindle"
-        "$mod, J, toggle split mode, togglesplit, # dwindle"
+          "$mod, V, toggle floating window, togglefloating,"
+          "$mod, P, toggle pseudo mode, pseudo, # dwindle"
+          "$mod, J, toggle split mode, togglesplit, # dwindle"
 
-        # Move focus with $mod + arrow keyshyprpicker
-        "$mod, left, focus left, movefocus, l"
-        "$mod, right, focus right, movefocus, r"
-        "$mod, up, focus up, movefocus, u"
-        "$mod, down, focus down, movefocus, d"
+          # Move focus with $mod + arrow keyshyprpicker
+          "$mod, left, focus left, movefocus, l"
+          "$mod, right, focus right, movefocus, r"
+          "$mod, up, focus up, movefocus, u"
+          "$mod, down, focus down, movefocus, d"
 
-        # Example special workspace (scratchpad)
-        "$mod, S, toggle scratchpad workspace, togglespecialworkspace, magic"
-        "$mod SHIFT, S, move window to scratchpad, movetoworkspace, special:magic"
+          # Example special workspace (scratchpad)
+          "$mod, S, toggle scratchpad workspace, togglespecialworkspace, magic"
+          "$mod SHIFT, S, move window to scratchpad, movetoworkspace, special:magic"
 
-        # Scroll through existing workspaces with $mod + scroll
-        "$mod, mouse_down, switch to next workspace, workspace, e+1"
-        "$mod, mouse_up, switch to previous workspace, workspace, e-1"
-      ] ++ (
-        #### WORKSPACES ####
+          # Scroll through existing workspaces with $mod + scroll
+          "$mod, mouse_down, switch to next workspace, workspace, e+1"
+          "$mod, mouse_up, switch to previous workspace, workspace, e-1"
+        ]
+        ++ (
+          #### WORKSPACES ####
 
-        # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
-        builtins.concatLists (builtins.genList (i:
-          let ws = toString (i + 1);
-          in [
-            "$mod, code:1${toString i}, workspace ${ws}, workspace, ${ws}"
-            "$mod SHIFT, code:1${
-              toString i
-            }, move to workspace ${ws}, movetoworkspace, ${ws}"
-          ]) 9));
+          # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+          builtins.concatLists (
+            builtins.genList (
+              i:
+              let
+                ws = toString (i + 1);
+              in
+              [
+                "$mod, code:1${toString i}, workspace ${ws}, workspace, ${ws}"
+                "$mod SHIFT, code:1${toString i}, move to workspace ${ws}, movetoworkspace, ${ws}"
+              ]
+            ) 9
+          )
+        );
 
       # https://wiki.hyprland.org/Configuring/Binds/#bind-flags
       # l -> locked, will also work when an input inhibitor (e.g. a lockscreen) is active.

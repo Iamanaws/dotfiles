@@ -1,8 +1,17 @@
 # graphical.nix
-{ inputs, outputs, config, lib, pkgs, systemType, ... }:
+{
+  inputs,
+  outputs,
+  config,
+  lib,
+  pkgs,
+  systemType,
+  ...
+}:
 
 {
-  imports = [ ../programs/firefox.nix ]
+  imports =
+    [ ../programs/firefox.nix ]
     ++ lib.optional (systemType == "x11") ./qtile.nix
     ++ lib.optional (systemType == "wayland") ./hyprland.nix;
 
@@ -26,32 +35,43 @@
     jack.enable = true;
   };
 
-  environment.systemPackages = (with pkgs;
-    [
-      brave
-      clapper
-      flameshot
-      imv
-      # (inputs.ghostty.packages.${pkgs.system}.ghostty)
-      networkmanagerapplet
-      fuse
-      vscode
+  environment.systemPackages =
+    (
+      with pkgs;
+      [
+        brave
+        clapper
+        flameshot
+        imv
+        # (inputs.ghostty.packages.${pkgs.system}.ghostty)
+        networkmanagerapplet
+        fuse
+        vscode
 
-      brightnessctl
-      playerctl
-    ] ++ lib.optionals (systemType == "x11") [ rofi nitrogen ]
-    ++ lib.optionals (systemType == "wayland") [
-      rofi-wayland
-      (inputs.hyprsysteminfo.packages.${pkgs.system}.hyprsysteminfo)
-    ]) ++ lib.optionals (systemType == "wayland") (with pkgs; [
-      hyprpaper
-      hyprpicker
-      wl-clipboard
-      # hyprlock
-      hyprsunset
-      hyprpolkitagent
-      waybar
-    ]);
+        brightnessctl
+        playerctl
+      ]
+      ++ lib.optionals (systemType == "x11") [
+        rofi
+        nitrogen
+      ]
+      ++ lib.optionals (systemType == "wayland") [
+        rofi-wayland
+        (inputs.hyprsysteminfo.packages.${pkgs.system}.hyprsysteminfo)
+      ]
+    )
+    ++ lib.optionals (systemType == "wayland") (
+      with pkgs;
+      [
+        hyprpaper
+        hyprpicker
+        wl-clipboard
+        # hyprlock
+        hyprsunset
+        hyprpolkitagent
+        waybar
+      ]
+    );
 
   xdg.portal = {
     enable = true;

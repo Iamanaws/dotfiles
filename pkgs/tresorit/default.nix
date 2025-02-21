@@ -1,4 +1,11 @@
-{ lib, stdenvNoCC, fetchFromGitHub, autoPatchelfHook, qt5, fuse }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  autoPatchelfHook,
+  qt5,
+  fuse,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "tresorit";
@@ -12,7 +19,10 @@ stdenvNoCC.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [ qt5.qtbase fuse ];
+  buildInputs = [
+    qt5.qtbase
+    fuse
+  ];
 
   dontBuild = true;
   dontConfigure = true;
@@ -61,8 +71,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "Tresorit is the ultra-secure place in the cloud to store, sync and share files easily from anywhere, anytime.";
+    description = "Tresorit is the ultra-secure place in the cloud to store, sync and share files easily from anywhere, anytime.";
     homepage = "https://tresorit.com";
     license = licenses.unfree;
     platforms = platforms.linux;

@@ -1,11 +1,21 @@
-{ inputs, outputs, config, lib, pkgs, systemType, ... }:
+{
+  inputs,
+  outputs,
+  config,
+  lib,
+  pkgs,
+  systemType,
+  ...
+}:
 
 {
-  imports = [ ../core ../../display ];
+  imports = [
+    ../core
+    ../../display
+  ];
 
   # Use kernel 6.12 Hardened
-  boot.kernelPackages =
-    pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_6_12_hardened;
+  boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_6_12_hardened;
   # Enable unprivileged user namespaces (kernel-level risk)
   # for chromium based apps, flatpacks, and steam sandboxing
   boot.kernel.sysctl = {
@@ -28,7 +38,9 @@
     powertop.enable = true;
   };
 
-  services.upower = { enable = true; };
+  services.upower = {
+    enable = true;
+  };
 
   services.thermald.enable = true;
 
@@ -65,19 +77,18 @@
   #
   hardware.graphics = {
     enable = true;
-    extraPackages = with pkgs;
-      [
-        libvdpau-va-gl
+    extraPackages = with pkgs; [
+      libvdpau-va-gl
 
-        # Open GL, Vulkan, and VAAPI drivers
-        # intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        # intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      # Open GL, Vulkan, and VAAPI drivers
+      # intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      # intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
 
-        # Drivers for Quick Sync Video
-        # vpl-gpu-rt        # for newer GPUs on NixOS >24.05 or unstable
-        # onevpl-intel-gpu  # for newer GPUs on NixOS <= 24.05
-        # intel-media-sdk   # for older GPUs
-      ];
+      # Drivers for Quick Sync Video
+      # vpl-gpu-rt        # for newer GPUs on NixOS >24.05 or unstable
+      # onevpl-intel-gpu  # for newer GPUs on NixOS <= 24.05
+      # intel-media-sdk   # for older GPUs
+    ];
   };
 
   hardware.bluetooth.enable = true;
@@ -89,6 +100,9 @@
     LIBVA_DRIVER_NAME = "iHD";
   }; # Force intel-media-driver
 
-  environment.systemPackages = with pkgs; [ acpi powertop ];
+  environment.systemPackages = with pkgs; [
+    acpi
+    powertop
+  ];
 
 }

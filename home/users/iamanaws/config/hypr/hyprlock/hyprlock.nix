@@ -4,7 +4,8 @@ let
   # Load base configuration dynamically
   minimal = import ./config/minimal.nix;
   xscreensaver = import ./config/xscreensaver.nix;
-in {
+in
+{
 
   programs.hyprlock = {
     enable = true;

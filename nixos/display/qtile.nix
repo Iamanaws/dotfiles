@@ -1,5 +1,10 @@
 # x11.nix
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   services = {
@@ -30,7 +35,9 @@
       };
     };
 
-    displayManager = { defaultSession = "none+qtile"; };
+    displayManager = {
+      defaultSession = "none+qtile";
+    };
   };
 
   systemd = {
@@ -41,8 +48,7 @@
       after = [ "graphical-session.target" ];
       serviceConfig = {
         Type = "simple";
-        ExecStart =
-          "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
         Restart = "on-failure";
         RestartSec = 1;
         TimeoutStopSec = 10;

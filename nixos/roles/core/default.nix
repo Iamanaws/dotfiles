@@ -1,4 +1,12 @@
-{ inputs, outputs, config, lib, pkgs, systemType, ... }:
+{
+  inputs,
+  outputs,
+  config,
+  lib,
+  pkgs,
+  systemType,
+  ...
+}:
 
 {
   imports = [
@@ -45,8 +53,7 @@
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = lib.mkDefault true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable =
-    lib.mkDefault true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = lib.mkDefault true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "America/Tijuana";
@@ -135,4 +142,3 @@
   #system.stateVersion = "24.11"; # Did you read the comment?
 
 }
-

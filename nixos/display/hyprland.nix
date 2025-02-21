@@ -1,17 +1,26 @@
 # wayland.nix
-{ inputs, outputs, config, lib, pkgs, ... }:
+{
+  inputs,
+  outputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   services.xserver.enable = false;
 
   programs.hyprland = {
     enable = true;
-    # .override { 
+    # .override {
     #   withUWSM = true;
     # };
   };
 
-  programs.hyprlock = { enable = true; };
+  programs.hyprlock = {
+    enable = true;
+  };
 
   programs.uwsm = {
     enable = true;

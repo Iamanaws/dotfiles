@@ -1,14 +1,27 @@
-{ inputs, outputs, config, lib, pkgs, systemType, ... }:
+{
+  inputs,
+  outputs,
+  config,
+  lib,
+  pkgs,
+  systemType,
+  ...
+}:
 
 {
-  imports = [ ./../.. ./homebrew.nix ];
+  imports = [
+    ./../..
+    ./homebrew.nix
+  ];
 
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config.allowUnfree = true;
 
-  nixpkgs.overlays =
-    [ outputs.overlays.additions outputs.overlays.modifications ];
+  nixpkgs.overlays = [
+    outputs.overlays.additions
+    outputs.overlays.modifications
+  ];
 
   # Enable alternative shell support in nix-darwin.
   # programs.fish.enable = true;
@@ -20,7 +33,11 @@
     localHostName = "Galileo";
   };
 
-  users.users = { iamanaws = { home = "/Users/iamanaws"; }; };
+  users.users = {
+    iamanaws = {
+      home = "/Users/iamanaws";
+    };
+  };
 
   home-manager = {
     extraSpecialArgs = { inherit outputs systemType; };

@@ -17,7 +17,9 @@
   "$ready_message" = "Awaiting authentication method.";
   "$present_message" = "🧬 Analyzing DNA sequence...";
 
-  background = { color = "$base"; };
+  background = {
+    color = "$base";
+  };
 
   shape = [
     {
@@ -50,15 +52,17 @@
     }
   ];
 
-  image = [{
-    path = "$HOME/dotfiles/media/shared/icons/logos/png/nixos_purple.png";
-    size = "18%, 30%";
-    rounding = 1;
-    position = "-11%, 0%";
-    border_size = 0;
-    halign = "center";
-    valign = "center";
-  }];
+  image = [
+    {
+      path = "$HOME/dotfiles/media/shared/icons/logos/png/nixos_purple.png";
+      size = "18%, 30%";
+      rounding = 1;
+      position = "-11%, 0%";
+      border_size = 0;
+      halign = "center";
+      valign = "center";
+    }
+  ];
 
   input-field = {
     monitor = "";

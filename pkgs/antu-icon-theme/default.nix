@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchFromGitLab, gtk3 }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitLab,
+  gtk3,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "antu-icon-theme";

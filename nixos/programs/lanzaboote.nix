@@ -1,4 +1,9 @@
-{ inputs, lib, pkgs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
@@ -16,9 +21,8 @@
     };
   };
 
-  environment.systemPackages = with pkgs;
-    [
-      # For debugging and troubleshooting Secure Boot.
-      sbctl
-    ];
+  environment.systemPackages = with pkgs; [
+    # For debugging and troubleshooting Secure Boot.
+    sbctl
+  ];
 }

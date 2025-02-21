@@ -50,7 +50,13 @@
     sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = { self, nixpkgs, nix-darwin, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nix-darwin,
+      ...
+    }@inputs:
     let
       inherit (self) outputs;
 
@@ -58,52 +64,72 @@
       hosts = import ./hostnames.nix { inherit inputs; };
 
       # The set of systems to provide outputs for
-      allSystems =
-        [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+      allSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
 
       # A function that provides a system-specific Nixpkgs for the desired systems
-      forAllSystems = f:
-        nixpkgs.lib.genAttrs allSystems (system:
+      forAllSystems =
+        f:
+        nixpkgs.lib.genAttrs allSystems (
+          system:
           f {
             pkgs = import nixpkgs {
               inherit system;
-              config = { allowUnfree = true; };
+              config = {
+                allowUnfree = true;
+              };
             };
-          });
-    in {
+          }
+        );
+    in
+    {
       # Custom packages
       # Acessible through 'nix build', 'nix shell', etc
-      packages = forAllSystems
-        ({ pkgs }: { default = import ./pkgs { inherit pkgs; }; });
+      packages = forAllSystems (
+        { pkgs }:
+        {
+          default = import ./pkgs { inherit pkgs; };
+        }
+      );
 
       # Custom packages and modifications, exported as overlays
       overlays = import ./overlays { inherit inputs; };
 
       # Formatter for nix files, use 'nix fmt'
-      formatter = forAllSystems ({ pkgs }: pkgs.nixfmt);
+      formatter = forAllSystems ({ pkgs }: pkgs.nixfmt-rfc-style);
 
       ### NixOS Configurations ###
-      nixosConfigurations =
-        nixpkgs.lib.genAttrs (builtins.attrNames hosts.nixos) (hostName:
-          let host = hosts.nixos.${hostName};
-          in nixpkgs.lib.nixosSystem {
-            specialArgs = {
-              inherit inputs outputs;
-              systemType = host.systemType;
-            };
-            modules = host.modules;
-          });
+      nixosConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames hosts.nixos) (
+        hostName:
+        let
+          host = hosts.nixos.${hostName};
+        in
+        nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs;
+            systemType = host.systemType;
+          };
+          modules = host.modules;
+        }
+      );
 
       ### Darwin Configurations ###
-      darwinConfigurations =
-        nixpkgs.lib.genAttrs (builtins.attrNames hosts.darwin) (hostName:
-          let host = hosts.darwin.${hostName};
-          in nix-darwin.lib.darwinSystem {
-            specialArgs = {
-              inherit inputs outputs;
-              systemType = null;
-            };
-            modules = host.modules;
-          });
+      darwinConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames hosts.darwin) (
+        hostName:
+        let
+          host = hosts.darwin.${hostName};
+        in
+        nix-darwin.lib.darwinSystem {
+          specialArgs = {
+            inherit inputs outputs;
+            systemType = null;
+          };
+          modules = host.modules;
+        }
+      );
     };
 }

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
@@ -6,7 +12,11 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_rpi02w;
 
-    initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
+    initrd.availableKernelModules = [
+      "xhci_pci"
+      "usbhid"
+      "usb_storage"
+    ];
     loader = {
       grub.enable = false;
       generic-extlinux-compatible.enable = true;
@@ -31,30 +41,31 @@
   hardware = {
     # needed for wlan0 to work (https://github.com/NixOS/nixpkgs/issues/115652)
     enableRedistributableFirmware = lib.mkForce false;
-    firmware = with pkgs;
-      [
-        # This make sure wifi works
-        raspberrypiWirelessFirmware
-      ];
+    firmware = with pkgs; [
+      # This make sure wifi works
+      raspberrypiWirelessFirmware
+    ];
 
     i2c.enable = true;
     deviceTree.filter = "bcm2837-rpi-zero*.dtb";
-    deviceTree.overlays = [{
-      name = "enable-i2c";
-      dtsText = ''
-        /dts-v1/;
-        /plugin/;
-        / {
-          compatible = "brcm,bcm2837";
-          fragment@0 {
-            target = <&i2c1>;
-            __overlay__ {
-              status = "okay";
+    deviceTree.overlays = [
+      {
+        name = "enable-i2c";
+        dtsText = ''
+          /dts-v1/;
+          /plugin/;
+          / {
+            compatible = "brcm,bcm2837";
+            fragment@0 {
+              target = <&i2c1>;
+              __overlay__ {
+                status = "okay";
+              };
             };
           };
-        };
-      '';
-    }];
+        '';
+      }
+    ];
   };
 
   nixpkgs = {

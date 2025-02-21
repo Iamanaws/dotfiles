@@ -2,7 +2,9 @@
 
 {
   virtualisation = {
-    oci-containers = { backend = "podman"; };
+    oci-containers = {
+      backend = "podman";
+    };
 
     podman = {
       enable = true;

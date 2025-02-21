@@ -1,7 +1,40 @@
-{ alsa-lib, at-spi2-atk, at-spi2-core, atk, cairo, cups, curl, dbus, dpkg, expat
-, fetchurl, fontconfig, freetype, gdk-pixbuf, glib, gtk3, lib, libdrm, libGL
-, libnotify, libsecret, libuuid, libxcb, libxkbcommon, libgbm, nspr, nss, pango
-, stdenv, systemd, wrapGAppsHook3, xorg, pname, version, meta, }:
+{
+  alsa-lib,
+  at-spi2-atk,
+  at-spi2-core,
+  atk,
+  cairo,
+  cups,
+  curl,
+  dbus,
+  dpkg,
+  expat,
+  fetchurl,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  lib,
+  libdrm,
+  libGL,
+  libnotify,
+  libsecret,
+  libuuid,
+  libxcb,
+  libxkbcommon,
+  libgbm,
+  nspr,
+  nss,
+  pango,
+  stdenv,
+  systemd,
+  wrapGAppsHook3,
+  xorg,
+  pname,
+  version,
+  meta,
+}:
 
 let
   rpath = lib.makeLibraryPath [
@@ -48,19 +81,24 @@ let
     (lib.getLib stdenv.cc.cc)
   ];
 
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   inherit pname version;
 
-  src = if stdenv.hostPlatform.system == "x86_64-linux" then
-    fetchurl {
-      url =
-        "https://downloads.mongodb.com/compass/mongodb-compass_${version}_amd64.deb";
-      hash = "sha256-sP4WKV8DF05Lwlh+jboWU3xCono85FyeUi+5vzgx+E0=";
-    }
-  else
-    throw "MongoDB compass is not supported on ${stdenv.hostPlatform.system}";
+  src =
+    if stdenv.hostPlatform.system == "x86_64-linux" then
+      fetchurl {
+        url = "https://downloads.mongodb.com/compass/mongodb-compass_${version}_amd64.deb";
+        hash = "sha256-sP4WKV8DF05Lwlh+jboWU3xCono85FyeUi+5vzgx+E0=";
+      }
+    else
+      throw "MongoDB compass is not supported on ${stdenv.hostPlatform.system}";
 
-  buildInputs = [ dpkg wrapGAppsHook3 gtk3 ];
+  buildInputs = [
+    dpkg
+    wrapGAppsHook3
+    gtk3
+  ];
   dontUnpack = true;
 
   buildCommand = ''

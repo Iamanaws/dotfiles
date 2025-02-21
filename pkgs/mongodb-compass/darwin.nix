@@ -1,27 +1,36 @@
-{ stdenvNoCC, fetchurl, unzip, pname, version, meta, }:
+{
+  stdenvNoCC,
+  fetchurl,
+  unzip,
+  pname,
+  version,
+  meta,
+}:
 
 let
   appName = "MongoDB Compass.app";
 
-  dist = {
-    aarch64-darwin = {
-      arch = "arm64";
-      sha256 = "sha256-m61owQaEgeagarz+lb6fSzXc0QTjN4Z04D+wuYBa53Y=";
-    };
+  dist =
+    {
+      aarch64-darwin = {
+        arch = "arm64";
+        sha256 = "sha256-m61owQaEgeagarz+lb6fSzXc0QTjN4Z04D+wuYBa53Y=";
+      };
 
-    x86_64-darwin = {
-      arch = "x64";
-      sha256 = "sha256-+If8rqdNT1vaO0Pi7/Dgf//p/IkqslRsWftdGtHjt00=";
-    };
-  }.${stdenvNoCC.hostPlatform.system} or (throw
-    "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
+      x86_64-darwin = {
+        arch = "x64";
+        sha256 = "sha256-+If8rqdNT1vaO0Pi7/Dgf//p/IkqslRsWftdGtHjt00=";
+      };
+    }
+    .${stdenvNoCC.hostPlatform.system}
+      or (throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
 
-in stdenvNoCC.mkDerivation {
+in
+stdenvNoCC.mkDerivation {
   inherit pname version meta;
 
   src = fetchurl {
-    url =
-      "https://downloads.mongodb.com/compass/mongodb-compass-${version}-darwin-${dist.arch}.zip";
+    url = "https://downloads.mongodb.com/compass/mongodb-compass-${version}-darwin-${dist.arch}.zip";
     inherit (dist) sha256;
     name = "${pname}-${version}.zip";
   };

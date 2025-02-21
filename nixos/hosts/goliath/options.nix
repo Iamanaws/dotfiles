@@ -7,7 +7,10 @@
     system = "x86_64-linux";
     hostname = "goliath";
     type = "desktop";
-    users = [ "iamanaws" "zsheen" ];
+    users = [
+      "iamanaws"
+      "zsheen"
+    ];
     displayServer = "wayland";
   };
 
