@@ -49,15 +49,26 @@
     SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
 
     controlcenter = {
-      # true = show, false = hide, null = Show when active
+      AccessibilityShortcuts = "hide";
       AirDrop = false;
+      Battery = "menuBar";
+      BatteryShowEnergyMode = false;
       BatteryShowPercentage = false;
       Bluetooth = false;
-      Display = false;
-      FocusModes = null;
-      NowPlaying = null;
-      Sound = null;
+      Display = "whenActive";
+      FocusModes = "whenActive";
+      Hearing = "hide";
+      KeyboardBrightness = "hide";
+      MusicRecognition = "hide";
+      NowPlaying = "whenActive";
+      ScreenMirroring = "whenActive";
+      Sound = "whenActive";
+      StageManager = false;
+      UserSwitcher = "hide";
+      WiFi = false;
     };
+
+    Spotlight.MenuItemHidden = false;
 
     loginwindow = {
       GuestEnabled = false;

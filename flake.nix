@@ -21,7 +21,8 @@
 
     #### DARWIN ####
 
-    nix-darwin.url = "github:LnL7/nix-darwin";
+    # nix-darwin.url = "github:LnL7/nix-darwin";
+    nix-darwin.url = "github:Iamanaws/nix-darwin/controlcenter";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     mac-app-util.url = "github:hraban/mac-app-util";
