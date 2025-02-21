@@ -1,4 +1,4 @@
-{ stdenvNoCC, fetchurl, unzip, pname, version, meta }:
+{ stdenvNoCC, fetchurl, unzip, pname, version, meta, }:
 
 let
   appName = "MongoDB Compass.app";

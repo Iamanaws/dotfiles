@@ -1,7 +1,7 @@
 { alsa-lib, at-spi2-atk, at-spi2-core, atk, cairo, cups, curl, dbus, dpkg, expat
 , fetchurl, fontconfig, freetype, gdk-pixbuf, glib, gtk3, lib, libdrm, libGL
 , libnotify, libsecret, libuuid, libxcb, libxkbcommon, libgbm, nspr, nss, pango
-, stdenv, systemd, wrapGAppsHook3, xorg, pname, version, meta }:
+, stdenv, systemd, wrapGAppsHook3, xorg, pname, version, meta, }:
 
 let
   rpath = lib.makeLibraryPath [

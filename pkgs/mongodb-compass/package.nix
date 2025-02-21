@@ -5,9 +5,10 @@ let
   version = "1.45.2";
   meta = {
     description = "GUI for MongoDB";
-    homepage = "https://github.com/mongodb-js/compass";
-    license = lib.licenses.sspl;
     maintainers = with lib.maintainers; [ bryanasdev000 friedow iamanaws ];
+    homepage = "https://github.com/mongodb-js/compass";
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.sspl;
     platforms = [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
     mainProgram = "mongodb-compass";
   };

@@ -35,7 +35,6 @@
       # (inputs.ghostty.packages.${pkgs.system}.ghostty)
       networkmanagerapplet
       fuse
-      mongodb-compass
       vscode
 
       brightnessctl
