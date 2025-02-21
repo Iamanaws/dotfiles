@@ -7,6 +7,9 @@
   nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config.allowUnfree = true;
 
+  nixpkgs.overlays =
+    [ outputs.overlays.additions outputs.overlays.modifications ];
+
   # Enable alternative shell support in nix-darwin.
   # programs.fish.enable = true;
 
@@ -32,6 +35,8 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    mongodb-compass-custom
+
     asciidoctor
     # brave
     colima
@@ -62,7 +67,7 @@
         "/Applications/Google Chrome.app"
         "/Applications/Nix Apps/Visual Studio Code.app"
         "/Applications/Ghostty.app"
-        "/Applications/MongoDB Compass.app"
+        "/Applications/Nix Apps/MongoDB Compass.app"
         "/Applications//Nix Apps/Postman.app"
         "/Applications/Nix Apps/Spotify.app"
         "/Applications/ClickUp.app"
