@@ -35,7 +35,7 @@
       # (inputs.ghostty.packages.${pkgs.system}.ghostty)
       networkmanagerapplet
       fuse
-      #outputs.packages.tresorit
+      mongodb-compass
       vscode
 
       brightnessctl

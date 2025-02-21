@@ -9,10 +9,10 @@ let
       sha256 = "sha256-m61owQaEgeagarz+lb6fSzXc0QTjN4Z04D+wuYBa53Y=";
     };
 
-    # x86_64-darwin = {
-    #   arch = "x64";
-    #   sha256 = "";
-    # };
+    x86_64-darwin = {
+      arch = "x64";
+      sha256 = "sha256-+If8rqdNT1vaO0Pi7/Dgf//p/IkqslRsWftdGtHjt00=";
+    };
   }.${stdenvNoCC.hostPlatform.system} or (throw
     "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
 

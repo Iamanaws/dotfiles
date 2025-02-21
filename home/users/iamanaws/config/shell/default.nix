@@ -45,7 +45,9 @@
     # sudo nixos-rebuild list-generations
     # nixos-rebuild switch --target-host user@host --use-remote-sudo --flake .#nixos --fast 
 
-    # nix-prefetch-url <uri>
+    # nix-prefetch-url <uri> | nix-prefetch-url --unpack <uri>
+    # nix hash convert --hash-algo sha256 $(nix-prefetch-url <uri>)
+    # nix hash convert --hash-algo sha256 --from nix32 --to sri $(nix-prefetch-url <uri>)
     # journalctl -e --unit home-manager-iamanaws.service 
 
     # Shutdown and Reboot
