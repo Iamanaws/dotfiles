@@ -1,0 +1,22 @@
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  systemType,
+  ...
+}:
+
+{
+  # You can import other home-manager modules here
+  imports = [
+    ../default.nix
+    ../../iamanaws/config/shell/zsh.nix
+  ];
+
+  home = {
+    username = "admin";
+    homeDirectory = "/Users/admin";
+  };
+}
