@@ -60,7 +60,7 @@
 
   system.defaults = {
     dock = {
-      autohide = true;
+      autohide = false;
       expose-group-apps = true;
       magnification = false;
       minimize-to-application = true;
