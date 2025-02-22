@@ -64,7 +64,6 @@
     libreoffice-bin
     ngrok
     nsnake
-    php
     postman
     spotify
     vscode
