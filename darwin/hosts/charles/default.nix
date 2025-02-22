@@ -52,7 +52,7 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     mongodb-compass-custom
-    
+
     brave
     postman
     vscode
@@ -69,7 +69,7 @@
         "/System/Applications/Launchpad.app"
         "/System/Applications/Notes.app"
         "/System/Applications/System Settings.app"
-        "/Applications/Nix Apps/Brave.app"
+        "/Applications/Nix Apps/Brave Browser.app"
         "/Applications/Nix Apps/Visual Studio Code.app"
         "/Applications/Ghostty.app"
         "/Applications/Nix Apps/MongoDB Compass.app"
