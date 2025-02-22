@@ -33,6 +33,9 @@
     Galileo = {
       modules = [ ./darwin/hosts/galileo ];
     };
+    Charles = {
+      modules = [ ./darwin/hosts/charles ];
+    };
   };
 
 }
