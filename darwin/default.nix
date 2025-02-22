@@ -52,7 +52,7 @@
       AccessibilityShortcuts = "hide";
       AirDrop = false;
       Battery = "menuBar";
-      BatteryShowEnergyMode = false;
+      BatteryShowEnergyMode = "whenActive";
       BatteryShowPercentage = false;
       Bluetooth = false;
       Display = "whenActive";
