@@ -20,12 +20,15 @@
     homeDirectory = "/home/iamanaws";
   };
 
-  # Add stuff for your user as you see fit:
-  home.packages = with pkgs; [
-    cutter
-    gramps
-    pcmanfm
-  ];
+  home.packages =
+    with pkgs;
+    [
+    ]
+    ++ lib.optionalAttrs (systemType != null) [
+      cutter
+      gramps
+      pcmanfm
+    ];
 
   # Add environment variables
   home.sessionVariables = {
@@ -41,14 +44,14 @@
     };
   };
 
-  home.pointerCursor = {
+  home.pointerCursor = lib.optionalAttrs (systemType != null) {
     name = "WhiteSur-cursors";
     package = pkgs.whitesur-cursors;
     x11.enable = true;
   };
 
   # Configure GTK themes
-  gtk = lib.optionalAttrs (systemType == "x11" || systemType == "wayland") {
+  gtk = lib.optionalAttrs (systemType != null) {
     enable = true;
     theme = {
       name = "WhiteSur-Dark";
@@ -67,7 +70,7 @@
   # mimeApps - find / -name '*.desktop'
   xdg.mimeApps = {
     enable = true;
-    defaultApplications = lib.optionalAttrs (systemType == "x11" || systemType == "wayland") {
+    defaultApplications = lib.optionalAttrs (systemType != null) {
       "application/octet-stream" = [ "re.rizin.cutter.desktop" ];
       "application/pdf" = [ "code.desktop" ];
       "application/json" = [ "code.desktop" ];
@@ -91,7 +94,7 @@
     };
   };
 
-  programs.rofi = lib.optionalAttrs (systemType == "x11" || systemType == "wayland") {
+  programs.rofi = lib.optionalAttrs (systemType != null) {
     enable = true;
     package = lib.optionalAttrs (systemType == "wayland") pkgs.rofi-wayland;
     # font = "CascadiaCode";

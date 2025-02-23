@@ -53,7 +53,7 @@
     EDITOR = "vim";
   };
 
-  programs.chromium = {
+  programs.chromium = lib.optionalAttrs (systemType != null) {
     enable = true;
     package = pkgs.brave;
     extensions = [

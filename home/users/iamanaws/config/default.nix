@@ -11,7 +11,7 @@
 {
   imports =
     [ ./shell ]
-    ++ lib.optionals (systemType == "x11" || systemType == "wayland") [
+    ++ lib.optionalAttrs (systemType != null) [
       ./kitty.nix
       ./dunst.nix
     ]
