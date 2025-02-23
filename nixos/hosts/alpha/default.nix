@@ -66,7 +66,7 @@
 
   services = {
     getty.autologinUser = lib.mkForce "iamanaws";
-    sshd.enable = true;
+    openssh.enable = true;
     timesyncd.enable = true;
   };
 
