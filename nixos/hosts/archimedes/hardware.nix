@@ -14,6 +14,14 @@
   ];
 
   boot = {
+    kernelPackages = pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_6_12_hardened;
+
+    # Enable unprivileged user namespaces (kernel-level risk)
+    # for chromium based apps, flatpacks, and steam sandboxing
+    kernel.sysctl = {
+      "kernel.unprivileged_userns_clone" = 1;
+    };
+
     initrd = {
       availableKernelModules = [
         "xhci_pci"

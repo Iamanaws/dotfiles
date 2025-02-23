@@ -17,9 +17,6 @@
     ../../programs/gnome.nix
   ];
 
-  # Use kernel 6.12 LTS
-  boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_6_12;
-
   networking.hostName = "goliath";
   services.xserver.xkb.layout = "latam";
 
@@ -67,36 +64,6 @@
     egl-wayland
     libva-utils
   ];
-
-  hardware = {
-    graphics = {
-      enable = true;
-      extraPackages = with pkgs; [
-        #libvdpau-va-gl
-      ];
-    };
-
-    nvidia = {
-      open = true;
-      # Fine-grained power management. Turns off GPU when not in use.
-      # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-      powerManagement.finegrained = false;
-
-      # videoDrivers [ "nvidia" ] handle by nixos-hardware
-      # modesetting enabled by default
-      # prime and offset enabled by nixos-hardware
-
-      prime = {
-        nvidiaBusId = "PCI:4:0:3";
-        intelBusId = "PCI:0:2:0";
-      };
-    };
-
-    logitech.wireless = {
-      enable = true; # ltunify
-      enableGraphical = true; # Solaar
-    };
-  };
 
   # Force intel-media-driver (iHD / i915) or nvidia
   environment.sessionVariables = {
