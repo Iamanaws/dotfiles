@@ -9,9 +9,8 @@
       modules: [ path ];
     */
 
-    goliath = {
-      systemType = "wayland";
-      modules = [ ./nixos/hosts/goliath ];
+    alpha = {
+      modules = [ ./nixos/hosts/alpha ];
     };
 
     archimedes = {
@@ -19,8 +18,9 @@
       modules = [ ./nixos/hosts/archimedes ];
     };
 
-    alpha = {
-      modules = [ ./nixos/hosts/alpha ];
+    goliath = {
+      systemType = "wayland";
+      modules = [ ./nixos/hosts/goliath ];
     };
 
     # vm-vbox = {
@@ -30,11 +30,11 @@
   };
 
   darwin = {
-    Galileo = {
-      modules = [ ./darwin/hosts/galileo ];
-    };
     Charles = {
       modules = [ ./darwin/hosts/charles ];
+    };
+    Galileo = {
+      modules = [ ./darwin/hosts/galileo ];
     };
   };
 
