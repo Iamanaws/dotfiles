@@ -18,6 +18,10 @@
       modules = [ ./nixos/hosts/archimedes ];
     };
 
+    daedalus = {
+      modules = [ ./nixos/hosts/daedalus ];
+    };
+
     goliath = {
       systemType = "wayland";
       modules = [ ./nixos/hosts/goliath ];
