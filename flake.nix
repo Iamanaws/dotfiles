@@ -1,19 +1,25 @@
 {
-  description = "iamanaws' nix lake";
+  description = "iamanaws' nix flake";
 
   inputs = {
     #### Nixpkgs ####
 
-    # The “main” Nixpkgs channel (current), pinned for the entire system
+    # Nixpkgs source, pinned for the entire system
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     #### NIXOS ####
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     # Flakes for system packages
@@ -21,14 +27,15 @@
 
     #### DARWIN ####
 
-    # nix-darwin.url = "github:LnL7/nix-darwin";
-    nix-darwin.url = "github:Iamanaws/nix-darwin/controlcenter";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-darwin = {
+      # url = "github:LnL7/nix-darwin";
+      url = "github:Iamanaws/nix-darwin/controlcenter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     mac-app-util.url = "github:hraban/mac-app-util";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
-    # Optional: Declarative tap management
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
       flake = false;
@@ -43,8 +50,10 @@
     };
 
     #### Home manager ####
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Shameless plug: looking for a way to nixify your themes and make
     # nix-colors.url = "github:misterio77/nix-colors";
