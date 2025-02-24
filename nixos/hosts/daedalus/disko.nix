@@ -28,10 +28,7 @@
               content = {
                 type = "luks";
                 name = "crypted";
-                settings = {
-                  allowDiscards = true;
-                  keyFile = "/tmp/disk.key";
-                };
+                passwordFile = "/tmp/disk.key";
                 content = {
                   type = "btrfs";
                   extraArgs = [ "-f" ];
