@@ -30,9 +30,8 @@
                 name = "crypted";
                 settings = {
                   allowDiscards = true;
-                  keyFile = "/tmp/secret.key";
+                  keyFile = "/tmp/disk.key";
                 };
-                additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
                 content = {
                   type = "btrfs";
                   extraArgs = [ "-f" ];

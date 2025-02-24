@@ -12,13 +12,14 @@
   imports = [
     ./disko.nix
     ./hardware.nix
-    ../../../secrets
     ../../roles/server
     ../../roles/server/auto-upgrade.nix
     # ../../programs/lanzaboote.nix
   ];
 
   # sudo nix --extra-experimental-features "nix-command flakes" run 'github:nix-community/disko/latest#disko-install' -- --write-efi-boot-entries --flake 'github:Iamanaws/dotfiles#daedalus'
+  # nix run github:nix-community/nixos-anywhere -- --disk-encryption-keys <file> --flake 'github:Iamanaws/dotfiles#daedalus' --target-host nixos@nixos
+  # github:nix-community/nixos-anywhere/acc1651576dac4e736e05021836fd50d45f8046b
 
   networking.hostName = "daedalus";
 
