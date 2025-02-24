@@ -68,7 +68,7 @@
       WiFi = false;
     };
 
-    Spotlight.MenuItemHidden = false;
+    Spotlight.MenuItemHidden = true;
 
     loginwindow = {
       GuestEnabled = false;

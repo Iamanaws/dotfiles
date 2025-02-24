@@ -70,6 +70,8 @@
   ];
 
   system.defaults = {
+    controlcenter.WiFi = lib.mkForce true;
+
     dock = {
       autohide = true;
       expose-group-apps = true;
