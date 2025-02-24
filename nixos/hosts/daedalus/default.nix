@@ -12,22 +12,23 @@
   imports = [
     ./disko.nix
     ./hardware.nix
+    ../../../secrets/daedalus
     ../../roles/server
     ../../roles/server/auto-upgrade.nix
     # ../../programs/lanzaboote.nix
   ];
 
-  # sudo nix --extra-experimental-features "nix-command flakes" run 'github:nix-community/disko/latest#disko-install' -- --write-efi-boot-entries --flake 'github:Iamanaws/dotfiles#daedalus'
-  # nix run github:nix-community/nixos-anywhere -- --disk-encryption-keys <file> --flake 'github:Iamanaws/dotfiles#daedalus' --target-host nixos@nixos
-  # github:nix-community/nixos-anywhere/acc1651576dac4e736e05021836fd50d45f8046b
+  # nix run github:nix-community/nixos-anywhere/acc1651576dac4e736e05021836fd50d45f8046b \
+  # -- --extra-files base --disk-encryption-keys <remote_path> <local_path> \
+  # --flake 'github:Iamanaws/dotfiles#daedalus' --target-host nixos@nixos
 
   networking.hostName = "daedalus";
 
   # Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users = {
     iamanaws = {
-      initialPassword = "daedalus";
       isNormalUser = true;
+      hashedPasswordFile = config.sops.secrets.passwd.path;
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOvjMCx6qhx8/wWEuALzeQ5PTX+0oq8o5Le0MAmvg97p iamanaws@archimedes"
       ];
