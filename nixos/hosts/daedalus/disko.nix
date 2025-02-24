@@ -29,6 +29,10 @@
                 type = "luks";
                 name = "crypted";
                 passwordFile = "/tmp/disk.key";
+                settings = {
+                  allowDiscards = true;
+                  # keyFile = "/tmp/disk.key";
+                };
                 content = {
                   type = "btrfs";
                   extraArgs = [ "-f" ];
