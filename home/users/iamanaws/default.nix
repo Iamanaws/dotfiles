@@ -21,6 +21,7 @@
     # inputs.nix-colors.homeManagerModules.default
 
     ./config
+    ./graphical.nix
   ];
 
   nixpkgs = {
@@ -51,29 +52,6 @@
   # Add environment variables
   home.sessionVariables = {
     EDITOR = "vim";
-  };
-
-  programs.chromium = lib.optionalAttrs (systemType != null) {
-    enable = true;
-    package = pkgs.brave;
-    extensions = [
-      "nngceckbapebfimnlniiiahkandclblb" # bitwarden
-      "ghmbeldphafepmbegfdlkpapadhbakde" # proton pass
-      "dphilobhebphkdjbpfohgikllaljmgbn" # simplelogin
-      "fnaicdffflnofjppbagibeoednhnbjhg" # floccus
-      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock origin
-      "pkehgijcmpdhfbdbbnkijodmdjhbjlgp" # privacy badger
-      "oldceeleldhonbafppcapldpdifcinji" # language tool
-      "lnjaiaapbakfhlbjenjkhffcdpoompki" # catppuccin github icons
-      "gbmdgpbipfallnflgajpaliibnhdgobh" # json viewer
-      "gaiceihehajjahakcglkhmdbbdclbnlf" # video speed controller
-      "gppongmhjkpfnbhagpmjfkannfbllamg" # wappalyzer
-    ];
-
-    commandLineArgs = [
-      # "--enable-features=UseOzonePlatform "
-      # "--ozone-platform=x11"
-    ];
   };
 
   # Enable home-manager and git

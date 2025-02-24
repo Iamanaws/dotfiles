@@ -1,7 +1,13 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  systemType,
+  ...
+}:
 
 {
-  services.dunst = {
+  services.dunst = lib.optionalAttrs (systemType != null) {
     enable = true;
 
     iconTheme = {

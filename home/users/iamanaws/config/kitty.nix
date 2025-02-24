@@ -1,7 +1,13 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  systemType,
+  ...
+}:
 
 {
-  programs.kitty = {
+  programs.kitty = lib.optionalAttrs (systemType != null) {
     enable = true;
     font = {
       name = "caskaydia-cove";
