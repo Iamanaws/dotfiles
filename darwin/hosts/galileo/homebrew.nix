@@ -22,7 +22,7 @@
       "Xcode" = 497799835;
     };
 
-    brews = [ "python3" ];
+    brews = [ ];
 
     casks = [
       # pending to migrate
