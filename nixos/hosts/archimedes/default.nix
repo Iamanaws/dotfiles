@@ -54,6 +54,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    mongodb-compass
     mongodb-atlas-cli
     mongodb-atlas
   ];
