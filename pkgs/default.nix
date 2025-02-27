@@ -26,11 +26,10 @@
   };
   mongodb-atlas-cli = import ./mongodb-atlas-cli/package.nix {
     inherit (pkgs)
-      lib
       stdenv
-      stdenvNoCC
-      fetchurl
-      unzip
+      fetchFromGitHub
+      lib
+      buildGoModule
       ;
   };
   mongodb-atlas = import ./mongodb-atlas/package.nix {
