@@ -53,5 +53,9 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    mongodb-atlas-cli
+  ];
+
   system.stateVersion = "24.11";
 }
