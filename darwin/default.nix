@@ -88,14 +88,12 @@
     };
   };
 
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
+  # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     alt-tab-macos
     # brave
     # ghostty # broken on nixpkgs, use brew cask
     iina
-    # python3
     rectangle
 
     bottom

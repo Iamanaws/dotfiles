@@ -55,7 +55,6 @@
     mongodb-compass-custom
 
     asciidoctor
-    # brave
     colima
     docker
     docker-compose

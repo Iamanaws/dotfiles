@@ -18,10 +18,6 @@
     # ../../programs/lanzaboote.nix
   ];
 
-  # nix run github:nix-community/nixos-anywhere/acc1651576dac4e736e05021836fd50d45f8046b \
-  # -- --extra-files base --disk-encryption-keys <remote_path> <local_path> \
-  # --flake 'github:Iamanaws/dotfiles#daedalus' --target-host nixos@nixos
-
   networking.hostName = "daedalus";
 
   # Configure your system-wide user settings (groups, etc), add more users as needed.

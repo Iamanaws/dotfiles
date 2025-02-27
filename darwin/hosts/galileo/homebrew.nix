@@ -38,7 +38,6 @@
       "clickup"
       "jetbrains-toolbox"
       "logi-options+"
-      # "mongodb-compass"
     ];
   };
 }
