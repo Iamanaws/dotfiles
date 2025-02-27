@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
   lib,
-  ...
 }:
 
 let
@@ -12,10 +11,10 @@ let
   version = "1.39.0";
   meta = {
     description = "Atlas CLI enables you to manage your MongoDB Atlas";
-    maintainers = with lib.maintainers; [ iamanaws ];
     homepage = "https://github.com/mongodb/mongodb-atlas-cli";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.asl20;
+    maintainers = with lib.maintainers; [ iamanaws ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     platforms = [
       "x86_64-darwin"
       "aarch64-darwin"

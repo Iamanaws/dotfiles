@@ -55,6 +55,7 @@
 
   environment.systemPackages = with pkgs; [
     mongodb-atlas-cli
+    mongodb-atlas
   ];
 
   system.stateVersion = "24.11";

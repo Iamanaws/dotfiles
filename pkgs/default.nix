@@ -33,6 +33,14 @@
       unzip
       ;
   };
+  mongodb-atlas = import ./mongodb-atlas/package.nix {
+    inherit (pkgs)
+      lib
+      buildEnv
+      mongodb-atlas-cli
+      mongosh
+      ;
+  };
   # tresorit = import ./tresorit/default.nix { inherit (pkgs) lib stdenvNoCC fetchFromGitHub autoPatchelfHook qt5 fuse; };
   # tresorit = import ./tresorit/default.nix { inherit pkgs; };
 }
