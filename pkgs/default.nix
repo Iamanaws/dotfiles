@@ -41,6 +41,4 @@
       mongosh
       ;
   };
-  # tresorit = import ./tresorit/default.nix { inherit (pkgs) lib stdenvNoCC fetchFromGitHub autoPatchelfHook qt5 fuse; };
-  # tresorit = import ./tresorit/default.nix { inherit pkgs; };
 }
