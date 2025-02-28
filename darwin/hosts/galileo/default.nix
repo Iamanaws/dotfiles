@@ -53,7 +53,8 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     mongodb-compass
-    mongodb-atlas-cli
+    # mongodb-atlas-cli
+    # mongodb-cli
 
     asciidoctor
     colima

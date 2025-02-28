@@ -30,6 +30,7 @@
       fetchFromGitHub
       lib
       buildGoModule
+      installShellFiles
       ;
   };
   mongodb-atlas = import ./mongodb-atlas/package.nix {
@@ -38,6 +39,15 @@
       buildEnv
       mongodb-atlas-cli
       mongosh
+      ;
+  };
+  mongodb-cli = import ./mongodb-cli/package.nix {
+    inherit (pkgs)
+      stdenv
+      fetchFromGitHub
+      lib
+      buildGoModule
+      installShellFiles
       ;
   };
 }

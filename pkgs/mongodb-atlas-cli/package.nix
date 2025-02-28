@@ -3,6 +3,7 @@
   fetchFromGitHub,
   lib,
   buildGoModule,
+  installShellFiles,
 }:
 
 buildGoModule rec {
@@ -17,6 +18,17 @@ buildGoModule rec {
   };
 
   vendorHash = "sha256-Cet3oVTiuR1UqjRwIo5IQqcePoUm25+G75dTVV1Q0Sk=";
+
+  nativeBuildInputs = [ installShellFiles ];
+
+  subPackages = [ "cmd/atlas" ];
+
+  postInstall = ''
+    installShellCompletion --cmd atlas \
+      --bash <($out/bin/atlas completion bash) \
+      --fish <($out/bin/atlas completion fish) \
+      --zsh <($out/bin/atlas completion zsh)
+  '';
 
   meta = {
     description = "Atlas CLI enables you to manage your MongoDB Atlas";
