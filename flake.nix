@@ -121,7 +121,7 @@
         nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs outputs;
-            systemType = if builtins.hasAttr "systemType" host then host.systemType else null;
+            systemType = if host ? systemType then host.systemType else null;
           };
           modules = host.modules;
         }
