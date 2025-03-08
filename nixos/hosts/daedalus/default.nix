@@ -15,7 +15,7 @@
     ../../../secrets/daedalus
     ../../roles/server
     ../../roles/server/auto-upgrade.nix
-    # ../../programs/lanzaboote.nix
+    ../../programs/lanzaboote.nix
   ];
 
   networking.hostName = "daedalus";
