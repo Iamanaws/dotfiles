@@ -13,6 +13,7 @@
     ../../programs/nix.nix
     # Import home-manager's NixOS module
     inputs.home-manager.nixosModules.home-manager
+    inputs.disko.nixosModules.disko
   ];
 
   boot = {
