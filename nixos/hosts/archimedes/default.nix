@@ -54,9 +54,9 @@
   };
 
   environment.systemPackages = with pkgs; [
-    mongodb-compass
-    mongodb-atlas-cli
-    mongodb-atlas
+    # mongodb-compass
+    # mongodb-atlas-cli
+    # mongodb-atlas
   ];
 
   system.stateVersion = "24.11";
