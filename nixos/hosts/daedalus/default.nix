@@ -31,6 +31,7 @@
       extraGroups = [
         "wheel"
         "input"
+        "networkmanager"
       ];
     };
   };
