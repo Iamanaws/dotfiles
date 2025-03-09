@@ -74,11 +74,6 @@ in
     };
 
     s3 = {
-      enabled = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Enable S3 (Minio) integration for museum.";
-      };
       endpoint = mkOption {
         type = types.str;
         default = "http://localhost:9000";
@@ -98,6 +93,11 @@ in
         type = types.str;
         default = "";
         description = "Name of the S3 bucket used by museum.";
+      };
+      region = mkOption {
+        type = types.str;
+        default = "us-east-1";
+        description = "Region of the S3 bucket used by museum.";
       };
       createLocally = mkOption {
         type = types.bool;
@@ -148,13 +148,14 @@ in
       };
 
       # Enable local Minio if S3 and createLocally are true.
-      services.minio = lib.mkIf (museumCfg.s3.enabled && museumCfg.s3.createLocally) {
+      services.minio = lib.mkIf museumCfg.s3.createLocally {
         enable = true;
         dataDir = [ "${museumCfg.dataDir}/minio-data" ];
         configDir = "/var/lib/minio/config";
         certificatesDir = "/var/lib/minio/certs";
         accessKey = museumCfg.s3.accessKey;
         secretKey = museumCfg.s3.secretKey;
+        region = museumCfg.s3.region;
       };
 
       # Copy museum files into /etc/museum.
@@ -169,6 +170,20 @@ in
               cp -R ${pkgs.museum}/share/museum/* $out/
             '';
       };
+
+      environment.etc."museum/museum.yaml".text = ''
+        s3:
+          are_local_buckets: false
+          # For some self-hosted S3 deployments you (e.g. Minio) you might need to disable bucket subdomains
+          use_path_style_urls: true
+          # The key must be named like so
+          b2-eu-cen:
+              key: ${museumCfg.s3.accessKey}
+              secret: ${museumCfg.s3.secretKey}
+              endpoint: ${museumCfg.s3.endpoint}
+              region: ${museumCfg.s3.region}
+              bucket: ${museumCfg.s3.bucket}
+      '';
 
       # Adjust the systemd service for museum.
       systemd.services.museum = {
@@ -195,11 +210,6 @@ in
           ENTE_DB_PASSWORD =
             if museumCfg.db.passwordFile != null then toString museumCfg.db.passwordFile else "passwd123";
           ENTE_DB_SSLMODE = museumCfg.db.sslmode;
-          ENTE_S3_ENABLED = if museumCfg.s3.enabled then "true" else "false";
-          ENTE_S3_ENDPOINT = museumCfg.s3.endpoint;
-          ENTE_S3_ACCESS_KEY = museumCfg.s3.accessKey;
-          ENTE_S3_SECRET_KEY = museumCfg.s3.secretKey;
-          ENTE_S3_BUCKET = museumCfg.s3.bucket;
         };
         path = [
           pkgs.museum

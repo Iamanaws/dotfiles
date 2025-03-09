@@ -14,7 +14,6 @@
     enable = true;
     logFile = "";
     s3 = {
-      enabled = true;
       bucket = "museum-bucket";
       createLocally = true;
     };
