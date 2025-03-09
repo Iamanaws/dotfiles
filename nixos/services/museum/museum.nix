@@ -158,32 +158,37 @@ in
         region = museumCfg.s3.region;
       };
 
-      # Copy museum files into /etc/museum.
       environment.etc."museum" = {
         source =
-          pkgs.runCommand "museum-dir"
+          pkgs.runCommand "museum-config-dir"
             {
               buildInputs = [ pkgs.museum ];
+              # Pass any needed configuration as inputs if required.
             }
             ''
+              # Create the output directory
               mkdir -p $out
+
+              # Copy the default museum files
               cp -R ${pkgs.museum}/share/museum/* $out/
+
+              # Override or create the custom mufalseseum.yaml with your S3 configuration
+              cat > $out/museum.yaml <<EOF
+              s3:
+                hot_storage:
+                  primary: b2-eu-cen
+                  secondary: b2-eu-cen
+                are_local_buckets: true
+                use_path_style_urls: true
+                b2-eu-cen:
+                    key: ${museumCfg.s3.accessKey}
+                    secret: ${museumCfg.s3.secretKey}
+                    endpoint: ${museumCfg.s3.endpoint}
+                    region: ${museumCfg.s3.region}
+                    bucket: ${museumCfg.s3.bucket}
+              EOF
             '';
       };
-
-      environment.etc."museum/museum.yaml".text = ''
-        s3:
-          are_local_buckets: false
-          # For some self-hosted S3 deployments you (e.g. Minio) you might need to disable bucket subdomains
-          use_path_style_urls: true
-          # The key must be named like so
-          b2-eu-cen:
-              key: ${museumCfg.s3.accessKey}
-              secret: ${museumCfg.s3.secretKey}
-              endpoint: ${museumCfg.s3.endpoint}
-              region: ${museumCfg.s3.region}
-              bucket: ${museumCfg.s3.bucket}
-      '';
 
       # Adjust the systemd service for museum.
       systemd.services.museum = {
