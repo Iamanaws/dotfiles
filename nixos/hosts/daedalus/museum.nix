@@ -17,8 +17,6 @@
     s3 = {
       enabled = true;
       endpoint = "http://localhost:9000";
-      # accessKey = "minioadmin";
-      # secretKey = "minioadmin";
       bucket = "museum-bucket";
       createLocally = true;
     };

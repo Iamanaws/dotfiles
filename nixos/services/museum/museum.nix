@@ -127,27 +127,17 @@ in
       secretKey = cfg.s3.secretKey;
     };
 
-    # Also generate configurations/local.yaml.
-    environment.etc."museum/configurations/local.yaml".text = ''
-      # This file is required by museum.
-      log-file: "${cfg.logFile}"
-      db:
-        host: "${cfg.db.host}"
-        port: ${toString cfg.db.port}
-        name: "${cfg.db.name}"
-        sslmode: "${cfg.db.sslmode}"
-      s3:
-        enabled: ${if cfg.s3.enabled then "true" else "false"}
-        endpoint: "${cfg.s3.endpoint}"
-        accessKey: "${cfg.s3.accessKey}"
-        secretKey: "${cfg.s3.secretKey}"
-        bucket: "${cfg.s3.bucket}"
-      key:
-        encryption: yvmG/RnzKrbCb9L3mgsmoxXr9H7i2Z4qlbT0mL3ln4w=
-        hash: KXYiG07wC7GIgvCSdg+WmyWdXDAn6XKYJtp/wkEU7x573+byBRAYtpTP0wwvi8i/4l37uicX1dVTUzwH3sLZyw==
-      jwt:
-        secret: i2DecQmfGreG6q1vBj5tCokhlN41gcfS2cjOs9Po-u8=   
-    '';
+    environment.etc."museum" = {
+      source =
+        pkgs.runCommand "museum-dir"
+          {
+            buildInputs = [ pkgs.museum ];
+          }
+          ''
+            mkdir -p $out
+            cp -R ${pkgs.museum}/share/museum/* $out/
+          '';
+    };
 
     # Adjust the systemd service: set WorkingDirectory to /etc/museum so museum finds its files.
     systemd.services.museum = {
