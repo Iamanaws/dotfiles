@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ../../services/museum.nix ];
+  imports = [ ../../services/museum/museum.nix ];
 
   services.museum = {
     enable = true;
@@ -22,8 +22,6 @@
       secretKey = "your-minio-secret-key";
       bucket = "museum-bucket";
       createLocally = true;
-    };
-    extraConfig = {
     };
   };
 }

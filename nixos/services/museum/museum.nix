@@ -7,9 +7,6 @@
 with lib;
 let
   cfg = config.services.museum;
-  # Optionally convert extraConfig (an attrset) to YAML.
-  # (builtins.toYAML produces valid YAML text.)
-  extraConfigYAML = builtins.toYAML cfg.extraConfig;
 in
 {
   options.services.museum = {
@@ -110,12 +107,6 @@ in
         description = "If true, a local Minio instance will be enabled for S3 object storage.";
       };
     };
-
-    extraConfig = mkOption {
-      type = types.attrs;
-      default = { };
-      description = "Additional museum configuration options (key-value pairs) that are merged into the generated YAML.";
-    };
   };
 
   config = mkIf cfg.enable {
@@ -159,9 +150,6 @@ in
         accessKey: "${cfg.s3.accessKey}"
         secretKey: "${cfg.s3.secretKey}"
         bucket: "${cfg.s3.bucket}"
-
-      # Extra configuration
-      ${extraConfigYAML}
     '';
 
     systemd.services.museum = {
