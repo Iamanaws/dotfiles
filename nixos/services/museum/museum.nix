@@ -68,7 +68,7 @@ in
       };
       createLocally = mkOption {
         type = types.bool;
-        default = false;
+        default = true;
         description = "If true, a local PostgreSQL instance will be enabled and the database/user created automatically.";
       };
     };

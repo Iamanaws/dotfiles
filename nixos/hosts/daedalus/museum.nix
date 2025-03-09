@@ -12,18 +12,9 @@
 
   services.museum = {
     enable = true;
-    dataDir = "/var/lib/museum";
-    logFile = ""; # leave empty to log to stdout
-    db = {
-      host = "localhost";
-      port = 5432;
-      name = "ente_db";
-      sslmode = "disable";
-      createLocally = true;
-    };
+    logFile = "";
     s3 = {
       enabled = true;
-      endpoint = "http://localhost:9000";
       bucket = "museum-bucket";
       createLocally = true;
     };
