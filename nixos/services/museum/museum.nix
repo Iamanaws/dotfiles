@@ -40,6 +40,12 @@ in
       description = "Path to a log file. If empty, museum will log to stdout.";
     };
 
+    configFile = mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      description = "Path to a YAML config file. If not provided and S3 createLocally is enabled, a default configuration will be used.";
+    };
+
     db = {
       host = mkOption {
         type = types.str;
@@ -81,12 +87,12 @@ in
       };
       accessKey = mkOption {
         type = types.str;
-        default = "";
+        default = "minioadmin";
         description = "S3 access key.";
       };
       secretKey = mkOption {
         type = types.str;
-        default = "";
+        default = "minioadmin";
         description = "S3 secret key.";
       };
       bucket = mkOption {
@@ -105,6 +111,7 @@ in
         description = "If true, a local Minio instance will be enabled for S3 object storage.";
       };
     };
+
   };
 
   options.services.ente-web = {
@@ -158,26 +165,20 @@ in
         region = museumCfg.s3.region;
       };
 
+      # Create museum configuration directory with museum.yaml
       environment.etc."museum" = {
         source =
           pkgs.runCommand "museum-config-dir"
             {
               buildInputs = [ pkgs.museum ];
-              # Pass any needed configuration as inputs if required.
             }
             ''
-              # Create the output directory
               mkdir -p $out
-
-              # Copy the default museum files
-              cp -R ${pkgs.museum}/share/museum/* $out/
-
-              # Override or create the custom mufalseseum.yaml with your S3 configuration
-              cat > $out/museum.yaml <<EOF
+              if [ -n "${toString museumCfg.configFile}" ]; then
+                cp ${toString museumCfg.configFile} $out/museum.yaml
+              elif [ "${toString museumCfg.s3.createLocally}" = "true" ]; then
+                cat > $out/museum.yaml <<EOF
               s3:
-                hot_storage:
-                  primary: b2-eu-cen
-                  secondary: b2-eu-cen
                 are_local_buckets: true
                 use_path_style_urls: true
                 b2-eu-cen:
@@ -187,6 +188,9 @@ in
                     region: ${museumCfg.s3.region}
                     bucket: ${museumCfg.s3.bucket}
               EOF
+              else
+                echo "" > $out/museum.yaml
+              fi
             '';
       };
 
