@@ -6,7 +6,11 @@
 }:
 with lib;
 let
-  cfg = config.services.museum;
+  museumCfg = config.services.museum;
+  enteWebCfg = config.services.ente-web;
+  enteWeb = pkgs.ente-web.override {
+    extraBuildEnv = enteWebCfg.env;
+  };
 in
 {
   options.services.museum = {
@@ -103,100 +107,143 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
-
-    # Enable local PostgreSQL if requested.
-    services.postgresql = lib.mkIf cfg.db.createLocally {
-      enable = true;
-      ensureDatabases = [ cfg.db.name ];
-      ensureUsers = [
-        {
-          name = cfg.db.name;
-          ensureDBOwnership = true;
-        }
-      ];
+  options.services.ente-web = {
+    enable = mkEnableOption "Ente Web service (Ente Web interface)";
+    user = mkOption {
+      type = types.str;
+      default = "museum";
+      description = "User for the ente-web service.";
     };
-
-    # Enable local Minio if S3 and createLocally are true.
-    services.minio = lib.mkIf (cfg.s3.enabled && cfg.s3.createLocally) {
-      enable = true;
-      dataDir = [ "${cfg.dataDir}/minio-data" ];
-      configDir = "/var/lib/minio/config";
-      certificatesDir = "/var/lib/minio/certs";
-      accessKey = cfg.s3.accessKey;
-      secretKey = cfg.s3.secretKey;
+    group = mkOption {
+      type = types.str;
+      default = "museum";
+      description = "Group for the ente-web service.";
     };
-
-    environment.etc."museum" = {
-      source =
-        pkgs.runCommand "museum-dir"
-          {
-            buildInputs = [ pkgs.museum ];
-          }
-          ''
-            mkdir -p $out
-            cp -R ${pkgs.museum}/share/museum/* $out/
-          '';
+    port = mkOption {
+      type = types.port;
+      default = 3000;
+      description = "Port on which the ente-web service is served.";
     };
-
-    # Adjust the systemd service: set WorkingDirectory to /etc/museum so museum finds its files.
-    systemd.services.museum = {
-      description = "Museum (Ente Server) service";
-      after = [
-        "network.target"
-        "postgresql.service"
-        "minio.service"
-      ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        ExecStart = "${pkgs.museum}/bin/museum";
-        # Set WorkingDirectory to where we placed our configuration files.
-        WorkingDirectory = "/etc/museum";
-        User = cfg.user;
-        Group = cfg.group;
-        Restart = "on-failure";
-      };
-      environment = {
-        # Optional: pass environment variables if museum uses them too.
-        ENTE_LOG_FILE = cfg.logFile;
-        ENTE_DB_HOST = cfg.db.host;
-        ENTE_DB_PORT = toString cfg.db.port;
-        ENTE_DB_NAME = cfg.db.name;
-        ENTE_DB_USER = cfg.db.name;
-        ENTE_DB_PASSWORD =
-          if cfg.db.passwordFile != null then toString cfg.db.passwordFile else "passwd123";
-        ENTE_DB_SSLMODE = cfg.db.sslmode;
-        ENTE_S3_ENABLED = if cfg.s3.enabled then "true" else "false";
-        ENTE_S3_ENDPOINT = cfg.s3.endpoint;
-        ENTE_S3_ACCESS_KEY = cfg.s3.accessKey;
-        ENTE_S3_SECRET_KEY = cfg.s3.secretKey;
-        ENTE_S3_BUCKET = cfg.s3.bucket;
-      };
-      path = [
-        pkgs.museum
-        pkgs.postgresql
-        pkgs.minio
-      ];
+    env = mkOption {
+      type = types.attrs;
+      default = { };
+      description = "Extra environment variables for the ente-web service.";
     };
-
-    # Create the museum user and group if using defaults.
-    users.users = lib.mkIf (cfg.user == "museum") {
-      museum = {
-        isSystemUser = true;
-        group = cfg.group;
-        home = cfg.dataDir;
-      };
-    };
-
-    users.groups = lib.mkIf (cfg.group == "museum") {
-      museum = { };
-    };
-
-    # Ensure the data directory exists with proper permissions.
-    systemd.tmpfiles.rules = [
-      "d ${cfg.dataDir} ${cfg.user} ${cfg.group} 0750 -"
-    ];
   };
+
+  config = mkMerge [
+    (mkIf museumCfg.enable {
+      # --- Museum Service Configuration ---
+
+      # Enable local PostgreSQL if requested.
+      services.postgresql = lib.mkIf museumCfg.db.createLocally {
+        enable = true;
+        ensureDatabases = [ museumCfg.db.name ];
+        ensureUsers = [
+          {
+            name = museumCfg.db.name;
+            ensureDBOwnership = true;
+          }
+        ];
+      };
+
+      # Enable local Minio if S3 and createLocally are true.
+      services.minio = lib.mkIf (museumCfg.s3.enabled && museumCfg.s3.createLocally) {
+        enable = true;
+        dataDir = [ "${museumCfg.dataDir}/minio-data" ];
+        configDir = "/var/lib/minio/config";
+        certificatesDir = "/var/lib/minio/certs";
+        accessKey = museumCfg.s3.accessKey;
+        secretKey = museumCfg.s3.secretKey;
+      };
+
+      # Copy museum files into /etc/museum.
+      environment.etc."museum" = {
+        source =
+          pkgs.runCommand "museum-dir"
+            {
+              buildInputs = [ pkgs.museum ];
+            }
+            ''
+              mkdir -p $out
+              cp -R ${pkgs.museum}/share/museum/* $out/
+            '';
+      };
+
+      # Adjust the systemd service for museum.
+      systemd.services.museum = {
+        description = "Museum (Ente Server) service";
+        after = [
+          "network.target"
+          "postgresql.service"
+          "minio.service"
+        ];
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          ExecStart = "${pkgs.museum}/bin/museum";
+          WorkingDirectory = "/etc/museum";
+          User = museumCfg.user;
+          Group = museumCfg.group;
+          Restart = "on-failure";
+        };
+        environment = {
+          ENTE_LOG_FILE = museumCfg.logFile;
+          ENTE_DB_HOST = museumCfg.db.host;
+          ENTE_DB_PORT = toString museumCfg.db.port;
+          ENTE_DB_NAME = museumCfg.db.name;
+          ENTE_DB_USER = museumCfg.db.name;
+          ENTE_DB_PASSWORD =
+            if museumCfg.db.passwordFile != null then toString museumCfg.db.passwordFile else "passwd123";
+          ENTE_DB_SSLMODE = museumCfg.db.sslmode;
+          ENTE_S3_ENABLED = if museumCfg.s3.enabled then "true" else "false";
+          ENTE_S3_ENDPOINT = museumCfg.s3.endpoint;
+          ENTE_S3_ACCESS_KEY = museumCfg.s3.accessKey;
+          ENTE_S3_SECRET_KEY = museumCfg.s3.secretKey;
+          ENTE_S3_BUCKET = museumCfg.s3.bucket;
+        };
+        path = [
+          pkgs.museum
+          pkgs.postgresql
+          pkgs.minio
+        ];
+      };
+
+      # Create museum user/group if using defaults.
+      users.users = lib.mkIf (museumCfg.user == "museum") {
+        museum = {
+          isSystemUser = true;
+          group = museumCfg.group;
+          home = museumCfg.dataDir;
+        };
+      };
+
+      users.groups = lib.mkIf (museumCfg.group == "museum") {
+        museum = { };
+      };
+
+      # Ensure the data directory exists.
+      systemd.tmpfiles.rules = [
+        "d ${museumCfg.dataDir} ${museumCfg.user} ${museumCfg.group} 0750 -"
+      ];
+    })
+    (mkIf enteWebCfg.enable {
+      # --- Ente Web Service Configuration ---
+      #
+      # Launch a systemd service that serves the static files built by the
+      # ente-web package using a simple HTTP server.
+      systemd.services.ente-web = {
+        description = "Ente Web service (Ente Web interface)";
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          ExecStart = "${pkgs.nodePackages.http-server}/bin/http-server ${enteWeb} -p ${toString enteWebCfg.port}";
+          User = enteWebCfg.user;
+          Group = enteWebCfg.group;
+          Restart = "on-failure";
+        };
+      };
+    })
+  ];
 
   meta.maintainers = with maintainers; [ iamanaws ];
 }
