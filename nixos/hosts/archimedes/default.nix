@@ -16,6 +16,7 @@
     ../../roles/laptop
     ../../programs/lanzaboote.nix
     ../../services/automount.nix
+    ../daedalus/museum.nix
   ];
 
   networking.hostName = "archimedes";
