@@ -1,9 +1,10 @@
 s3:
   are_local_buckets: true
   use_path_style_urls: true
+  
   b2-eu-cen:
-      key: minioadmin
-      secret: minioadmin
-      endpoint: https://localhost:9000
-      region: us-east-1
-      bucket: museum-bucket
+    key: minioadmin
+    secret: minioadmin
+    endpoint: http://localhost:9000
+    region: us-east-1
+    bucket: museum-bucket

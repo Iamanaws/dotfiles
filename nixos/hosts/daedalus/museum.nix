@@ -15,7 +15,6 @@
     logFile = "";
     configFile = ./museum.yaml;
     s3 = {
-      bucket = "museum-bucket";
       createLocally = true;
     };
   };

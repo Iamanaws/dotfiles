@@ -43,7 +43,7 @@ in
     configFile = mkOption {
       type = types.nullOr types.path;
       default = null;
-      description = "Path to a YAML config file. If not provided and S3 createLocally is enabled, a default configuration will be used.";
+      description = "Path to YAML config file. If not provided and S3 createLocally is enabled, a default configuration will be used.";
     };
 
     db = {
@@ -95,11 +95,6 @@ in
         default = "minioadmin";
         description = "S3 secret key.";
       };
-      bucket = mkOption {
-        type = types.str;
-        default = "";
-        description = "Name of the S3 bucket used by museum.";
-      };
       region = mkOption {
         type = types.str;
         default = "us-east-1";
@@ -111,7 +106,6 @@ in
         description = "If true, a local Minio instance will be enabled for S3 object storage.";
       };
     };
-
   };
 
   options.services.ente-web = {
@@ -154,7 +148,6 @@ in
         ];
       };
 
-      # Enable local Minio if S3 and createLocally are true.
       services.minio = lib.mkIf museumCfg.s3.createLocally {
         enable = true;
         dataDir = [ "${museumCfg.dataDir}/minio-data" ];
@@ -165,32 +158,20 @@ in
         region = museumCfg.s3.region;
       };
 
-      # Create museum configuration directory with museum.yaml
+      # Copy additional files to /etc/museum.
       environment.etc."museum" = {
         source =
-          pkgs.runCommand "museum-config-dir"
+          pkgs.runCommand "museum-config"
             {
               buildInputs = [ pkgs.museum ];
             }
             ''
               mkdir -p $out
-              if [ -n "${toString museumCfg.configFile}" ]; then
-                cp ${toString museumCfg.configFile} $out/museum.yaml
-              elif [ "${toString museumCfg.s3.createLocally}" = "true" ]; then
-                cat > $out/museum.yaml <<EOF
-              s3:
-                are_local_buckets: true
-                use_path_style_urls: true
-                b2-eu-cen:
-                    key: ${museumCfg.s3.accessKey}
-                    secret: ${museumCfg.s3.secretKey}
-                    endpoint: ${museumCfg.s3.endpoint}
-                    region: ${museumCfg.s3.region}
-                    bucket: ${museumCfg.s3.bucket}
+              cp -R ${pkgs.museum}/share/museum/* $out/
+
+              cat > $out/museum.yaml <<EOF
+              ${builtins.readFile museumCfg.configFile}
               EOF
-              else
-                echo "" > $out/museum.yaml
-              fi
             '';
       };
 
@@ -227,7 +208,6 @@ in
         ];
       };
 
-      # Create museum user/group if using defaults.
       users.users = lib.mkIf (museumCfg.user == "museum") {
         museum = {
           isSystemUser = true;
@@ -247,9 +227,6 @@ in
     })
     (mkIf enteWebCfg.enable {
       # --- Ente Web Service Configuration ---
-      #
-      # Launch a systemd service that serves the static files built by the
-      # ente-web package using a simple HTTP server.
       systemd.services.ente-web = {
         description = "Ente Web service (Ente Web interface)";
         after = [ "network.target" ];
