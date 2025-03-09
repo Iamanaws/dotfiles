@@ -12,10 +12,14 @@
 
   services.museum = {
     enable = true;
-    logFile = "";
     configFile = ./museum.yaml;
+
     s3 = {
-      createLocally = true;
+      local.enable = true;
+    };
+
+    env = {
+      ENTE_DB_PASSWORD = "passwd123";
     };
   };
 }

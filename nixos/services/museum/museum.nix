@@ -43,7 +43,13 @@ in
     configFile = mkOption {
       type = types.nullOr types.path;
       default = null;
-      description = "Path to YAML config file. If not provided and S3 createLocally is enabled, a default configuration will be used.";
+      description = "Path to YAML config file. If not provided and local S3 is enabled, a default configuration will be used.";
+    };
+
+    env = mkOption {
+      type = types.attrs;
+      default = { };
+      description = "Extra environment variables for the museum service.";
     };
 
     db = {
@@ -60,7 +66,12 @@ in
       name = mkOption {
         type = types.str;
         default = "ente_db";
-        description = "Name of the database and user used by museum.";
+        description = "Name of the database used by museum.";
+      };
+      user = mkOption {
+        type = types.str;
+        default = "ente_db";
+        description = "Name of the user used by museum.";
       };
       passwordFile = mkOption {
         type = types.nullOr types.path;
@@ -72,10 +83,12 @@ in
         default = "disable";
         description = "SSL mode to use when connecting to PostgreSQL.";
       };
-      createLocally = mkOption {
-        type = types.bool;
-        default = true;
-        description = "If true, a local PostgreSQL instance will be enabled and the database/user created automatically.";
+      local = {
+        enable = mkOption {
+          type = types.bool;
+          default = true;
+          description = "If true, a local PostgreSQL instance will be enabled and the database/user created automatically.";
+        };
       };
     };
 
@@ -85,25 +98,28 @@ in
         default = "http://localhost:9000";
         description = "S3 (Minio) endpoint URL.";
       };
-      accessKey = mkOption {
-        type = types.str;
-        default = "minioadmin";
-        description = "S3 access key.";
-      };
-      secretKey = mkOption {
-        type = types.str;
-        default = "minioadmin";
-        description = "S3 secret key.";
-      };
-      region = mkOption {
-        type = types.str;
-        default = "us-east-1";
-        description = "Region of the S3 bucket used by museum.";
-      };
-      createLocally = mkOption {
-        type = types.bool;
-        default = false;
-        description = "If true, a local Minio instance will be enabled for S3 object storage.";
+
+      local = {
+        enable = mkOption {
+          type = types.bool;
+          default = false;
+          description = "If true, a local S3 (Minio) instance will be enabled for object storage.";
+        };
+        accessKey = mkOption {
+          type = types.str;
+          default = "minioadmin";
+          description = "S3 access key for local deployment.";
+        };
+        secretKey = mkOption {
+          type = types.str;
+          default = "minioadmin";
+          description = "S3 secret key for local deployment.";
+        };
+        region = mkOption {
+          type = types.str;
+          default = "us-east-1";
+          description = "Region for local S3 deployment.";
+        };
       };
     };
   };
@@ -137,7 +153,7 @@ in
       # --- Museum Service Configuration ---
 
       # Enable local PostgreSQL if requested.
-      services.postgresql = lib.mkIf museumCfg.db.createLocally {
+      services.postgresql = lib.mkIf museumCfg.db.local.enable {
         enable = true;
         ensureDatabases = [ museumCfg.db.name ];
         ensureUsers = [
@@ -148,17 +164,17 @@ in
         ];
       };
 
-      services.minio = lib.mkIf museumCfg.s3.createLocally {
+      # Start Minio if local S3 is enabled.
+      services.minio = lib.mkIf museumCfg.s3.local.enable {
         enable = true;
         dataDir = [ "${museumCfg.dataDir}/minio-data" ];
         configDir = "/var/lib/minio/config";
         certificatesDir = "/var/lib/minio/certs";
-        accessKey = museumCfg.s3.accessKey;
-        secretKey = museumCfg.s3.secretKey;
-        region = museumCfg.s3.region;
+        accessKey = museumCfg.s3.local.accessKey;
+        secretKey = museumCfg.s3.local.secretKey;
+        region = museumCfg.s3.local.region;
       };
 
-      # Copy additional files to /etc/museum.
       environment.etc."museum" = {
         source =
           pkgs.runCommand "museum-config"
@@ -196,11 +212,10 @@ in
           ENTE_DB_HOST = museumCfg.db.host;
           ENTE_DB_PORT = toString museumCfg.db.port;
           ENTE_DB_NAME = museumCfg.db.name;
-          ENTE_DB_USER = museumCfg.db.name;
-          ENTE_DB_PASSWORD =
-            if museumCfg.db.passwordFile != null then toString museumCfg.db.passwordFile else "passwd123";
+          ENTE_DB_USER = museumCfg.db.user;
+          ENTE_DB_PASSWORD = if museumCfg.db.passwordFile then toString museumCfg.db.passwordFile else "";
           ENTE_DB_SSLMODE = museumCfg.db.sslmode;
-        };
+        } // museumCfg.env;
         path = [
           pkgs.museum
           pkgs.postgresql
