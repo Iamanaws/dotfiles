@@ -5,7 +5,6 @@
 
   services.museum = {
     enable = true;
-    configFile = "/etc/museum/local.yaml";
     dataDir = "/var/lib/museum";
     logFile = ""; # leave empty to log to stdout
     db = {
