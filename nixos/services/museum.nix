@@ -106,14 +106,23 @@ in
           description = "If true, a local S3 (Minio) instance will be enabled for object storage.";
         };
         accessKey = mkOption {
-          type = types.str;
-          default = "minioadmin";
+          type = types.path;
+          default = "";
           description = "S3 access key for local deployment.";
         };
         secretKey = mkOption {
           type = types.str;
-          default = "minioadmin";
+          default = "";
           description = "S3 secret key for local deployment.";
+        };
+        rootCredentialsFile = mkOption {
+          type = types.nullOr types.path;
+          default = null;
+          description = ''
+            File containing the MINIO_ROOT_USER, default is "minioadmin", and
+            MINIO_ROOT_PASSWORD (length >= 8), default is "minioadmin"; in the format of
+            an EnvironmentFile=, as described by {manpage}`systemd.exec(5)`.
+          '';
         };
         region = mkOption {
           type = types.str;
@@ -172,6 +181,7 @@ in
         certificatesDir = "/var/lib/minio/certs";
         accessKey = museumCfg.s3.local.accessKey;
         secretKey = museumCfg.s3.local.secretKey;
+        rootCredentialsFile = museumCfg.s3.local.rootCredentialsFile;
         region = museumCfg.s3.local.region;
       };
 
