@@ -105,6 +105,12 @@ in
             an EnvironmentFile=, as described by {manpage}`systemd.exec(5)`.
           '';
         };
+
+        browser = mkOption {
+          default = true;
+          type = types.bool;
+          description = "Enable or disable access to web UI.";
+        };
       };
     };
   };
@@ -154,6 +160,7 @@ in
         enable = true;
         dataDir = [ "${museumCfg.dataDir}/minio-data" ];
         rootCredentialsFile = museumCfg.s3.local.rootCredentialsFile;
+        browser = museumCfg.s3.local.browser;
       };
 
       environment.etc."museum" = {

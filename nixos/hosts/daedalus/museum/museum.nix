@@ -14,8 +14,10 @@
     enable = true;
     configFile = ./museum.yaml;
 
-    s3 = {
-      local.enable = true;
+    s3.local = {
+      enable = true;
+      # rootCredentialsFile = <path>;
+      browser = false;
     };
 
     env = {
