@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ../../services/museum/museum.nix ];
+  imports = [ ../../../services/museum.nix ];
 
   services.ente-web = {
     enable = true;
@@ -22,4 +22,8 @@
       ENTE_DB_PASSWORD = "passwd123";
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    ente-cli
+  ];
 }
