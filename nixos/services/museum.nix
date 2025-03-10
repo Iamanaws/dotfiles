@@ -58,47 +58,44 @@ in
         default = "localhost";
         description = "PostgreSQL host for museum.";
       };
+
       port = mkOption {
         type = types.port;
         default = 5432;
         description = "PostgreSQL port number.";
       };
+
       name = mkOption {
         type = types.str;
         default = "ente_db";
         description = "Name of the database used by museum.";
       };
+
       user = mkOption {
         type = types.str;
         default = "ente_db";
         description = "Name of the user used by museum.";
       };
+
       passwordFile = mkOption {
         type = types.nullOr types.path;
         default = null;
         description = "Path to a file containing the database password.";
       };
+
       sslmode = mkOption {
         type = types.str;
         default = "disable";
         description = "SSL mode to use when connecting to PostgreSQL.";
       };
-      local = {
-        enable = mkOption {
-          type = types.bool;
-          default = true;
-          description = "If true, a local PostgreSQL instance will be enabled and the database/user created automatically.";
-        };
-      };
+
+      local.enable = mkEnableOption "Local PostgreSQL service.";
     };
 
     s3 = {
       local = {
-        enable = mkOption {
-          type = types.bool;
-          default = false;
-          description = "If true, a local S3 (Minio) instance will be enabled for object storage.";
-        };
+        enable = mkEnableOption "Local S3 (Minio) service.";
+
         rootCredentialsFile = mkOption {
           type = types.nullOr types.path;
           default = null;
