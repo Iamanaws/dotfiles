@@ -93,17 +93,21 @@ in
     };
 
     s3 = {
-      endpoint = mkOption {
-        type = types.str;
-        default = "http://localhost:9000";
-        description = "S3 (Minio) endpoint URL.";
-      };
-
       local = {
         enable = mkOption {
           type = types.bool;
           default = false;
           description = "If true, a local S3 (Minio) instance will be enabled for object storage.";
+        };
+        listenAddress = mkOption {
+          default = ":9000";
+          type = types.str;
+          description = "IP address and port of the server.";
+        };
+        consoleAddress = mkOption {
+          default = ":9001";
+          type = types.str;
+          description = "IP address and port of the web UI (console).";
         };
         accessKey = mkOption {
           type = types.path;
@@ -179,6 +183,8 @@ in
         dataDir = [ "${museumCfg.dataDir}/minio-data" ];
         configDir = "/var/lib/minio/config";
         certificatesDir = "/var/lib/minio/certs";
+        listenAddress = museumCfg.s3.local.listenAddress;
+        consoleAddress = museumCfg.s3.local.consoleAddress;
         accessKey = museumCfg.s3.local.accessKey;
         secretKey = museumCfg.s3.local.secretKey;
         rootCredentialsFile = museumCfg.s3.local.rootCredentialsFile;
