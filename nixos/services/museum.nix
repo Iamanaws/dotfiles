@@ -148,6 +148,7 @@ in
       # --- Museum Service Configuration ---
 
       # Enable local PostgreSQL if requested.
+      services.museum.db.local.enable = lib.mkDefault true;
       services.postgresql = lib.mkIf museumCfg.db.local.enable {
         enable = true;
         ensureDatabases = [ museumCfg.db.name ];
