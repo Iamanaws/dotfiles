@@ -99,26 +99,6 @@ in
           default = false;
           description = "If true, a local S3 (Minio) instance will be enabled for object storage.";
         };
-        listenAddress = mkOption {
-          default = ":9000";
-          type = types.str;
-          description = "IP address and port of the server.";
-        };
-        consoleAddress = mkOption {
-          default = ":9001";
-          type = types.str;
-          description = "IP address and port of the web UI (console).";
-        };
-        accessKey = mkOption {
-          type = types.path;
-          default = "";
-          description = "S3 access key for local deployment.";
-        };
-        secretKey = mkOption {
-          type = types.str;
-          default = "";
-          description = "S3 secret key for local deployment.";
-        };
         rootCredentialsFile = mkOption {
           type = types.nullOr types.path;
           default = null;
@@ -127,11 +107,6 @@ in
             MINIO_ROOT_PASSWORD (length >= 8), default is "minioadmin"; in the format of
             an EnvironmentFile=, as described by {manpage}`systemd.exec(5)`.
           '';
-        };
-        region = mkOption {
-          type = types.str;
-          default = "us-east-1";
-          description = "Region for local S3 deployment.";
         };
       };
     };
@@ -181,14 +156,7 @@ in
       services.minio = lib.mkIf museumCfg.s3.local.enable {
         enable = true;
         dataDir = [ "${museumCfg.dataDir}/minio-data" ];
-        configDir = "/var/lib/minio/config";
-        certificatesDir = "/var/lib/minio/certs";
-        listenAddress = museumCfg.s3.local.listenAddress;
-        consoleAddress = museumCfg.s3.local.consoleAddress;
-        accessKey = museumCfg.s3.local.accessKey;
-        secretKey = museumCfg.s3.local.secretKey;
         rootCredentialsFile = museumCfg.s3.local.rootCredentialsFile;
-        region = museumCfg.s3.local.region;
       };
 
       environment.etc."museum" = {
