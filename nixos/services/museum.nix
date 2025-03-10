@@ -117,21 +117,25 @@ in
 
   options.services.ente-web = {
     enable = mkEnableOption "Ente Web service (Ente Web interface)";
+
     user = mkOption {
       type = types.str;
       default = "museum";
       description = "User for the ente-web service.";
     };
+
     group = mkOption {
       type = types.str;
       default = "museum";
       description = "Group for the ente-web service.";
     };
+
     port = mkOption {
       type = types.port;
       default = 3000;
       description = "Port on which the ente-web service is served.";
     };
+
     env = mkOption {
       type = types.attrs;
       default = { };
