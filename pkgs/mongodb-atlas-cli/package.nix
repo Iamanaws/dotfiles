@@ -13,7 +13,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "mongodb";
     repo = "mongodb-atlas-cli";
-    rev = "atlascli/v${version}";
+    tag = "atlascli/v${version}";
     sha256 = "sha256-fqWtiApOnarP6eWa9RfxJKHb9R/nVvcWpBtYJKLmiso=";
   };
 
@@ -33,6 +33,7 @@ buildGoModule rec {
   meta = {
     description = "Atlas CLI enables you to manage your MongoDB Atlas";
     homepage = "https://github.com/mongodb/mongodb-atlas-cli";
+    changelog = "https://www.mongodb.com/docs/atlas/cli/current/atlas-cli-changelog/#atlas-cli-${version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ iamanaws ];
     mainProgram = "atlas";
