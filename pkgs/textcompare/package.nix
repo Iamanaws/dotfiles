@@ -47,12 +47,14 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i "1 a imports.package._findEffectiveEntryPointName = () => 'io.github.josephmawa.TextCompare';" $out/bin/io.github.josephmawa.TextCompare
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  postFixup = ''
+    mv $out/bin/io.github.josephmawa.TextCompare $out/bin/TextCompare
+  '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "A text comparison tool built with GJS and GNOME technologies";
+    description = "Simple desktop app to compare old and new text";
     homepage = "https://github.com/josephmawa/TextCompare";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ iamanaws ];

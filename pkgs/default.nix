@@ -9,7 +9,7 @@
       lib
       stdenvNoCC
       fetchFromGitLab
-      gtk3
+      hicolor-icon-theme
       ;
   };
   antu-icons = import ./antu-icon-theme/default.nix {
@@ -17,7 +17,7 @@
       lib
       stdenvNoCC
       fetchFromGitLab
-      gtk3
+      hicolor-icon-theme
       ;
   };
 
@@ -49,6 +49,7 @@
       lib
       buildGoModule
       installShellFiles
+      nix-update-script
       ;
   };
   mongodb-atlas = import ./mongodb-atlas/package.nix {
@@ -66,6 +67,7 @@
       lib
       buildGoModule
       installShellFiles
+      nix-update-script
       ;
   };
 }

@@ -4,6 +4,7 @@
   lib,
   buildGoModule,
   installShellFiles,
+  nix-update-script,
 }:
 
 buildGoModule rec {
@@ -30,8 +31,10 @@ buildGoModule rec {
       --zsh <($out/bin/atlas completion zsh)
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
-    description = "Atlas CLI enables you to manage your MongoDB Atlas";
+    description = "CLI to manage your MongoDB Atlas";
     homepage = "https://github.com/mongodb/mongodb-atlas-cli";
     changelog = "https://www.mongodb.com/docs/atlas/cli/current/atlas-cli-changelog/#atlas-cli-${version}";
     license = lib.licenses.asl20;
