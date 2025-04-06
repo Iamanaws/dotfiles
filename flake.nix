@@ -99,12 +99,7 @@
     {
       # Custom packages
       # Acessible through 'nix build', 'nix shell', etc
-      packages = forAllSystems (
-        { pkgs }:
-        {
-          default = import ./pkgs { inherit pkgs; };
-        }
-      );
+      packages = forAllSystems ({ pkgs }: import ./pkgs { inherit pkgs; });
 
       # Custom packages and modifications, exported as overlays
       overlays = import ./overlays { inherit inputs; };

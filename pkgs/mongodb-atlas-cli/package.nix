@@ -8,22 +8,22 @@
 
 buildGoModule rec {
   pname = "mongodb-atlas-cli";
-  version = "1.40.0";
+  version = "1.41.2";
 
   src = fetchFromGitHub {
     owner = "mongodb";
     repo = "mongodb-atlas-cli";
     rev = "atlascli/v${version}";
-    sha256 = "sha256-LCnUIip1XdAFOAP0KnQOl9GUhkEZ45tpFUwzoU7zi04=";
+    sha256 = "sha256-fqWtiApOnarP6eWa9RfxJKHb9R/nVvcWpBtYJKLmiso=";
   };
 
-  vendorHash = "sha256-Cet3oVTiuR1UqjRwIo5IQqcePoUm25+G75dTVV1Q0Sk=";
+  vendorHash = "sha256-mJ7INuRYBntUGYAFfplNvHpwiK6f8UBwVFjSDiQ2ptU=";
 
   nativeBuildInputs = [ installShellFiles ];
 
   subPackages = [ "cmd/atlas" ];
 
-  postInstall = ''
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd atlas \
       --bash <($out/bin/atlas completion bash) \
       --fish <($out/bin/atlas completion fish) \
@@ -35,7 +35,6 @@ buildGoModule rec {
     homepage = "https://github.com/mongodb/mongodb-atlas-cli";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ iamanaws ];
-    platforms = lib.platforms.all;
     mainProgram = "atlas";
   };
 }

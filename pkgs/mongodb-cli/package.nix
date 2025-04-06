@@ -23,7 +23,7 @@ buildGoModule rec {
 
   subPackages = [ "cmd/mongocli" ];
 
-  postInstall = ''
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd mongocli \
       --bash <($out/bin/mongocli completion bash) \
       --fish <($out/bin/mongocli completion fish) \
@@ -35,7 +35,6 @@ buildGoModule rec {
     homepage = "https://github.com/mongodb/mongodb-cli";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ iamanaws ];
-    platforms = lib.platforms.all;
     mainProgram = "mongocli";
   };
 }
