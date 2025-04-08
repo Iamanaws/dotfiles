@@ -4,6 +4,7 @@
   lib,
   buildGoModule,
   installShellFiles,
+  nix-update-script,
 }:
 
 buildGoModule rec {
@@ -13,7 +14,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "mongodb";
     repo = "mongodb-cli";
-    rev = "mongocli/v${version}";
+    tag = "mongocli/v${version}";
     sha256 = "sha256-vhx8dxTNngDBy+34e+Er7uqIAGJImJiPmwxZX+EwIG0=";
   };
 
@@ -23,19 +24,21 @@ buildGoModule rec {
 
   subPackages = [ "cmd/mongocli" ];
 
-  postInstall = ''
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd mongocli \
       --bash <($out/bin/mongocli completion bash) \
       --fish <($out/bin/mongocli completion fish) \
       --zsh <($out/bin/mongocli completion zsh)
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
-    description = "MongoDB CLI enable you to manage your MongoDB via ops manager and cloud manager";
+    description = "CLI to manage your MongoDB via ops manager and cloud manager";
     homepage = "https://github.com/mongodb/mongodb-cli";
+    changelog = "https://www.mongodb.com/docs/mongocli/current/release-notes/#mongodb-cli-${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ iamanaws ];
-    platforms = lib.platforms.all;
+    maintainers = [ lib.maintainers.iamanaws ];
     mainProgram = "mongocli";
   };
 }

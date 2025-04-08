@@ -2,21 +2,21 @@
   lib,
   stdenvNoCC,
   fetchFromGitLab,
-  gtk3,
+  hicolor-icon-theme,
 }:
 
 stdenvNoCC.mkDerivation rec {
-  pname = "kuyen-icon-theme";
-  version = "7d4fdecf";
+  pname = "kuyen-icons";
+  version = "2.0";
 
   src = fetchFromGitLab {
     owner = "froodo_alexis";
     repo = "kuyen-icons";
-    rev = version;
+    rev = "7d4fdecf7121ae6077e5d22501a13ba5eb54a9f6";
     sha256 = "sha256-28AAcjg8f0FWwbYeYOMX5OJX2eYL6/a3dgu1HlkW2ZU=";
   };
 
-  nativeBuildInputs = [ gtk3 ];
+  propagatedBuildInputs = [ hicolor-icon-theme ];
 
   dontDropIconThemeCache = true;
 
@@ -28,11 +28,11 @@ stdenvNoCC.mkDerivation rec {
     find $out/share/icons/kuyen-icons -xtype l -delete
   '';
 
-  meta = with lib; {
-    description = "A colourful flat theme designed for Plasma desktop";
+  meta = {
+    description = "Colourful flat theme designed for Plasma desktop";
     homepage = "https://gitlab.com/froodo_alexis/kuyen-icons";
-    license = licenses.cc-by-nc-sa-30;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ iamanaws ];
+    license = lib.licenses.cc-by-nc-sa-30;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ iamanaws ];
   };
 }

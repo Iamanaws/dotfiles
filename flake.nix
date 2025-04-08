@@ -34,8 +34,7 @@
     };
 
     mac-app-util.url = "github:hraban/mac-app-util";
-    # nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew?ref=refs/pull/71/merge";
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
@@ -96,12 +95,7 @@
     {
       # Custom packages
       # Acessible through 'nix build', 'nix shell', etc
-      packages = forAllSystems (
-        { pkgs }:
-        {
-          default = import ./pkgs { inherit pkgs; };
-        }
-      );
+      packages = forAllSystems ({ pkgs }: import ./pkgs { inherit pkgs; });
 
       # Custom packages and modifications, exported as overlays
       overlays = import ./overlays { inherit inputs; };

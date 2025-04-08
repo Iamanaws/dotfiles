@@ -9,7 +9,7 @@
       lib
       stdenvNoCC
       fetchFromGitLab
-      gtk3
+      hicolor-icon-theme
       ;
   };
   antu-icons = import ./antu-icon-theme/default.nix {
@@ -17,7 +17,25 @@
       lib
       stdenvNoCC
       fetchFromGitLab
-      gtk3
+      hicolor-icon-theme
+      ;
+  };
+
+  textcompare = import ./textcompare/package.nix {
+    inherit (pkgs)
+      lib
+      stdenv
+      fetchFromGitHub
+      desktop-file-utils
+      gjs
+      gobject-introspection
+      gtksourceview5
+      gtk4
+      libadwaita
+      meson
+      ninja
+      wrapGAppsHook4
+      nix-update-script
       ;
   };
 
@@ -31,6 +49,7 @@
       lib
       buildGoModule
       installShellFiles
+      nix-update-script
       ;
   };
   mongodb-atlas = import ./mongodb-atlas/package.nix {
@@ -48,6 +67,7 @@
       lib
       buildGoModule
       installShellFiles
+      nix-update-script
       ;
   };
 }

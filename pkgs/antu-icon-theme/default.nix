@@ -2,21 +2,21 @@
   lib,
   stdenvNoCC,
   fetchFromGitLab,
-  gtk3,
+  hicolor-icon-theme,
 }:
 
 stdenvNoCC.mkDerivation rec {
-  pname = "antu-icon-theme";
-  version = "a12a9e55";
+  pname = "antu-icons";
+  version = "2.0";
 
   src = fetchFromGitLab {
     owner = "froodo_alexis";
-    repo = "antu-icons";
-    rev = version;
+    repo = "Antu-icons";
+    rev = "a12a9e559b59c8ded47531e299a5516718ef9a28";
     sha256 = "sha256-CLcr+X/b0moVEBV0O/dzCDq4w5G2+KRLUBdqKm0eAKA=";
   };
 
-  nativeBuildInputs = [ gtk3 ];
+  propagatedBuildInputs = [ hicolor-icon-theme ];
 
   dontDropIconThemeCache = true;
 
@@ -28,11 +28,11 @@ stdenvNoCC.mkDerivation rec {
     find $out/share/icons/kuyen-icons -xtype l -delete
   '';
 
-  meta = with lib; {
-    description = "A smooth icon theme designed for Plasma Desktop";
+  meta = {
+    description = "Smooth icon theme designed for Plasma Desktop";
     homepage = "https://gitlab.com/froodo_alexis/Antu-icons";
-    license = licenses.cc-by-nc-sa-30;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ iamanaws ];
+    license = lib.licenses.cc-by-nc-sa-30;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ iamanaws ];
   };
 }

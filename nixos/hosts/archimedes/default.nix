@@ -56,7 +56,7 @@
   environment.systemPackages = with pkgs; [
     # mongodb-compass
     # mongodb-atlas-cli
-    # mongodb-atlas
+    # mongodb-
   ];
 
   system.stateVersion = "24.11";
