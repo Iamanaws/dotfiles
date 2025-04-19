@@ -68,24 +68,6 @@
       ;
   };
 
-  textcompare = import ./textcompare/package.nix {
-    inherit (pkgs)
-      lib
-      stdenv
-      fetchFromGitHub
-      desktop-file-utils
-      gjs
-      gobject-introspection
-      gtksourceview5
-      gtk4
-      libadwaita
-      meson
-      ninja
-      wrapGAppsHook4
-      nix-update-script
-      ;
-  };
-
   mongodb-compass = import ./mongodb-compass/package.nix {
     inherit (pkgs) lib stdenv callPackage;
   };
@@ -105,16 +87,6 @@
       buildEnv
       mongodb-atlas-cli
       mongosh
-      ;
-  };
-  mongodb-cli = import ./mongodb-cli/package.nix {
-    inherit (pkgs)
-      stdenv
-      fetchFromGitHub
-      lib
-      buildGoModule
-      installShellFiles
-      nix-update-script
       ;
   };
 }
