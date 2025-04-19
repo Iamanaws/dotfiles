@@ -21,6 +21,53 @@
       ;
   };
 
+  dsnote = import ./dsnote/package.nix {
+    inherit (pkgs)
+      stdenv
+      lib
+      fetchFromGitHub
+      fetchzip
+      fetchurl
+      cmake
+      ninja
+      pkg-config
+      python3
+      fmt
+      openblas
+      mbrola
+      boost
+      stt
+      onnxruntime
+      pcaudiolib
+      spdlog
+      python312Packages
+      rhvoice
+      qt5
+      libsForQt5
+      perl
+      opencl-headers
+      ocl-icd
+      amdvlk
+      cudaPackages
+      pcre2
+      extra-cmake-modules
+      libpulseaudio
+      xorg
+      autoconf
+      automake
+      libtool
+      which
+      libvorbis
+      ffmpeg
+      taglib_1
+      rubberband
+      libarchive
+      xz
+      lame
+      xdotool
+      ;
+  };
+
   textcompare = import ./textcompare/package.nix {
     inherit (pkgs)
       lib
