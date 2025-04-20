@@ -47,23 +47,26 @@
     ##  utilities ##
     ################
     bat
+    dig
     gobuster
     hashcat
     netcat-openbsd
     ngrep
     nmap
     openvpn
+    samba
     subfinder
     whatweb
 
+    awscli2
     bettercap
     caido
     cyberchef
     # ghidra
-    # htb-toolkit
     # metasploit
     # rizin
     # rizinPlugins.rz-ghidra
+
     ################
     ##    devel   ##
     ################
@@ -73,18 +76,15 @@
     ################
     ##  wordlists ##
     ################
-    seclists
+    wordlists
   ];
 
   virtualisation.vmVariant.virtualisation = {
-    resolution = {
-      x = 1920;
-      y = 1080;
-    };
     qemu.options = [
       "-smp 6"
       "-m 8192"
       "-display gtk,zoom-to-fit=true"
+      # "-display vnc=localhost:0"
       "-chardev qemu-vdagent,id=ch1,name=vdagent,clipboard=on"
       "-device virtio-serial-pci"
       "-device virtserialport,chardev=ch1,id=ch1,name=com.redhat.spice.0"
@@ -120,6 +120,7 @@
   };
 
   services.spice-vdagentd.enable = true;
+  environment.etc.hosts.mode = "0644";
 
   system.stateVersion = "24.11";
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

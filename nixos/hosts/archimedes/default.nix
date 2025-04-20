@@ -55,6 +55,7 @@
 
   environment.systemPackages = with pkgs; [
     dsnote
+    remmina
   ];
 
   system.stateVersion = "24.11";
