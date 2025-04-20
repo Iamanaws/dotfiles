@@ -27,6 +27,11 @@
       modules = [ ./nixos/hosts/goliath ];
     };
 
+    pwnbox = {
+      systemType = "wayland";
+      modules = [ ./nixos/hosts/pwnbox ];
+    };
+
     # vm-vbox = {
     #   systemType = "wayland";
     #   modules = [ ./hosts/vm-vbox.nix ];

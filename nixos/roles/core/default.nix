@@ -80,10 +80,12 @@
     bottom
     busybox
     fet-sh
+    file
     fwupd
     git
     lshw
     neofetch
+    file
     neovim
     tldr
     vim

@@ -101,7 +101,7 @@
       overlays = import ./overlays { inherit inputs; };
 
       # Formatter for nix files, use 'nix fmt'
-      formatter = forAllSystems ({ pkgs }: pkgs.nixfmt-rfc-style);
+      formatter = forAllSystems ({ pkgs }: pkgs.nixfmt-tree);
 
       ### NixOS Configurations ###
       nixosConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames hosts.nixos) (
