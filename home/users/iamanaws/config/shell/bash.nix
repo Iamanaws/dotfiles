@@ -26,7 +26,7 @@
       
       PROMPT_DIRTRIM=2
       
-      ignore upper and lowercase when TAB completion
+      # ignore upper and lowercase when TAB completion
       bind \"set completion-ignore-case on\"
       
       # Deny overwriting
