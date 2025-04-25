@@ -66,10 +66,8 @@
     let
       inherit (self) outputs;
 
-      # Import host configurations
       hosts = import ./hostnames.nix { inherit inputs; };
 
-      # The set of systems to provide outputs for
       allSystems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -77,7 +75,6 @@
         "aarch64-darwin"
       ];
 
-      # A function that provides a system-specific Nixpkgs for the desired systems
       forAllSystems =
         f:
         nixpkgs.lib.genAttrs allSystems (
@@ -85,23 +82,15 @@
           f {
             pkgs = import nixpkgs {
               inherit system;
-              config = {
-                allowUnfree = true;
-              };
+              config.allowUnfree = true;
             };
           }
         );
     in
     {
-      # Custom packages
-      # Acessible through 'nix build', 'nix shell', etc
-      packages = forAllSystems ({ pkgs }: import ./pkgs { inherit pkgs; });
-
-      # Custom packages and modifications, exported as overlays
-      overlays = import ./overlays { inherit inputs; };
-
-      # Formatter for nix files, use 'nix fmt'
       formatter = forAllSystems ({ pkgs }: pkgs.nixfmt-tree);
+      packages = forAllSystems ({ pkgs }: import ./pkgs { inherit pkgs; });
+      overlays = import ./overlays { inherit inputs; };
 
       ### NixOS Configurations ###
       nixosConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames hosts.nixos) (
