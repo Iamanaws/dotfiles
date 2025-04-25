@@ -267,8 +267,8 @@
 
       # Move/resize windows with $mod + LMB/RMB and dragging
       binddm = [
-        "$mod, mouse:1, move window, movewindow"
-        "$mod, mouse:3, resize window, resizewindow"
+        "$mod, mouse:272, move window, movewindow"
+        "$mod, mouse:273, resize window, resizewindow"
       ];
 
       binddr = [
