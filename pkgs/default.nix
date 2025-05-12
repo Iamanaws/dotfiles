@@ -68,9 +68,6 @@
       ;
   };
 
-  mongodb-compass = import ./mongodb-compass/package.nix {
-    inherit (pkgs) lib stdenv callPackage;
-  };
   mongodb-atlas-cli = import ./mongodb-atlas-cli/package.nix {
     inherit (pkgs)
       stdenv
