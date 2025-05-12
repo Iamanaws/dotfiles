@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   programs.zsh = {
@@ -14,46 +14,58 @@
     shellAliases = {
     };
 
-    initExtraBeforeCompInit = "\n
-      zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'\n
-      zstyle ':completion:*' list-colors ''\n
-    ";
-    # zstyle ':completion:*' completer _list _complete _ignored _correct _approximate
-    # zstyle ':completion:*' max-errors 4 numeric
-    # zstyle ':completion:*' menu select=2
-    # zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+    initContent =
+      let
 
-    initExtra = "
-      # Directory trimming
-      PROMPT_DIRTRIM=2
+        # initExtraFirst = lib.mkOrder 500 "";
+        # initExtraAfter = lib.mkOrder 1500 "";
 
-      EDITOR=\"vim\"
+        zshBefore = lib.mkOrder 550 "\n
+        zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'\n
+        zstyle ':completion:*' list-colors ''\n
+      ";
+        # zstyle ':completion:*' completer _list _complete _ignored _correct _approximate
+        # zstyle ':completion:*' max-errors 4 numeric
+        # zstyle ':completion:*' menu select=2
+        # zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 
-      # Deny overwriting
-      set -o noclobber
+        zshConfig = "
+        # Directory trimming
+        PROMPT_DIRTRIM=2
 
-      fet.sh
+        EDITOR=\"vim\"
 
-      function parse_git_branch() {
-        git branch 2> /dev/null | sed -n -e 's/^\\* \\(.*\\)/(\\1) /p'
-      }
+        # Deny overwriting
+        set -o noclobber
 
-      function parse_nix_shell() {
-        if [[ -n \"\$IN_NIX_SHELL\" ]]; then
-          echo \" \"
-        fi
-      }
+        fet.sh
 
-      COLOR_USR=\$'%F{15}'   # User color set to white
-      COLOR_DIR=\$'%F{12}'   # Directory color set to blue
-      COLOR_GIT=\$'%F{135}'  # Git color set to purple
-      COLOR_DEF=\$'%F{15}'   # Default prompt color set to white
-      COLOR_NIX=\$'%F{81}'   # Nix shell indicator color turquoise
+        function parse_git_branch() {
+          git branch 2> /dev/null | sed -n -e 's/^\\* \\(.*\\)/(\\1) /p'
+        }
 
-      setopt PROMPT_SUBST
+        function parse_nix_shell() {
+          if [[ -n \"\$IN_NIX_SHELL\" ]]; then
+            echo \" \"
+          fi
+        }
 
-      export PROMPT='%B\${COLOR_DIR}%2~ \${COLOR_GIT}$(parse_git_branch)\${COLOR_NIX}$(parse_nix_shell)%b'$'\\n''\${COLOR_DEF}$ '
-    ";
+        COLOR_USR=\$'%F{15}'   # User color set to white
+        COLOR_DIR=\$'%F{12}'   # Directory color set to blue
+        COLOR_GIT=\$'%F{135}'  # Git color set to purple
+        COLOR_DEF=\$'%F{15}'   # Default prompt color set to white
+        COLOR_NIX=\$'%F{81}'   # Nix shell indicator color turquoise
+
+        setopt PROMPT_SUBST
+
+        export PROMPT='%B\${COLOR_DIR}%2~ \${COLOR_GIT}$(parse_git_branch)\${COLOR_NIX}$(parse_nix_shell)%b'$'\\n''\${COLOR_DEF}$ '
+      ";
+
+      in
+      lib.mkMerge [
+        zshBefore
+        zshConfig
+      ];
 
     profileExtra = "\n
       eval \"$(/opt/homebrew/bin/brew shellenv)\"\n\n
