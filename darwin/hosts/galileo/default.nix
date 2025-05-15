@@ -49,20 +49,18 @@
 
   fonts.packages = with pkgs.nerd-fonts; [ caskaydia-mono ];
 
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    mongodb-compass
-    # mongodb-atlas-cli
-    # mongodb-cli
-
     asciidoctor
+    cachix
     colima
     docker
     docker-compose
     flameshot
     # google-chrome
     libreoffice-bin
+    mongodb-compass
+    # mongodb-atlas-cli
+    # mongodb-cli
     ngrok
     nsnake
     postman
