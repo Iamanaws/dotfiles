@@ -1,6 +1,14 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
+  programs.tmux = {
+    enable = true;
+    extraConfig = ''
+      set -g default-shell ${pkgs.zsh}/bin/zsh
+      set -g default-terminal "screen-256color"
+    '';
+  };
+
   programs.zsh = {
     enable = true;
     completionInit = "autoload -Uz compinit";
@@ -16,7 +24,6 @@
 
     initContent =
       let
-
         # initExtraFirst = lib.mkOrder 500 "";
         # initExtraAfter = lib.mkOrder 1500 "";
 
