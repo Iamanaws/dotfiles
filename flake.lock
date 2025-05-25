@@ -592,6 +592,22 @@
         "type": "github"
       }
     },
+    "postman": {
+      "locked": {
+        "lastModified": 1748191914,
+        "narHash": "sha256-5k8PtzyBD3UzPhxUeozkNJf/lXlPXO8xrwkh2v0XV/w=",
+        "owner": "Iamanaws",
+        "repo": "nixpkgs",
+        "rev": "3d0a5f81ecdbac8e7a762f9f08e9856e19b84160",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Iamanaws",
+        "ref": "pkgs/postman",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": [
@@ -633,6 +649,7 @@
         "nix-homebrew": "nix-homebrew",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_5",
+        "postman": "postman",
         "sops-nix": "sops-nix"
       }
     },

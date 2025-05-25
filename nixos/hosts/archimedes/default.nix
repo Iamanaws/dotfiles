@@ -55,6 +55,8 @@
 
   environment.systemPackages = with pkgs; [
     # dsnote
+    mongodb-compass
+    postman
     remmina
   ];
 
