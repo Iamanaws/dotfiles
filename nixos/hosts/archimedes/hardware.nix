@@ -9,7 +9,7 @@
 
 {
   imports = [
-    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e14-intel
+    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e14-intel-gen6
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
