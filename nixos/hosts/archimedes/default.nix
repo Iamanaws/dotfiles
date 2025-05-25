@@ -54,7 +54,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    dsnote
+    # dsnote
     remmina
   ];
 

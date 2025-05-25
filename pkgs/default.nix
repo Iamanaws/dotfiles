@@ -76,6 +76,8 @@
       buildGoModule
       installShellFiles
       nix-update-script
+      testers
+      mongodb-atlas-cli
       ;
   };
   mongodb-atlas = import ./mongodb-atlas/package.nix {
