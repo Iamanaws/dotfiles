@@ -5,6 +5,7 @@
   hostConfig,
   ...
 }:
+
 {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -212,6 +213,9 @@
           "$mod1, space, open app menu, exec, $menu drun"
           "$mod1 SHIFT, space, open full menu, exec, $menu"
 
+          "$mod SHIFT, D, show system date, exec, date.sh"
+          "$mod SHIFT, B, show battery status, exec, battery.sh"
+
           "$mod SHIFT, W, close active window, killactive,"
           "$mod, M, exit session, exit,"
           "$mod, L, lock session, exec, loginctl lock-session"
@@ -273,25 +277,25 @@
 
       binddr = [
         # ", XF86XK_ModeLock, exec, loginctl lock-session"
-        ", XF86PowerOff, lock session, exec, loginctl lock-session" # wlogout
+        # ", XF86PowerOff, lock session, exec, loginctl lock-session" # wlogout
       ];
 
       # >= v0.46.0
-      binddlo = [ ", XF86PowerOff, shutdown system, exec, shutdown now" ];
+      # binddlo = [ ", XF86PowerOff, shutdown system, exec, shutdown now" ];
 
       binddel = [
         # Laptop multimedia keys for volume and LCD brightness
-        ", XF86AudioRaiseVolume, increase volume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-        ", XF86AudioLowerVolume, decrease volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        ", XF86MonBrightnessUp, increase brightness, exec, brightnessctl s 10%+"
-        ", XF86MonBrightnessDown, decrease brightness, exec, brightnessctl s 10%-"
-        "SHIFT, XF86MonBrightnessUp, fine increase brightness, exec, brightnessctl s 5%+"
-        "SHIFT, XF86MonBrightnessDown, fine decrease brightness, exec, brightnessctl s 5%-"
+        ", XF86AudioRaiseVolume, increase volume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ && volume.sh"
+        ", XF86AudioLowerVolume, decrease volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && volume.sh"
+        ", XF86MonBrightnessUp, increase brightness, exec, brightnessctl s 10%+ && brightness.sh"
+        ", XF86MonBrightnessDown, decrease brightness, exec, brightnessctl s 10%- && brightness.sh"
+        "SHIFT, XF86MonBrightnessUp, fine increase brightness, exec, brightnessctl s 5%+ && brightness.sh"
+        "SHIFT, XF86MonBrightnessDown, fine decrease brightness, exec, brightnessctl s 5%- && brightness.sh"
       ];
 
       binddl = [
         # Muting and unmuting audio and microphone
-        ", XF86AudioMute, toggle audio mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMute, toggle audio mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && volume.sh"
         ", XF86AudioMicMute, toggle microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 
         # Play/pause, next, previous

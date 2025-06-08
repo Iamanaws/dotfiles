@@ -12,7 +12,7 @@
   imports = [
     ./shell
     ./kitty.nix
-    ./dunst.nix
+    ./dunst
     ./hypr
   ];
 }
