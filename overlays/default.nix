@@ -11,10 +11,10 @@
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
-    postman =
-      (import inputs.postman {
-        system = prev.system;
-        config.allowUnfree = true;
-      }).postman;
+    # postman =
+    #   (import inputs.postman {
+    #     system = prev.system;
+    #     config.allowUnfree = true;
+    #   }).postman;
   };
 }

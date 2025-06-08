@@ -6,7 +6,6 @@
 
     # Nixpkgs source, pinned for the entire system
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    postman.url = "github:Iamanaws/nixpkgs/pkgs/postman";
 
     #### NIXOS ####
 
