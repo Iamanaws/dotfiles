@@ -10,6 +10,7 @@
   config = lib.optionalAttrs (systemType != null) {
 
     home.packages = with pkgs; [
+      bitwarden
       cutter
       gramps
       pcmanfm

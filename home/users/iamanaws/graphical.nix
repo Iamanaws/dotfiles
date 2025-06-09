@@ -8,9 +8,8 @@
 
 {
   config = lib.optionalAttrs (systemType != null) {
-    programs.chromium = {
+    programs.brave = {
       enable = true;
-      package = pkgs.brave;
       extensions = [
         "nngceckbapebfimnlniiiahkandclblb" # bitwarden
         "ghmbeldphafepmbegfdlkpapadhbakde" # proton pass
