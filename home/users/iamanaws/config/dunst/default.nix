@@ -55,6 +55,7 @@ in
 
       osd = {
         set_stack_tag = "osd";
+        timeout = 2;
       };
     };
   };
