@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-brightness=$(brightnessctl -m | awk -F, '{print substr($4, 0, length($4)-1)}')
+IFS=, read -r _ _ _ raw _ < <(brightnessctl -m)
+brightness=${raw%\%}
 dunstify -a "osd" -u low -h int:value:"$brightness" "󰃠 Brightness: ${brightness}%"

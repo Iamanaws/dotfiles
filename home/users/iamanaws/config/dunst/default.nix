@@ -10,8 +10,8 @@ let
   dunst-scripts = pkgs.symlinkJoin {
     name = "dunst-scripts";
     paths = [
-      (pkgs.writeShellScriptBin "volume.sh" ''
-        ${builtins.readFile ./scripts/volume.sh}
+      (pkgs.writeShellScriptBin "audio.sh" ''
+        ${builtins.readFile ./scripts/audio.sh}
       '')
       (pkgs.writeShellScriptBin "brightness.sh" ''
         ${builtins.readFile ./scripts/brightness.sh}
@@ -21,6 +21,9 @@ let
       '')
       (pkgs.writeShellScriptBin "battery.sh" ''
         ${builtins.readFile ./scripts/battery.sh}
+      '')
+      (pkgs.writeShellScriptBin "cpu-mem.sh" ''
+        ${builtins.readFile ./scripts/cpu-mem.sh}
       '')
     ];
   };
@@ -34,7 +37,7 @@ in
     settings = {
       global = {
         enable_posix_regex = true;
-        width = 300;
+        width = "(200,350)";
         height = 300;
         origin = "top-right";
         offset = "10x10";

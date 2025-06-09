@@ -215,6 +215,7 @@
 
           "$mod SHIFT, D, show system date, exec, date.sh"
           "$mod SHIFT, B, show battery status, exec, battery.sh"
+          "$mod SHIFT, M, show resources consumption, exec, cpu-mem.sh"
 
           "$mod SHIFT, W, close active window, killactive,"
           "$mod, M, exit session, exit,"
@@ -284,9 +285,13 @@
       # binddlo = [ ", XF86PowerOff, shutdown system, exec, shutdown now" ];
 
       binddel = [
-        # Laptop multimedia keys for volume and LCD brightness
-        ", XF86AudioRaiseVolume, increase volume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ && volume.sh"
-        ", XF86AudioLowerVolume, decrease volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && volume.sh"
+        # Volume and Microphone
+        ", XF86AudioRaiseVolume, increase volume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ && audio.sh"
+        ", XF86AudioLowerVolume, decrease volume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && audio.sh"
+        "$mod, XF86AudioMicMute, increase microphone volume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+ && audio.sh mic"
+        "$mod SHIFT, XF86AudioMicMute, decrease microphone volume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%- && audio.sh mic"
+
+        # LCD brightness
         ", XF86MonBrightnessUp, increase brightness, exec, brightnessctl s 10%+ && brightness.sh"
         ", XF86MonBrightnessDown, decrease brightness, exec, brightnessctl s 10%- && brightness.sh"
         "SHIFT, XF86MonBrightnessUp, fine increase brightness, exec, brightnessctl s 5%+ && brightness.sh"
@@ -295,8 +300,8 @@
 
       binddl = [
         # Muting and unmuting audio and microphone
-        ", XF86AudioMute, toggle audio mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && volume.sh"
-        ", XF86AudioMicMute, toggle microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ", XF86AudioMute, toggle audio mute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && audio.sh"
+        ", XF86AudioMicMute, toggle microphone mute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && audio.sh mic"
 
         # Play/pause, next, previous
         ", XF86AudioNext, play next track, exec, playerctl next"
