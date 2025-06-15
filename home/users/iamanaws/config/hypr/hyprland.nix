@@ -14,7 +14,7 @@
 
     settings = {
       debug = {
-        disable_logs = false;
+        # disable_logs = false;
       };
 
       ### MONITORS ##
@@ -215,11 +215,11 @@
           "$mod1, space, open app menu, exec, $menu drun"
           "$mod1 SHIFT, space, open full menu, exec, $menu"
 
-          # "$mod, B, open bluetooth menu, exec, rofi-bluetooth"
-          # "$mod, N, open networkmanager menu, exec, networkmanager_dmenu"
+          "$mod, B, open bluetooth menu, exec, uwsm app -- rofi-bluetooth"
+          "$mod, N, open networkmanager menu, exec, uwsm app -- networkmanager_dmenu"
           "$mod SHIFT, D, show system date, exec, date.sh"
           "$mod SHIFT, B, show battery status, exec, battery.sh"
-          "$mod SHIFT, M, show resources consumption, exec, cpu-mem.sh"
+          "$mod SHIFT, I, show resources consumption, exec, cpu-mem.sh"
 
           "$mod SHIFT, W, close active window, killactive,"
           "$mod, M, exit session, exit,"
