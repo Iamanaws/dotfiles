@@ -22,9 +22,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
-    # Flakes for system packages
-    hyprsysteminfo.url = "github:hyprwm/hyprsysteminfo";
-
     #### DARWIN ####
 
     nix-darwin = {

@@ -43,13 +43,15 @@
         clapper
         flameshot
         imv
-        # (inputs.ghostty.packages.${pkgs.system}.ghostty)
-        networkmanagerapplet
+        # ghostty
         fuse
         vscode
 
         brightnessctl
         playerctl
+
+        rofi-bluetooth
+        networkmanager_dmenu
       ]
       ++ lib.optionals (systemType == "x11") [
         rofi
@@ -57,7 +59,6 @@
       ]
       ++ lib.optionals (systemType == "wayland") [
         rofi-wayland
-        (inputs.hyprsysteminfo.packages.${pkgs.system}.hyprsysteminfo)
       ]
     )
     ++ lib.optionals (systemType == "wayland") (
@@ -65,20 +66,18 @@
       [
         hyprpaper
         hyprpicker
-        wl-clipboard
+        hyprsysteminfo
         # hyprlock
         hyprsunset
         hyprpolkitagent
-        waybar
+        wl-clipboard
       ]
     );
 
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
-      xdg-desktop-portal-gnome
       xdg-desktop-portal-gtk
-      xdg-desktop-portal-hyprland
     ];
   };
 

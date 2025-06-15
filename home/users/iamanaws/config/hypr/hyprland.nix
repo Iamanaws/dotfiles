@@ -13,6 +13,9 @@
     systemd.enable = false;
 
     settings = {
+      debug = {
+        disable_logs = false;
+      };
 
       ### MONITORS ##
       # monitor = name, resolution, position, scale
@@ -46,7 +49,6 @@
       exec-once = [
         "hyprpaper"
         "hypridle"
-        # "waybar"
         "systemctl --user start hyprpolkitagent"
         ''systemd-inhibit --who="Hyprland config" --why="hyprlock/wlogout keybind" --what=handle-power-key --mode=block sleep infinity & echo $! > /tmp/.hyprland-systemd-inhibit''
       ];
@@ -213,6 +215,8 @@
           "$mod1, space, open app menu, exec, $menu drun"
           "$mod1 SHIFT, space, open full menu, exec, $menu"
 
+          # "$mod, B, open bluetooth menu, exec, rofi-bluetooth"
+          # "$mod, N, open networkmanager menu, exec, networkmanager_dmenu"
           "$mod SHIFT, D, show system date, exec, date.sh"
           "$mod SHIFT, B, show battery status, exec, battery.sh"
           "$mod SHIFT, M, show resources consumption, exec, cpu-mem.sh"
