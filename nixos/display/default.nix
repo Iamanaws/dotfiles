@@ -49,6 +49,7 @@
 
         brightnessctl
         playerctl
+        tray-tui
 
         rofi-bluetooth
         networkmanager_dmenu
