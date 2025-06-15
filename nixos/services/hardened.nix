@@ -40,7 +40,7 @@
         hideproc-off = true;
         home-exec = true;
         skip-restrict-home-permission = true;
-        # nix-allow-all = true;
+        nix-allow-all = true;
         tmp-exec = true;
         # usbguard-gnome-integration = true;
         var-lib-exec = true;
