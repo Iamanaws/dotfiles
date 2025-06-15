@@ -68,9 +68,15 @@
 
   # Force intel-media-driver (iHD / i915) or nvidia
   environment.sessionVariables = {
-    VDPAU_DRIVER = "va_gl";
+    # VDPAU_DRIVER = "va_gl";
+    NVD_BACKEND = "direct";
     LIBVA_DRIVER_NAME = "nvidia";
+    MOZ_DISABLE_RDD_SANDBOX = "1";
+
+    # GBM_BACKEND = "nvidia-drm";
+    # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    # WLR_NO_HARDWARE_CURSORS = "1";
   };
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.11";
 }

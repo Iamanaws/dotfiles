@@ -87,22 +87,28 @@
     graphics = {
       enable = true;
       extraPackages = with pkgs; [
-        #libvdpau-va-gl
+        vaapiVdpau
+        libvdpau-va-gl
+
+        nvidia-vaapi-driver
       ];
     };
 
     nvidia = {
       open = true;
-      # Fine-grained power management. Turns off GPU when not in use.
-      # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
+
+      powerManagement.enable = true;
+      ## Fine-grained power management. Turns off GPU when not in use.
+      ## Experimental and only works on modern Nvidia GPUs (Turing or newer).
       powerManagement.finegrained = false;
 
-      # videoDrivers [ "nvidia" ] handle by nixos-hardware
-      # modesetting enabled by default
-      # prime and offset enabled by nixos-hardware
+      ## videoDrivers [ "nvidia" ] handle by nixos-hardware
+      ## modesetting enabled by default
+      ## prime and offset enabled by nixos-hardware
 
       prime = {
-        nvidiaBusId = "PCI:4:0:3";
+        nvidiaBusId = "PCI:2:0:0";
         intelBusId = "PCI:0:2:0";
       };
     };
