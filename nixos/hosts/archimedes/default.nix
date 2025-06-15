@@ -15,6 +15,7 @@
     ../../../secrets
     ../../roles/laptop
     ../../programs/lanzaboote.nix
+    ../../services/hardened.nix
     ../../services/automount.nix
   ];
 
@@ -57,7 +58,7 @@
     # dsnote
     mongodb-compass
     postman
-    remmina
+    # remmina
   ];
 
   system.stateVersion = "24.11";

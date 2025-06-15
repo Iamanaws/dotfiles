@@ -13,8 +13,9 @@
     ./hardware.nix
     ./options.nix
     ../../roles/desktop
-    ../../services/flatpak.nix
     ../../programs/gnome.nix
+    ../../services/flatpak.nix
+    ../../services/hardened.nix
   ];
 
   networking.hostName = "goliath";

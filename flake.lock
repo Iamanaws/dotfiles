@@ -318,6 +318,22 @@
         "type": "github"
       }
     },
+    "nix-mineral": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1749651658,
+        "narHash": "sha256-kLS9fHO4W0eWg5J5heT3SEMcuYlsyJzCLTzJ/BA13wo=",
+        "owner": "cynicsketch",
+        "repo": "nix-mineral",
+        "rev": "637b3efb739d03082258f7cf0fee73d8b647c939",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cynicsketch",
+        "repo": "nix-mineral",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1749832440,
@@ -436,6 +452,7 @@
         "nix-darwin": "nix-darwin",
         "nix-flatpak": "nix-flatpak",
         "nix-homebrew": "nix-homebrew",
+        "nix-mineral": "nix-mineral",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "sops-nix": "sops-nix"

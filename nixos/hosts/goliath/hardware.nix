@@ -16,14 +16,6 @@
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_6_12;
-
-    # Enable unprivileged user namespaces (kernel-level risk)
-    # for chromium based apps, flatpacks, and steam sandboxing
-    kernel.sysctl = {
-      "kernel.unprivileged_userns_clone" = 1;
-    };
-
     initrd = {
       availableKernelModules = [
         "xhci_pci"
@@ -70,15 +62,6 @@
     ];
   };
 
-  fileSystems."/swap" = {
-    device = "/dev/disk/by-uuid/986f70f2-b346-426c-acda-2535ed47e678";
-    fsType = "btrfs";
-    options = [
-      "subvol=swap"
-      "noatime"
-    ];
-  };
-
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/9991-6C57";
     fsType = "vfat";
@@ -88,7 +71,7 @@
     ];
   };
 
-  swapDevices = [ { device = "/swap/swapfile"; } ];
+  swapDevices = lib.mkForce [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -128,7 +111,5 @@
       enable = true; # ltunify
       enableGraphical = true; # Solaar
     };
-
-    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   };
 }

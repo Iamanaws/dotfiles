@@ -14,14 +14,6 @@
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_6_12_hardened;
-
-    # Enable unprivileged user namespaces (kernel-level risk)
-    # for chromium based apps, flatpacks, and steam sandboxing
-    kernel.sysctl = {
-      "kernel.unprivileged_userns_clone" = 1;
-    };
-
     initrd = {
       availableKernelModules = [
         "xhci_pci"
@@ -54,12 +46,7 @@
     ];
   };
 
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 2048;
-    }
-  ];
+  swapDevices = lib.mkForce [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -70,5 +57,4 @@
   # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
