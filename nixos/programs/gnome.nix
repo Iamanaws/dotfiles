@@ -2,17 +2,13 @@
 
 {
   services = {
+    xserver.enable = lib.mkForce true;
+    desktopManager.gnome.enable = true;
     displayManager.defaultSession = "gnome";
 
-    xserver = {
-      enable = lib.mkForce true;
-
-      displayManager.gdm = {
-        enable = true;
-        wayland = true;
-      };
-
-      desktopManager.gnome.enable = true;
+    displayManager.gdm = {
+      enable = true;
+      wayland = true;
     };
   };
 
