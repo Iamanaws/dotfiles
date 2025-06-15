@@ -38,6 +38,7 @@
       home = "/Users/iamanaws";
     };
   };
+  system.primaryUser = "iamanaws";
 
   home-manager = {
     extraSpecialArgs = { inherit outputs systemType; };
