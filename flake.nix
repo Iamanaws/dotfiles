@@ -118,7 +118,7 @@
         nix-darwin.lib.darwinSystem {
           specialArgs = {
             inherit inputs outputs;
-            systemType = null;
+            systemType = if host ? systemType then host.systemType else "darwin";
           };
           modules = host.modules;
         }
