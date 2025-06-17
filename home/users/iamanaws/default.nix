@@ -58,6 +58,7 @@
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;
+    lfs.enable = true;
     userName = "iamanaws";
     userEmail = "78835633+Iamanaws@users.noreply.github.com";
     extraConfig = {
