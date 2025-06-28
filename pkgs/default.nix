@@ -59,33 +59,12 @@
       which
       libvorbis
       ffmpeg
-      taglib_1
+      taglib
       rubberband
       libarchive
       xz
       lame
       xdotool
-      ;
-  };
-
-  mongodb-atlas-cli = import ./mongodb-atlas-cli/package.nix {
-    inherit (pkgs)
-      stdenv
-      fetchFromGitHub
-      lib
-      buildGoModule
-      installShellFiles
-      nix-update-script
-      testers
-      mongodb-atlas-cli
-      ;
-  };
-  mongodb-atlas = import ./mongodb-atlas/package.nix {
-    inherit (pkgs)
-      lib
-      buildEnv
-      mongodb-atlas-cli
-      mongosh
       ;
   };
 }
