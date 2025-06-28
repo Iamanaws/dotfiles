@@ -35,7 +35,7 @@
   which,
   libvorbis,
   ffmpeg,
-  taglib_1,
+  taglib,
   rubberband,
   libarchive,
   xz,
@@ -575,7 +575,7 @@ stdenv.mkDerivation (finalAttrs: {
     qhotkey
     libvorbis
     ffmpeg
-    taglib_1
+    taglib
     libnumbertext
     html2md
     rubberband
