@@ -44,7 +44,6 @@
       rhvoice
       qt5
       libsForQt5
-      perl
       opencl-headers
       ocl-icd
       amdvlk
@@ -65,6 +64,8 @@
       xz
       lame
       xdotool
+      wayland
+      wayland-protocols
       ;
   };
 }

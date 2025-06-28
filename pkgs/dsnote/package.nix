@@ -20,7 +20,6 @@
   rhvoice,
   qt5,
   libsForQt5,
-  perl,
   opencl-headers,
   ocl-icd,
   amdvlk,
@@ -41,10 +40,12 @@
   xz,
   lame,
   xdotool,
+  wayland,
+  wayland-protocols,
 }:
 
 let
-  dsnote_commit_hash = "bc603e1d3cc013921dbdff66da3742612f6663fd";
+  dsnote_commit_hash = "a48334317e0aeada3e8146e426f8a876a9b1e25b";
 
   aprilasr = stdenv.mkDerivation {
     pname = "aprilasr";
@@ -80,13 +81,13 @@ let
 
   html2md = stdenv.mkDerivation (finalAttrs: {
     pname = "html2md";
-    version = "1.5.3";
+    version = "1.6.4";
 
     src = fetchFromGitHub {
       owner = "tim-gromeyer";
       repo = "html2md";
       rev = "v${finalAttrs.version}";
-      hash = "sha256-D1TZxViIa3KQ2JzNbVn/Ok1oA933f5p0weKc4nL00SI=";
+      hash = "sha256-DkRyHrXS9Fg8sGij+EtTjH0/r0rxvFZH2JGazPQXZN8=";
     };
 
     nativeBuildInputs = [
@@ -399,12 +400,49 @@ let
       "-D_celt_autocorr=rnnoise__celt_autocorr"
       "-Dcompute_gru=rnnoise_compute_gru"
       "-Dcompute_dense=rnnoise_compute_dense"
+      "-fpie"
     ];
 
     meta = {
       description = "Recurrent neural network for audio noise reduction";
       homepage = "https://github.com/GregorR/rnnoise-nu";
       license = lib.licenses.bsd3;
+      platforms = lib.platforms.linux;
+    };
+  };
+
+  sam = stdenv.mkDerivation {
+    pname = "sam";
+    version = "0-unstable-2020-02-09";
+
+    src = fetchFromGitHub {
+      owner = "s-macke";
+      repo = "sam";
+      rev = "a7b36efac730957b59471a42a45fd779f94d77dd";
+      hash = "sha256-gWGyA10s5U4huqNkyQsFHV1r7jUifdJOTmY9Ti6+PLM=";
+    };
+
+    nativeBuildInputs = [
+      cmake
+      ninja
+    ];
+
+    cmakeFlags = [
+      "-DCMAKE_BUILD_TYPE=Release"
+      "-DCMAKE_POSITION_INDEPENDENT_CODE=ON"
+    ];
+
+    patches = [
+      (fetchurl {
+        url = "https://github.com/mkiol/dsnote/raw/${dsnote_commit_hash}/patches/sam.patch";
+        hash = "sha256-sy7W7G6vNjnB11YK/OvsTHT0RDPN0elD++iSR7F4JRU=";
+      })
+    ];
+
+    meta = {
+      description = "Software Automatic Mouth - Tiny Speech Synthesizer";
+      homepage = "https://github.com/s-macke/sam";
+      license = lib.licenses.unfree;
       platforms = lib.platforms.linux;
     };
   };
@@ -523,13 +561,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "SpeechNote";
-  version = "4.7.1";
+  version = "4.8.0";
 
   src = fetchFromGitHub {
     owner = "mkiol";
     repo = "dsnote";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-Rngm3kPFJSEPNSCp5mV1AZsJUTK/+XpAfo0xuRZfXk8=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-1ksn6WhMJbh9+9gTnWBx4Z3Hijbe9WZWE1fYqUUWZPs=";
   };
 
   nativeBuildInputs = [
@@ -555,6 +593,7 @@ stdenv.mkDerivation (finalAttrs: {
     piper-phonemize
     spdlog
     piper
+    sam
     ssplitcpp
     python312Packages.pybind11
     rnnoise-nu
@@ -566,12 +605,12 @@ stdenv.mkDerivation (finalAttrs: {
     libsForQt5.qt5.qtquickcontrols2
     libsForQt5.qt5.qtx11extras
     libsForQt5.kdbusaddons
-    perl
     opencl-headers
     ocl-icd
     xorg.libXdmcp
     xorg.libXtst
     xorg.libXinerama
+    xorg.libXtst
     qhotkey
     libvorbis
     ffmpeg
@@ -585,6 +624,8 @@ stdenv.mkDerivation (finalAttrs: {
     lame
     xdotool
     maddy
+    wayland
+    wayland-protocols
     # amdvlk
     # cudaPackages.nvidia_driver
   ];
@@ -612,7 +653,6 @@ stdenv.mkDerivation (finalAttrs: {
     "-DBUILD_RHVOICE=OFF"
     "-DBUILD_RHVOICE_MODULE=OFF"
     "-DBUILD_BERGAMOT=OFF"
-    "-DBUILD_UROMAN=OFF"
     "-DBUILD_RUBBERBAND=OFF"
     "-DBUILD_FFMPEG=OFF"
     "-DBUILD_TAGLIB=OFF"
@@ -622,16 +662,21 @@ stdenv.mkDerivation (finalAttrs: {
     "-DBUILD_HTML2MD=OFF"
     "-DBUILD_MADDY=OFF"
     "-DBUILD_XDO=OFF"
+    "-DBUILD_SAM=OFF"
+    "-DBUILD_XKBCOMMON=OFF"
   ];
 
   preConfigure = ''
-    substituteInPlace CMakeLists.txt \
-      --replace 'pkg_search_module(openblas REQUIRED openblas)' 'pkg_search_module(openblas REQUIRED blas)'
+    substituteInPlace cmake/openblas_pkgconfig.cmake \
+      --replace-quiet 'pkg_search_module(openblas openblas)' 'pkg_search_module(openblas blas)'
+    substituteInPlace cmake/openblas_pkgconfig.cmake \
+      --replace-quiet 'pkg_search_module(openblas REQUIRED openblas)' 'pkg_search_module(openblas REQUIRED blas)'
   '';
 
   meta = {
-    description = "Speech recognition and text-to-speech application";
+    description = "Speech recognition and text-to-speech application. Note taking, reading and translating with offline Speech to Text, Text to Speech and Machine Translation";
     homepage = "https://github.com/mkiol/SpeechNote";
+    changelog = "https://github.com/mkiol/dsnote/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.iamanaws ];
     mainProgram = "dsnote";
