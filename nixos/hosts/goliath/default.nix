@@ -59,6 +59,7 @@
     # "xyz.slothlife.Jogger"
     # "com.jeffser.Alpaca"
     # mission center
+    # garden.jamie.Morphosis
   ];
 
   environment.systemPackages = with pkgs; [
