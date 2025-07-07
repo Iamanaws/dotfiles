@@ -16,15 +16,6 @@
       pcmanfm
     ];
 
-    # Copy Qtile config
-    home.file = lib.optionalAttrs (systemType == "x11") {
-      qtile_config = {
-        source = ../config/qtile;
-        target = ".config/qtile";
-        recursive = true;
-      };
-    };
-
     home.pointerCursor = {
       name = "WhiteSur-cursors";
       package = pkgs.whitesur-cursors;
