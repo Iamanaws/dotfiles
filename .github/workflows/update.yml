@@ -1,0 +1,30 @@
+name: "flake.lock: update Nix dependencies"
+
+on:
+  workflow_dispatch: # allows manual run
+  schedule:
+    - cron: '0 0 * * 0' # every Sunday at 00:00
+
+jobs:
+  nix-flake-update:
+    permissions:
+      contents: write
+      id-token: write
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - uses: DeterminateSystems/update-flake-lock@main
+        id: update-flake
+        with:
+          pr-title: "flake.lock: update"
+      - name: auto-merge PR
+        if: steps.update-flake.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge ${{ steps.update-flake.outputs.pull-request-number }} \
+            --merge --auto --delete-branch
