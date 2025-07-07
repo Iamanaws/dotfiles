@@ -42,15 +42,11 @@
       "$menu" = "rofi -show";
       "$colorPicker" = "hyprpicker -a";
 
-      ### AUTOSTART ###hyprpaper
+      ### AUTOSTART ###
 
-      # exec-once = $terminal
-      # exec-once = nm-applet &
       exec-once = [
         "hyprpaper"
-        "hypridle"
         "systemctl --user start hyprpolkitagent"
-        ''systemd-inhibit --who="Hyprland config" --why="hyprlock/wlogout keybind" --what=handle-power-key --mode=block sleep infinity & echo $! > /tmp/.hyprland-systemd-inhibit''
       ];
 
       exec-shutdown = [ ''kill -9 "$(cat /tmp/.hyprland-systemd-inhibit)"'' ];
