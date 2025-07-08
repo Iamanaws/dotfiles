@@ -70,16 +70,9 @@
 
       hosts = import ./hostnames.nix { inherit inputs; };
 
-      allSystems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
-
       forAllSystems =
         f:
-        nixpkgs.lib.genAttrs allSystems (
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
           system:
           f {
             pkgs = import nixpkgs {
