@@ -20,7 +20,7 @@
         "oldceeleldhonbafppcapldpdifcinji" # language tool
         "lnjaiaapbakfhlbjenjkhffcdpoompki" # catppuccin github icons
         "gbmdgpbipfallnflgajpaliibnhdgobh" # json viewer
-        "gaiceihehajjahakcglkhmdbbdclbnlf" # video speed controller
+        "nffaoalbilbmmfgbnbgppjihopabppdk" # video speed controller
         "gppongmhjkpfnbhagpmjfkannfbllamg" # wappalyzer
       ];
 
