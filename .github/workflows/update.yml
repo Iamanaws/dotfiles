@@ -1,4 +1,4 @@
-name: "flake.lock: update Nix dependencies"
+name: "flake.lock: update inputs"
 
 on:
   workflow_dispatch: # allows manual run
@@ -27,4 +27,4 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh pr merge ${{ steps.update-flake.outputs.pull-request-number }} \
-            --merge --auto --delete-branch
+            --squash --auto --delete-branch
