@@ -1,10 +1,10 @@
-# Custom packages, that can be defined similarly to ones from nixpkgs
-# You can build them using 'nix build .#example'
+# Custom packages
+# build using 'nix build .#example-package'
 
 { pkgs }:
 
 {
-  kuyen-icons = import ./kuyen-icon-theme/default.nix {
+  kuyen-icons = import ./kuyen-icon-theme/package.nix {
     inherit (pkgs)
       lib
       stdenvNoCC
@@ -12,7 +12,8 @@
       hicolor-icon-theme
       ;
   };
-  antu-icons = import ./antu-icon-theme/default.nix {
+
+  antu-icons = import ./antu-icon-theme/package.nix {
     inherit (pkgs)
       lib
       stdenvNoCC
