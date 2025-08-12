@@ -12,7 +12,7 @@
     home.packages = with pkgs; [
       bitwarden
       cutter
-      gramps
+      # gramps
       pcmanfm
     ];
 
