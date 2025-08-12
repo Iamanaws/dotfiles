@@ -51,10 +51,4 @@
   };
 
   security.polkit.enable = true;
-
-  systemd = {
-    extraConfig = ''
-      DefaultTimeoutStopSec=10s
-    '';
-  };
 }

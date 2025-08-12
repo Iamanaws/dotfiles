@@ -10,10 +10,11 @@
 }:
 
 {
-  imports =
-    [ ../programs/firefox.nix ]
-    ++ lib.optional (systemType == "x11") ./qtile.nix
-    ++ lib.optional (systemType == "wayland") ./hyprland.nix;
+  imports = [
+    ../programs/firefox.nix
+  ]
+  ++ lib.optional (systemType == "x11") ./qtile.nix
+  ++ lib.optional (systemType == "wayland") ./hyprland.nix;
 
   fonts.packages = with pkgs; [
     nerd-fonts.caskaydia-cove
@@ -83,10 +84,4 @@
   };
 
   security.polkit.enable = true;
-
-  systemd = {
-    extraConfig = ''
-      DefaultTimeoutStopSec=10s
-    '';
-  };
 }
