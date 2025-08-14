@@ -36,6 +36,7 @@
       "affinity-designer"
       "beekeeper-studio"
       "clickup"
+      "flameshot"
       "jetbrains-toolbox"
       "logi-options+"
     ];

@@ -56,7 +56,7 @@
     colima
     docker
     docker-compose
-    flameshot
+    # flameshot
     # google-chrome
     libreoffice-bin
     mongodb-compass

@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   programs.tmux = {
@@ -13,7 +18,7 @@
     enable = true;
     completionInit = "autoload -Uz compinit";
     defaultKeymap = "emacs";
-    dotDir = ".config/zsh";
+    dotDir = "${config.home.homeDirectory}/.config/zsh";
     history.expireDuplicatesFirst = true;
     history.path = "$ZDOTDIR/.zsh_history";
     history.save = 10000;
