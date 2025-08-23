@@ -63,8 +63,8 @@
       ### LOOK AND FEEL ###
 
       general = {
-        gaps_in = 2.5;
-        gaps_out = 5;
+        gaps_in = 1;
+        gaps_out = 2;
 
         border_size = 2;
 
