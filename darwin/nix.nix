@@ -1,7 +1,8 @@
-{ lib, ... }:
+{ lib, config, ... }:
 
 {
   nix = {
+    enable = false;
     settings = {
       experimental-features = [
         "nix-command"
@@ -10,10 +11,10 @@
       trusted-users = [ "@admin" ];
     };
 
-    optimise.automatic = true;
+    optimise.automatic = config.nix.enable;
 
     gc = {
-      automatic = true;
+      automatic = config.nix.enable;
       options = "--delete-older-than 14d";
       interval = [ { Hour = 2; } ];
     };
@@ -24,4 +25,8 @@
       max-free = ${toString (1024 * 1024 * 1024)}
     '';
   };
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "beekeeper-studio-5.2.12"
+  ];
 }

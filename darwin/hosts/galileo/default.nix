@@ -53,6 +53,7 @@
   environment.systemPackages = with pkgs; [
     asciidoctor
     cachix
+    code-cursor
     colima
     docker
     docker-compose
@@ -67,6 +68,10 @@
     postman
     spotify
     vscode
+
+    nodejs
+    corepack
+    bun
   ];
 
   system.defaults = {
@@ -79,11 +84,10 @@
       minimize-to-application = true;
       mru-spaces = false;
       persistent-apps = [
-        "/System/Applications/Launchpad.app"
         "/System/Applications/Notes.app"
         "/System/Applications/System Settings.app"
         "/Applications/Google Chrome.app"
-        "/Applications/Nix Apps/Visual Studio Code.app"
+        "/Applications/Nix Apps/Cursor.app"
         "/Applications/Ghostty.app"
         "/Applications/Nix Apps/MongoDB Compass.app"
         "/Applications//Nix Apps/Postman.app"
