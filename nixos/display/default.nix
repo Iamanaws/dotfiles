@@ -36,51 +36,52 @@
     jack.enable = true;
   };
 
-  environment.systemPackages =
-    (
-      with pkgs;
-      [
-        brave
-        clapper
-        flameshot
-        imv
-        # ghostty
-        fuse
-        vscode
+  environment.systemPackages = (
+    with pkgs;
+    [
+      brave
+      clapper
+      code-cursor
+      imv
+      # ghostty
+      fuse
 
-        brightnessctl
-        playerctl
-        tray-tui
+      brightnessctl
+      playerctl
+      tray-tui
 
-        rofi-bluetooth
-        networkmanager_dmenu
-      ]
-      ++ lib.optionals (systemType == "x11") [
-        rofi
-        nitrogen
-      ]
-      ++ lib.optionals (systemType == "wayland") [
-        rofi-wayland
-      ]
-    )
-    ++ lib.optionals (systemType == "wayland") (
-      with pkgs;
-      [
-        hyprpaper
-        hyprpicker
-        hyprsysteminfo
-        # hyprlock
-        hyprsunset
-        hyprpolkitagent
-        wl-clipboard
-      ]
-    );
+      rofi
+      rofi-bluetooth
+      networkmanager_dmenu
+    ]
+    ++ lib.optionals (systemType == "x11") [
+      flameshot
+      nitrogen
+    ]
+    ++ lib.optionals (systemType == "wayland") [
+      grim
+      slurp
+      hyprpaper
+      hyprpicker
+      hyprsysteminfo
+      # hyprlock
+      hyprsunset
+      hyprpolkitagent
+      wl-clipboard
+    ]
+  );
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-    ];
+    extraPortals =
+      with pkgs;
+      [
+        xdg-desktop-portal
+        xdg-desktop-portal-gtk
+      ]
+      ++ lib.optionals (systemType == "wayland") [
+        xdg-desktop-portal-hyprland
+      ];
   };
 
   security.polkit.enable = true;

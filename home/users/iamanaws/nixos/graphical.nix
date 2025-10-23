@@ -68,7 +68,6 @@
 
     programs.rofi = {
       enable = true;
-      package = lib.optionalAttrs (systemType == "wayland") pkgs.rofi-wayland;
       # font = "CascadiaCode";
       theme = "Arc-Dark";
       extraConfig = {

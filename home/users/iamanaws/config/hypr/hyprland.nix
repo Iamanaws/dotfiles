@@ -37,8 +37,9 @@
       "$terminal" = "kitty";
       "$browser" = "brave";
       "$explorer" = "pcmanfm";
-      "$codeEditor" = "code";
-      "$screenshot" = "flameshot";
+      "$codeEditor" = "cursor";
+      "$screenshot" = "grim - | wl-copy";
+      "$screenshotSelective" = "grim -g \"$(slurp)\" - | wl-copy";
       "$menu" = "rofi -show";
       "$colorPicker" = "hyprpicker -a";
 
@@ -173,9 +174,12 @@
       };
 
       # https://wiki.hyprland.org/Configuring/Variables/#gestures
-      gestures = {
-        workspace_swipe = true;
-      };
+      gestures = { };
+
+      # https://wiki.hypr.land/Configuring/Gestures/
+      gesture = [
+        "3, horizontal, workspace"
+      ];
 
       # Example per-device config
       # See https://wiki.hyprland.org/Configuring/Keywords/#per-device-input-configs for more
@@ -204,6 +208,8 @@
         "$mod, E, open file explorer, exec, $explorer"
         "$mod, C, open code editor, exec, $codeEditor"
         "$mod SHIFT, C, open color picker, exec, $colorPicker"
+        ", Print, screenshot, exec, $screenshot"
+        ", XF86SelectiveScreenshot, selective screenshot, exec, $screenshotSelective"
         "$mod, I, show system info, exec, hyprsysteminfo"
 
         "$mod, R, open app menu, exec, $menu drun"
