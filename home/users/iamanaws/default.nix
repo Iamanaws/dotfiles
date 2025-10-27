@@ -59,9 +59,19 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
-    userName = "iamanaws";
-    userEmail = "78835633+Iamanaws@users.noreply.github.com";
-    extraConfig = {
+
+    settings = {
+      user = {
+        name = "iamanaws";
+        email = "iamanaws@users.noreply.github.com";
+      };
+
+      alias = {
+        pu = "push";
+        co = "checkout";
+        cm = "commit";
+      };
+
       core.editor = "vim";
       init.defaultBranch = "main";
       fetch.prune = true;
@@ -86,12 +96,6 @@
       transfer.fsckobjects = true;
       fetch.fsckobjects = true;
       receive.fsckObjects = true;
-    };
-
-    aliases = {
-      pu = "push";
-      co = "checkout";
-      cm = "commit";
     };
 
     ignores = [
