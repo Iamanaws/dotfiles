@@ -30,15 +30,13 @@
       "brave-browser"
       "google-chrome"
 
-      # broken on nixpkgs darwin
-      "ghostty"
+      # broken on nixpkgs
+      "flameshot"
+      "spotify"
 
       # not available on nixpkgs darwin
       "affinity-designer"
-      "beekeeper-studio"
       "clickup"
-      "flameshot"
-      "jetbrains-toolbox"
       "logi-options+"
     ];
   };

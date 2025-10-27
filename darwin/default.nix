@@ -91,8 +91,9 @@
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     alt-tab-macos
+    beekeeper-studio
     # brave
-    # ghostty # broken on nixpkgs, use brew cask
+    ghostty-bin
     iina
     rectangle
 

@@ -59,6 +59,7 @@
     docker-compose
     # flameshot
     # google-chrome
+    jetbrains-toolbox
     libreoffice-bin
     mongodb-compass
     # mongodb-atlas-cli
@@ -66,9 +67,7 @@
     ngrok
     nsnake
     postman
-    spotify
-    vscode
-
+    # spotify
     nodejs
     corepack
     bun
@@ -88,10 +87,10 @@
         "/System/Applications/System Settings.app"
         "/Applications/Google Chrome.app"
         "/Applications/Nix Apps/Cursor.app"
-        "/Applications/Ghostty.app"
+        "/Applications/Nix Apps/Ghostty.app"
         "/Applications/Nix Apps/MongoDB Compass.app"
         "/Applications//Nix Apps/Postman.app"
-        "/Applications/Nix Apps/Spotify.app"
+        # "/Applications/Nix Apps/Spotify.app"
         "/Applications/ClickUp.app"
       ];
       show-recents = false;
