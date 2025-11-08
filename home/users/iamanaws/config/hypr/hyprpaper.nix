@@ -5,9 +5,9 @@
     enable = true;
 
     settings = {
-      preload = [ "~/dotfiles/media/shared/wallpapers/walls/zerebro.jpg" ];
+      preload = [ "~/repos/dotfiles/media/shared/wallpapers/tor/privacy_is_a_human_right.png" ];
 
-      wallpaper = [ ",~/dotfiles/media/shared/wallpapers/walls/zerebro.jpg" ];
+      wallpaper = [ ",~/repos/dotfiles/media/shared/wallpapers/tor/privacy_is_a_human_right.png" ];
     };
   };
 

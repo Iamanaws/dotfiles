@@ -17,17 +17,6 @@
         # disable_logs = false;
       };
 
-      ### MONITORS ##
-      # monitor = name, resolution, position, scale
-      monitor =
-        if hostConfig.options.hostname == "goliath" then
-          [
-            "DP-3, 1920x1080@143.98Hz, 0x0, auto"
-            "HDMI-A-4, 1920x1080@100.00Hz, 1920x0, auto"
-          ]
-        else
-          ",preferred,auto,auto";
-
       xwayland = {
         force_zero_scaling = true;
       };
@@ -245,7 +234,7 @@
         "$mod, mouse_up, switch to previous workspace, workspace, e-1"
       ]
       ++ (
-        #### WORKSPACES ####
+        ### WORKSPACES BINDINGS ###
 
         # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
         builtins.concatLists (
@@ -319,10 +308,25 @@
         # ", switch:off:Lid Switch, lock session, exec, loginctl lock-session"
       ];
 
+      ### MONITORS ##
+
+      # monitor = name, resolution, position, scale
+      monitor =
+        if hostConfig.options.hostname == "goliath" then
+          [
+            "DP-3, 1920x1080@143.98Hz, 0x0, auto"
+            "HDMI-A-4, 1920x1080@100.00Hz, 1920x0, auto"
+          ]
+        else
+          ",preferred,auto,auto";
+
       ### WINDOWS AND WORKSPACES ###
 
       # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
       # See https://wiki.hyprland.org/Configuring/Workspace-Rules/ for workspace rules
+
+      ### WORKSPACE RULES ###
+      workspace = lib.optional (hostConfig.options.hostname == "goliath") "1, monitor:DP-3";
 
       # Example windowrule v1
       # windowrule = "float, ^(kitty)$";
