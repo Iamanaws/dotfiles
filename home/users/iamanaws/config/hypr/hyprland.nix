@@ -207,6 +207,7 @@
 
         "$mod, B, open bluetooth menu, exec, uwsm app -- rofi-bluetooth"
         "$mod, N, open networkmanager menu, exec, uwsm app -- networkmanager_dmenu"
+        "$mod, A, open audio menu, exec, uwsm app -- dmenu-wpctl"
         "$mod SHIFT, D, show system date, exec, date.sh"
         "$mod SHIFT, B, show battery status, exec, battery.sh"
         "$mod SHIFT, I, show resources consumption, exec, cpu-mem.sh"

@@ -51,6 +51,7 @@
       tray-tui
 
       rofi
+      dmenu-wpctl
       rofi-bluetooth
       networkmanager_dmenu
     ]
