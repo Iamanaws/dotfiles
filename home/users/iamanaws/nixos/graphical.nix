@@ -40,29 +40,49 @@
     };
 
     # mimeApps - find / -name '*.desktop'
-    xdg.mimeApps = {
-      enable = true;
-      defaultApplications = {
-        "application/octet-stream" = [ "re.rizin.cutter.desktop" ];
-        "application/pdf" = [ "code.desktop" ];
-        "application/json" = [ "code.desktop" ];
+    xdg = {
+      mimeApps = {
+        enable = true;
+        defaultApplications = {
+          "application/octet-stream" = [ "re.rizin.cutter.desktop" ];
+          "application/pdf" = [ "cursor.desktop" ];
+          "application/json" = [ "cursor.desktop" ];
 
-        "image/*" = [ "imv.desktop" ];
-        "image/gif" = [ "imv.desktop" ];
-        "image/jpeg" = [ "imv.desktop" ];
-        "image/png" = [ "imv.desktop" ];
-        "image/svg+xml" = [ "imv.desktop" ];
-        "image/webp" = [ "imv.desktop" ];
+          "image/*" = [ "imv.desktop" ];
+          "image/gif" = [ "imv.desktop" ];
+          "image/jpeg" = [ "imv.desktop" ];
+          "image/png" = [ "imv.desktop" ];
+          "image/svg+xml" = [ "imv.desktop" ];
+          "image/webp" = [ "imv.desktop" ];
 
-        "text/*" = [ "code.desktop" ];
-        "text/html" = [ "code.desktop" ];
-        "text/plain" = [ "code.desktop" ];
+          "text/*" = [ "cursor.desktop" ];
+          "text/html" = [ "cursor.desktop" ];
+          "text/plain" = [ "cursor.desktop" ];
 
-        "video/*" = [ "com.github.rafostar.Clapper.desktop" ];
-        "video/mp4" = [ "com.github.rafostar.Clapper.desktop" ];
-        "video/mpeg" = [ "com.github.rafostar.Clapper.desktop" ];
-        "video/ogg" = [ "com.github.rafostar.Clapper.desktop" ];
-        "video/webm" = [ "com.github.rafostar.Clapper.desktop" ];
+          "video/*" = [ "com.github.rafostar.Clapper.desktop" ];
+          "video/mp4" = [ "com.github.rafostar.Clapper.desktop" ];
+          "video/mpeg" = [ "com.github.rafostar.Clapper.desktop" ];
+          "video/ogg" = [ "com.github.rafostar.Clapper.desktop" ];
+          "video/webm" = [ "com.github.rafostar.Clapper.desktop" ];
+        };
+      };
+
+      userDirs = {
+        enable = true;
+        #createDirectories = true;
+        #desktop = "$HOME/desktop";
+        download = "$HOME/downloads";
+        #templates = "$HOME/templates";
+        #publicShare = "$HOME/public";
+        #documents = "$HOME/files/documents";
+        music = "/run/media/iamanaws/DATA/Music/FLAC";
+        #pictures = "$HOME/files/media/pictures";
+        #videos = "$HOME/files/media/videos";
+        extraConfig = {
+          #XDG_MISC_DIR = "$HOME/misc";
+          #XDG_GAMES_DIR = "$HOME/games";
+          #XDG_WALLPAPERS_DIR = "$HOME/repos/dotfiles/media/shared/wallpapers";
+        };
       };
     };
 

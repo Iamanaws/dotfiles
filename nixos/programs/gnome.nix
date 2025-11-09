@@ -50,7 +50,10 @@
     epiphany
     geary
     gnome-contacts
+    gnome-console
+    gnome-music
     gnome-tour
+    gnome-system-monitor
     seahorse
     totem
   ];
