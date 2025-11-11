@@ -60,6 +60,7 @@
     # flameshot
     # google-chrome
     jetbrains-toolbox
+    jujutsu
     libreoffice-bin
     mongodb-compass
     # mongodb-atlas-cli
