@@ -19,7 +19,7 @@
       "CopyClip" = 595191960;
       "Plain Text Editor" = 1572202501;
       "Pixea" = 1507782672;
-      "Xcode" = 497799835;
+      # "Xcode" = 497799835;
       "Grab2Text" = 6475956137;
     };
 
@@ -35,7 +35,6 @@
       "spotify"
 
       # not available on nixpkgs darwin
-      "affinity-designer"
       "clickup"
       "logi-options+"
     ];
